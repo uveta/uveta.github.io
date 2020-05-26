@@ -1,0 +1,28 @@
+name: 'Český'
+common:
+  archives: 'Archiv'
+  category: 'Kategorie'
+  tag: 'Tag'
+  categories: 'Kategorie'
+  tags: 'Tags'
+nav:
+  next: 'Další'
+  prev: 'Predchozí'
+  search: 'Hledat'
+  toc: 'Obsah'
+article:
+  read_more: 'Více'
+  read: 'read'
+  about: 'About'
+  words: 'slov'
+  comments: 'Komentáře'
+  contents: 'Obsah'
+search:
+  hint: 'Hledat...'
+insight:
+  hint: 'Hledat...'
+  posts: 'Posts'
+  pages: 'Stránky'
+  categories: 'Kategorie'
+  tags: 'Tags'
+  untitled: '(Bez jména)'
