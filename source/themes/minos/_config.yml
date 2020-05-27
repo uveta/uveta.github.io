@@ -1,5 +1,5 @@
 # Website's icon url.
-favicon: /favicon.png
+favicon: /images/favicon.png
 
 # Open Graph metadata (https://hexo.io/docs/helpers.html#open-graph)
 open_graph:
@@ -13,7 +13,8 @@ open_graph:
 # It can either be an url to an image or a string if the following option is set.
 # logo:
 #   text: <logo string>
-logo:
+logo: https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4101b632-78af-45f9-9f8a-47c32c416c36/dbif4f0-d4f178ba-901b-4019-ab48-f6957b5677a6.png/v1/fill/w_900,h_1122,strp/shadow_the_hedgehog_logo_by_justasonicfan_dbif4f0-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD0xMTIyIiwicGF0aCI6IlwvZlwvNDEwMWI2MzItNzhhZi00NWY5LTlmOGEtNDdjMzJjNDE2YzM2XC9kYmlmNGYwLWQ0ZjE3OGJhLTkwMWItNDAxOS1hYjQ4LWY2OTU3YjU2NzdhNi5wbmciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.o-_bJgzbo9NX0FYixu1elOAHXr2yB9f37Eb-4uRLKaQ
+#https://cdn.imgbin.com/22/12/4/imgbin-shadow-the-hedgehog-sonic-the-hedgehog-sonic-jump-tails-logo-shadow-SMdJcsKZ5ekynfWR4CcqhTLGL.jpg
 
 article:
   # Show word count and estimated reading time.
@@ -35,8 +36,8 @@ toc: true
 
 # Share plugin settings.
 share:
-  type: sharethis
-  install_url:
+  #type: sharethis
+  #install_url:
 
 # Comment plugin settings.
 comment:
