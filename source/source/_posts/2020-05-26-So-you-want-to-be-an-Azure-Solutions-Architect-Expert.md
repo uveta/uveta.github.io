@@ -1,11 +1,14 @@
 ---
 title: So you want to be an Azure Solutions Architect Expert
+tags:
+  - azure
+  - certification
 date: 2020-05-26 17:48:14
 ---
 
-# So you want to be an Azure Solutions Architect Expert
+![The culprit](https://miro.medium.com/max/3840/1*_HYOZExV1wV2f0OrfZ9YcA.png)
 
-This article is intended for anyone trying to, or considering, obtaining Azure Solutions Architect Expert certification. As Azure currently offers well over 500 different services, even if you are not interested in certification, it can serve as a guideline to what Microsoft currently considers core Azure skills. 
+This article is intended for anyone actively trying to, or considering, obtaining Azure Solutions Architect Expert certification. As Azure currently offers well over 500 different services, even if you are not interested in certification, it can serve as a guideline to what Microsoft currently considers core Azure skills. 
 
 _Disclaimer: as AZ-300 and AZ-301 are being replaced with AZ-303 and AZ-304 exams late June 2020, you might find some information provided in this article to be outdated. I will try to take into account any information available for future versions and not go into details about topics that are becoming obsolete._
 
@@ -15,7 +18,7 @@ In order to qualify for Azure Solutions Architect Expert certification (I will b
 
 ## Where to find study materials?
 
-![alt text](https://i0.wp.com/win10.guru/wp-content/uploads/2019/03/MicrosoftDocs.jpg "Your new best friend")
+![Your new best friend](https://i0.wp.com/win10.guru/wp-content/uploads/2019/03/MicrosoftDocs.jpg)
 
 Answer to this question is very simple: [Microsoft Docs](https://docs.microsoft.com) has all the information you will ever need to prepare for this certification. The only problem is there a lot of it. Like, really a lot. Like, it would take you several lifetimes to only skim it through. Not to mention content is added to it on a daily basis. Still, official Microsoft documentation is the ultimate place where you will find answers to any question about Azure. It is also pretty easy to navigate and search for relevant information. If you have not worked with it already, take some time to familiarize yourself. Because you will be coming back to it regularly.
 
