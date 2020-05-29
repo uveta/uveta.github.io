@@ -16,7 +16,7 @@ _Disclaimer: as AZ-300 and AZ-301 are being replaced with AZ-303 and AZ-304 exam
 
 In order to qualify for Azure Solutions Architect Expert certification (I will be referring to it as ASAE for the remainder of this text), you are required to pass two exams: AZ-300 and AZ-301. While AZ-300 deals mostly with skills related to deploying and configuring individual services to Azure, AZ-301 takes a deep dive into fulfilling business and system requirements such as availability, reliability, performance, as well as optimizing costs. As I have obtained ASAE near the end of 2019, I wanted to share relevant information gathered prior to taking exams, as well as personal experience, in order to help future applicants. I will focus mostly on technical aspects and go briefly through the types of questions you would encounter. Organizational information, such as exam length, scoring and how to apply, will not be a part of this article. Such instructions can be obtained from [Microsoft certification site](https://docs.microsoft.com/en-us/learn/certifications/azure-solutions-architect)
 
-## Where to find study materials?
+## Where to find study materials
 
 ![Your new best friend](https://i0.wp.com/win10.guru/wp-content/uploads/2019/03/MicrosoftDocs.jpg)
 
@@ -29,23 +29,27 @@ On the other hand, Pluralsight has great paths for both [AZ-300](https://www.plu
 Lastly, try to go through as many practice tests as you can find. They will help you greatly, especially if you have never participated in this kind of exam. Some of them are offered on [ASAE certification page](https://docs.microsoft.com/en-us/learn/certifications/azure-solutions-architect). Also, both [AZ-300/AZ-303](https://www.udemy.com/course/azure-architect-technologies-practice-tests-az-300-az-303) and [AZ-301/AZ-304](https://www.udemy.com/course/az-301-azure-architect-design-practice-test) packs can be found at Udemy.
 
 ## So you want to Azure (AZ-300)
+
 With basic information out of the way, it is time to plunge ourselves into technical skills required. Exam marked as AZ-300 will put your knowledge of Azure services, networking, deployment and configuration to test.
 
-### What type of questions await?
+### What type of questions await
 
 ### Compute
 
 ### Storage
 
 ### Network and connectivity
+
 This area is pretty straightforward, as it follows a set of explicit rules and there is not much space to get lost in thought. But do not even attempt to dive into it if you have knowledge gaps in topics such as IP addresses, CIDR notation, subnets, public and private ranges or what DNS is and how it works. All of these are just basis for whats to come, so make sure to handle them well first.
 
 Exam specific topics include, but are not limited to:
+
 * Virtual Networks (VNETs). Learn how to plan, deploy and configure them, how to use subnets effectively, what type of resources can you deploy to virtual network and what are the limitations.
 * Connectivity. Find out what are the options when establishing connection between VNETs, on-premise locations and remote peers. Any combination is plausible, sometimes even all of them, and you need to know what kind of service is adequate for given scenario. Spend some time learning about VNET peering, ExpressRoute and VPN options.
 * Routing and load balancing. Although not heavily emphasized in this exam, knowledge of different network appliances is still needed. Make sure you know what is the purpose of load balancer, Application Gateway or custom appliance deployed as virtual machine, and some basic deployment and configuration steps.
 * Security. Another topic that can easily slip you by. You need to understand what are default security rules for resources deployed to VNETs and how can they be adjusted further. Do not miss reading on Network Security Group (NSG), how to define individual security rules and where can NSGs be applied.
 * DNS. Understand various Azure DNS service offerings. Make sure you know the difference between CNAME and A record and how are they used to perform different tasks in Azure. Examples include overriding default assigned server names or exposing deployed Azure services under your specific domain.
+
 ### Monitoring
 
 ### Backup and recovery
@@ -54,6 +58,6 @@ Exam specific topics include, but are not limited to:
 
 ## So you want to Solution Architect (AZ-301)
 
-### What type of questions await?
+### What type of questions await
 
-## References:
+## References
