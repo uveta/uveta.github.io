@@ -6,15 +6,16 @@ tags:
 date: 2020-05-26 17:48:14
 ---
 
-![The culprit](https://miro.medium.com/max/3840/1*_HYOZExV1wV2f0OrfZ9YcA.png)
+<!-- ![The culprit](https://miro.medium.com/max/3840/1*_HYOZExV1wV2f0OrfZ9YcA.png) -->
+![Goal](https://www.thomasmaurer.ch/wp-content/uploads/2019/01/Azure-Solutions-Architect-Expert.jpg)
 
-This article is intended for anyone actively trying to, or considering, obtaining Azure Solutions Architect Expert certification. As Azure currently offers well over 500 different services, even if you are not interested in certification, it can serve as a guideline to what Microsoft currently considers core Azure skills. 
+This article is intended for anyone actively trying to, or considering, obtaining Azure Solutions Architect Expert certification. As Azure currently offers well over 500 different services, even if you are not interested in certification, it can serve as a guideline to what Microsoft currently considers core Azure skills.
 
 _Disclaimer: as AZ-300 and AZ-301 are being replaced with AZ-303 and AZ-304 exams late June 2020, you might find some information provided in this article to be outdated. I will try to take into account any information available for future versions and not go into details about topics that are becoming obsolete._
 
 ## Prerequisites
 
-In order to qualify for Azure Solutions Architect Expert certification (I will be referring to it as ASAE for the remainder of this text), you are required to pass two exams: AZ-300 and AZ-301. While AZ-300 deals mostly with skills related to deploying and configuring individual services to Azure, AZ-301 takes a deep dive into fulfilling business and system requirements such as availability, reliability, performance, as well as optimizing costs. As I have obtained ASAE near the end of 2019, I wanted to share relevant information gathered prior to taking exams, as well as personal experience, in order to help future applicants. I will focus mostly on technical aspects and go briefly through the types of questions you would encounter. Organizational information, such as exam length, scoring and how to apply, will not be a part of this article. Such instructions can be obtained from [Microsoft certification site](https://docs.microsoft.com/en-us/learn/certifications/azure-solutions-architect)
+In order to qualify for Azure Solutions Architect Expert certification (I will be referring to it as ASAE for the remainder of this text), you are required to pass two exams: AZ-300: Microsoft Azure Architect Technologies and AZ-301: Microsoft Azure Architect Design. While AZ-300 deals mostly with skills related to deploying and configuring individual services to Azure, AZ-301 takes a deep dive into fulfilling business and system requirements such as availability, reliability, performance, as well as optimizing costs. As I have obtained ASAE near the end of 2019, I would like to share relevant information and findings gathered prior to taking exams, in order to help future applicants. I will focus mostly on technical aspects and go briefly through the types of questions you would encounter. Organizational information, such as exam length, scoring and how to apply, will not be a part of this article. Such instructions can be obtained from [Microsoft certification site](https://docs.microsoft.com/en-us/learn/certifications/azure-solutions-architect)
 
 ## Where to find study materials
 
@@ -26,17 +27,24 @@ Nick Colyer's courses offered by [Skylines Academy](https://courses.skylinesacad
 
 On the other hand, Pluralsight has great paths for both [AZ-300](https://www.pluralsight.com/paths/microsoft-azure-architect-technologies-az-300) and [AZ-301](https://www.pluralsight.com/paths/microsoft-azure-architect-design-az-301) exam. Each path consists of dozen courses going into great depth of each topic covered. What I consider its greatest obstacle is the sheer amount of video material, as both paths have, in total, well over 150 hours of content. I would recommend them only to applicants who have enough time to spare. If you are not one of them, try to go through the materials at increased speed (1.2x or 1.3x works fine) or at least use them to selectively strengthen knowledge in areas you find yourself lacking. Pluralsight comes with a ten day free trial, or, if you are lucky to have Visual Studio subscription, three to six months trial.
 
-Lastly, try to go through as many practice tests as you can find. They will help you greatly, especially if you have never participated in this kind of exam. Some of them are offered on [ASAE certification page](https://docs.microsoft.com/en-us/learn/certifications/azure-solutions-architect). Also, both [AZ-300/AZ-303](https://www.udemy.com/course/azure-architect-technologies-practice-tests-az-300-az-303) and [AZ-301/AZ-304](https://www.udemy.com/course/az-301-azure-architect-design-practice-test) packs can be found at Udemy.
+Lastly, try to go through a couple of practice tests. They will help you greatly, especially if you have never participated in this kind of exam. Some of them are offered on [ASAE certification page](https://docs.microsoft.com/en-us/learn/certifications/azure-solutions-architect). Also, both [AZ-300/AZ-303](https://www.udemy.com/course/azure-architect-technologies-practice-tests-az-300-az-303) and [AZ-301/AZ-304](https://www.udemy.com/course/az-301-azure-architect-design-practice-test) packs can be found at Udemy.
 
-## So you want to Azure (AZ-300)
+## So you want to Azure (AZ-300: Microsoft Azure Architect Technologies)
 
-With basic information out of the way, it is time to plunge ourselves into technical skills required. Exam marked as AZ-300 will put your knowledge of Azure services, networking, deployment and configuration to test.
+With basic information out of the way, it is time to plunge ourselves into technical skills required. Exam marked as AZ-300 will put your knowledge of Azure services, deployment, configuration and networking to test.
 
-### What type of questions await
+### What type of technology questions await
 
-### Compute
+Technologies exam is a mixed bag of all [question types](https://www.microsoft.com/en-us/learning/certification-exams.aspx) that Microsoft is currently using. Best answer, multiple choice, drag and drop as well as case studies are just some formats you can expect. I need to emphasize that significant part of AZ-300 are hands-on tasks done directly in simulated Azure portal. They usually involve deploying and configuring several Azure resources according to specification, hence you need to be comfortable working with portal using GUI as well as CLI or Powershell. Read the tasks at hand thoroughly and understand what is required of you, as speed is of essence here. From my personal experience, this part of exam took nearly half of available time, which I only realized once I was finished with it. Try not to repeat my mistake.
 
 ### Storage
+
+Working with different types of persistence technologies is pretty straightforward, since Azure hides most of the infrastructure details and leaves us with a pretty well-established abstractions. Although each of them can be used in multiple ways, there is usually an obvious best choice for fulfilling our requirements. Typical concerns regarding various options are as follows:
+
+* Storage account. Bread-and-butter of all persistence technologies, it is used by almost all Azure services requiring storage, without their users even being aware of it. As a solution architect, you are expected to know what kind of services it offers (blob, file, queue, table) as well as difference between historical versions, e.g. Gen1 and Gen2, of which almost all are still being offered. For each individual service, you should understand various options offered during deployment.
+* CosmosDB. At the time of AZ-300 creation CosmosDB was still new kid on the block, hence most SQL and NoSQL related questions involved different types of SQL Server and DocumentDB deployments. This is changing in AZ-303, since CosmosDB is heavily featured in its curriculum as a de facto database standard in Azure. Make sure you are familiar with different application interfaces it offers and how to optimize usage based on functional requirements of your system.
+* Azure Service Bus. Although not particularly used for storage, you should still be aware what Service Bus offers and its main usage scenarios. Make sure you understand difference between queue, consumer, topic and subscribers.
+* Data lake and Azure Files. These services have specific usage scenarios which you need to be aware of. Azure files will especially be prominent once we reach backup and migration solutions.
 
 ### Network and connectivity
 
@@ -50,14 +58,18 @@ Exam specific topics include, but are not limited to:
 * Security. Another topic that can easily slip you by. You need to understand what are default security rules for resources deployed to VNETs and how can they be adjusted further. Do not miss reading on Network Security Group (NSG), how to define individual security rules and where can NSGs be applied.
 * DNS. Understand various Azure DNS service offerings. Make sure you know the difference between CNAME and A record and how are they used to perform different tasks in Azure. Examples include overriding default assigned server names or exposing deployed Azure services under your specific domain.
 
+### Compute
+
 ### Monitoring
 
 ### Backup and recovery
 
 ### Miscellaneous
 
-## So you want to Solution Architect (AZ-301)
+## So you want to Solution Architect (AZ-301: Microsoft Azure Architect Design)
 
-### What type of questions await
+### What type of design questions await
+
+Question formats do not diverge much from the ones you encountered in [AZ-300 section](#What-type-of-technology-questions-await). You should however expect many more case-studies, which best suit approach taken during system design.
 
 ## References
