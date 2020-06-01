@@ -7,7 +7,7 @@ date: 2020-05-26 17:48:14
 ---
 
 <!-- ![The culprit](https://miro.medium.com/max/3840/1*_HYOZExV1wV2f0OrfZ9YcA.png) -->
-![Goal](https://www.thomasmaurer.ch/wp-content/uploads/2019/01/Azure-Solutions-Architect-Expert.jpg)
+![Goal!!!](https://www.thomasmaurer.ch/wp-content/uploads/2019/01/Azure-Solutions-Architect-Expert.jpg)
 
 This article is intended for anyone actively trying to, or considering, obtaining Azure Solutions Architect Expert certification. As Azure currently offers well over 500 different services, even if you are not interested in certification, it can serve as a guideline to what Microsoft currently considers core Azure skills.
 
@@ -35,36 +35,46 @@ With basic information out of the way, it is time to plunge ourselves into techn
 
 ### What type of technology questions await
 
-Technologies exam is a mixed bag of all [question types](https://www.microsoft.com/en-us/learning/certification-exams.aspx) that Microsoft is currently using. Best answer, multiple choice, drag and drop as well as case studies are just some formats you can expect. I need to emphasize that significant part of AZ-300 are hands-on tasks done directly in simulated Azure portal. They usually involve deploying and configuring several Azure resources according to specification, hence you need to be comfortable working with portal using GUI as well as CLI or Powershell. Read the tasks at hand thoroughly and understand what is required of you, as speed is of essence here. From my personal experience, this part of exam took nearly half of available time, which I only realized once I was finished with it. Try not to repeat my mistake.
+Technologies exam is a mixed bag of all [question types](https://www.microsoft.com/en-us/learning/certification-exams.aspx) that Microsoft is currently using. Best answer, multiple choice, drag and drop and case studies are just some formats you can expect. Beware, significant part of AZ-300 are also hands-on tasks done directly in simulated Azure portal. They usually involve deploying and configuring several resources according to specification, therefore you really need to be comfortable working with portal using GUI as well as CLI or Powershell. Read the tasks at hand thoroughly and understand what is required of you, as speed is of essence here. From my personal experience, this part of exam took nearly half of available time, which I only realized once I was finished with it. Try not to repeat my mistake.
 
-### Storage
+### Storage resources
 
-Working with different types of persistence technologies is pretty straightforward, since Azure hides most of the infrastructure details and leaves us with a pretty well-established abstractions. Although each of them can be used in multiple ways, there is usually an obvious best choice for fulfilling our requirements. Typical concerns regarding various options are as follows:
+Working with different types of persistence technologies is pretty straightforward, since Azure hides most of the infrastructure details and leaves us with a pretty well-established abstractions. Although each of them can be used in multiple ways, there is usually an obvious best choice fulfilling task requirements. Typical concerns regarding various options are as follows:
 
-* Storage account. Bread-and-butter of all persistence technologies, it is used by almost all Azure services requiring storage, without their users even being aware of it. As a solution architect, you are expected to know what kind of services it offers (blob, file, queue, table) as well as difference between historical versions, e.g. Gen1 and Gen2, of which almost all are still being offered. For each individual service, you should understand various options offered during deployment.
-* CosmosDB. At the time of AZ-300 creation CosmosDB was still new kid on the block, hence most SQL and NoSQL related questions involved different types of SQL Server and DocumentDB deployments. This is changing in AZ-303, since CosmosDB is heavily featured in its curriculum as a de facto database standard in Azure. Make sure you are familiar with different application interfaces it offers and how to optimize usage based on functional requirements of your system.
+* Storage account. Bread-and-butter of all persistence technologies, it is used by almost all Azure services requiring storage, even without users being aware of it. As a solution architect, you are expected to know what kind of services it offers (blob, file, queue, table) as well as difference between historical versions, e.g. Gen1 and Gen2, since almost all are still being offered. For each individual service, you should understand various options offered during deployment and what impact does it have on created resource.
+* CosmosDB. At the time of AZ-300 creation CosmosDB was still new kid on the block, hence most database related questions involved different types of SQL Server and DocumentDB deployments. This is changing in AZ-303, since CosmosDB is heavily featured in its curriculum as a de facto database standard in Azure. Make sure you are familiar with different application interfaces it offers and how to optimize usage based on functional requirements.
 * Azure Service Bus. Although not particularly used for storage, you should still be aware what Service Bus offers and its main usage scenarios. Make sure you understand difference between queue, consumer, topic and subscribers.
 * Data lake and Azure Files. These services have specific usage scenarios which you need to be aware of. Azure files will especially be prominent once we reach backup and migration solutions.
 
 ### Network and connectivity
 
-This area is pretty straightforward, as it follows a set of explicit rules and there is not much space to get lost in thought. But do not even attempt to dive into it if you have knowledge gaps in topics such as IP addresses, CIDR notation, subnets, public and private ranges or what DNS is and how it works. All of these are just basis for whats to come, so make sure to handle them well first.
+This area is pretty straightforward, as it follows a set of explicit rules and there is not much space to be creative. But do not even attempt to dive into it if you have knowledge gaps in topics such as IP addresses, CIDR notation, subnets, public and private ranges or what DNS is and how it works. All of these are just basis for whats to come, so make sure you handle them well first.
 
 Exam specific topics include, but are not limited to:
 
 * Virtual Networks (VNETs). Learn how to plan, deploy and configure them, how to use subnets effectively, what type of resources can you deploy to virtual network and what are the limitations.
 * Connectivity. Find out what are the options when establishing connection between VNETs, on-premise locations and remote peers. Any combination is plausible, sometimes even all of them, and you need to know what kind of service is adequate for given scenario. Spend some time learning about VNET peering, ExpressRoute and VPN options.
 * Routing and load balancing. Although not heavily emphasized in this exam, knowledge of different network appliances is still needed. Make sure you know what is the purpose of load balancer, Application Gateway or custom appliance deployed as virtual machine, and some basic deployment and configuration steps.
-* Security. Another topic that can easily slip you by. You need to understand what are default security rules for resources deployed to VNETs and how can they be adjusted further. Do not miss reading on Network Security Group (NSG), how to define individual security rules and where can NSGs be applied.
+* Security. Another topic that can easily slip you by. You need to understand what are default security rules for resources deployed to VNETs and how can they be adjusted further. Do not miss reading on Network Security Groups (NSG), how to define individual security rules and where can NSGs be applied.
 * DNS. Understand various Azure DNS service offerings. Make sure you know the difference between CNAME and A record and how are they used to perform different tasks in Azure. Examples include overriding default assigned server names or exposing deployed Azure services under your specific domain.
 
-### Compute
+### Compute resources
 
-### Monitoring
+Realizing difference between service models offered in Azure is the key knowledge helping you work with compute resources. Because all of them, in the end, have single purpose: to run a piece of code or application in cloud environment. Although there are many characteristics that will come into play in the design part, main point that you should take away for technology exam is the level of responsibility you have towards individual compute resources. Good overview of all Azure offerings is required as well, so make sure terms like Virtual Machines, App Service, Azure Functions and Kubernetes Service do not fall under your radar. Deploying and configuring all of them will be expected of you.
+
+Note that, even though Service Fabric was part of AZ-300 curriculum, it is missing from AZ-303.
+
+### Monitoring solutions
 
 ### Backup and recovery
 
-### Miscellaneous
+### Security components
+
+Since we mentioned security several times till now, it goes without saying it plays huge role in cloud environment. Azure is no different and offers you tools to finely adjust every part of your solution. 
+
+Heart of it is of course Azure AD, which can be utilized in every aspect requiring authentication or authorization. Whether your solution is deployed purely to cloud, or you wish to combine it with on-premise resources, Azure has appropriate offering for you. Verify what the desired scenario is and know what kind of deployment is suitable. 
+
+Abbreviations such as RBAC, MFA, OAuth, OpenID, SAS must mean something to you. Learn how to control and monitor user access to Azure resources and utilize advanced options offered by premium licenses. Know how to use Managed Identity and Security Principals to control machine access to Azure resources.
 
 ## So you want to Solution Architect (AZ-301: Microsoft Azure Architect Design)
 
@@ -72,4 +82,12 @@ Exam specific topics include, but are not limited to:
 
 Question formats do not diverge much from the ones you encountered in [AZ-300 section](#What-type-of-technology-questions-await). You should however expect many more case-studies, which best suit approach taken during system design.
 
-## References
+### Reliability
+
+### Scalability
+
+### Availability
+
+### Cost optimization
+
+## Final words
