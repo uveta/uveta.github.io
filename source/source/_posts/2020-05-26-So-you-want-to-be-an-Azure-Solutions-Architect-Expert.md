@@ -31,6 +31,8 @@ Lastly, try to go through a couple of practice tests. They will help you greatly
 
 ## So you want to Azure (AZ-300: Microsoft Azure Architect Technologies)
 
+![AZ-300](https://pixelrobots.co.uk/wp-content/uploads/2018/09/AZ-300.png)
+
 With basic information out of the way, it is time to plunge ourselves into technical skills required. Exam marked as AZ-300 will put your knowledge of Azure services, deployment, configuration and networking to test.
 
 ### What type of technology questions await
@@ -42,8 +44,8 @@ Technologies exam is a mixed bag of all [question types](https://www.microsoft.c
 Working with different types of persistence technologies is pretty straightforward, since Azure hides most of the infrastructure details and leaves us with a pretty well-established abstractions. Although each of them can be used in multiple ways, there is usually an obvious best choice fulfilling task requirements. Typical concerns regarding various options are as follows:
 
 * Storage account. Bread-and-butter of all persistence technologies, it is used by almost all Azure services requiring storage, even without users being aware of it. As a solution architect, you are expected to know what kind of services it offers (blob, file, queue, table) as well as difference between historical versions, e.g. Gen1 and Gen2, since almost all are still being offered. For each individual service, you should understand various options offered during deployment and what impact does it have on created resource.
-* CosmosDB. At the time of AZ-300 creation CosmosDB was still new kid on the block, hence most database related questions involved different types of SQL Server and DocumentDB deployments. This is changing in AZ-303, since CosmosDB is heavily featured in its curriculum as a de facto database standard in Azure. Make sure you are familiar with different application interfaces it offers and how to optimize usage based on functional requirements.
-* Azure Service Bus. Although not particularly used for storage, you should still be aware what Service Bus offers and its main usage scenarios. Make sure you understand difference between queue, consumer, topic and subscribers.
+* CosmosDB. At the time of AZ-300 creation CosmosDB was still new kid on the block, hence most database related questions involved different types of SQL Server and DocumentDB deployments. This is changing in AZ-303, since CosmosDB is heavily featured in its curriculum as a de facto NoSQL standard in Azure. Make sure you are familiar with different application interfaces it offers and how to optimize usage based on functional requirements. Same goes for Azure SQL database, in case relational database solution is required.
+* Azure Service Bus. Although not principally used for storage, it still offer persistence in certain scenarios. You should be aware how Service Bus is utilized as a messaging medium, and its specifics. Make sure you understand difference between queue, consumer, topic and subscribers, and when to use each one.
 * Data lake and Azure Files. These services have specific usage scenarios which you need to be aware of. Azure files will especially be prominent once we reach backup and migration solutions.
 
 ### Network and connectivity
@@ -54,27 +56,45 @@ Exam specific topics include, but are not limited to:
 
 * Virtual Networks (VNETs). Learn how to plan, deploy and configure them, how to use subnets effectively, what type of resources can you deploy to virtual network and what are the limitations.
 * Connectivity. Find out what are the options when establishing connection between VNETs, on-premise locations and remote peers. Any combination is plausible, sometimes even all of them, and you need to know what kind of service is adequate for given scenario. Spend some time learning about VNET peering, ExpressRoute and VPN options.
-* Routing and load balancing. Although not heavily emphasized in this exam, knowledge of different network appliances is still needed. Make sure you know what is the purpose of load balancer, Application Gateway or custom appliance deployed as virtual machine, and some basic deployment and configuration steps.
-* Security. Another topic that can easily slip you by. You need to understand what are default security rules for resources deployed to VNETs and how can they be adjusted further. Do not miss reading on Network Security Groups (NSG), how to define individual security rules and where can NSGs be applied.
+* Routing and load balancing. Although not heavily emphasized in this exam, knowledge of different network appliances is still needed. Make sure you know what is the purpose of load balancer, custom appliances, Application Gateway, Traffic Manager and Azure Front Door, as well as basic deployment and configuration steps.
+* Security. Another topic that can easily slip you by. You need to understand what are default security rules for resources deployed to VNETs and how to adjust them further. Do not miss reading on Network Security Groups (NSG), how to define individual security rules and where can NSGs be applied. Also, recognize what type of threats Web Application Firewall can protect your resources from and how to deploy it.
 * DNS. Understand various Azure DNS service offerings. Make sure you know the difference between CNAME and A record and how are they used to perform different tasks in Azure. Examples include overriding default assigned server names or exposing deployed Azure services under your specific domain.
 
 ### Compute resources
 
-Realizing difference between service models offered in Azure is the key knowledge helping you work with compute resources. Because all of them, in the end, have single purpose: to run a piece of code or application in cloud environment. Although there are many characteristics that will come into play in the design part, main point that you should take away for technology exam is the level of responsibility you have towards individual compute resources. Good overview of all Azure offerings is required as well, so make sure terms like Virtual Machines, App Service, Azure Functions and Kubernetes Service do not fall under your radar. Deploying and configuring all of them will be expected of you.
+Realizing difference between service models offered in Azure is the key knowledge helping you work with compute resources. Because all of them, in the end, have single purpose: to run your piece of code or application in cloud environment. Although there are many characteristics that will come into play in the design part, main point that you should take away for technology exam is the level of responsibility you have towards individual compute resources. Good overview of all Azure offerings is required as well, so make sure terms like Virtual Machines, App Service, Azure Functions and Kubernetes Service do not fall under your radar. Deploying and configuring all of them will be required of you, especially in the hands-on part of the exam.
 
 Note that, even though Service Fabric was part of AZ-300 curriculum, it is missing from AZ-303.
 
 ### Monitoring solutions
 
-### Backup and recovery
+Tasks related to monitoring resources do not necessarily include only tools used to track performance and functionality of your deployment. Analytic services can help you optimize resource usage, in order to provide more robust, flexible and often cheaper solution. Although complete monitoring solution often involves combination of several services, basic building blocks are:
+
+* Log Analytics. Used to persist all log information. All services to follow utilize it either to store or read required data. Can be queried using Kusto language, but knowledge about its usage and syntax are no longer needed, as it was removed from AZ-303 curriculum.
+* Azure Monitor. Fundamental service used to track various metrics from underlying virtual machines. Although it is not deployed manually, ability to read Monitor metrics and define actions based on them will be expected of you.
+* Application Insights. Often correlated with advanced compute resources, such as App Service and Azure Functions. How to track application metrics, logs and usage statistics is required knowledge for the exam.
+* Action groups and Alerts. Although they represent separate entities in Azure, these two come hand in hand when developing notification solution. Double-check you are able to create alerts based on Azure resource metrics and notify appropriate targets.
+* Azure Advisor. Although you are able to create advanced monitoring solution for your infrastructure and applications, some overlooked issues can be discovered by Azure automatically. Advisor analyzes security, performance, reliability as well as cost of your deployment, and often helps optimize deployment based on preestablished rules. The exam will expect you to know basic issues that Azure advisor can help you solve.
+
+### Backup and migration
+
+Azure Migrate
+Backup
+Disaster Recovery
 
 ### Security components
 
-Since we mentioned security several times till now, it goes without saying it plays huge role in cloud environment. Azure is no different and offers you tools to finely adjust every part of your solution. 
+Since we mentioned security several times till now, it goes without saying it plays huge role in cloud environment. Azure is no different and offers you tools to finely adjust every part of your solution.
 
-Heart of it is of course Azure AD, which can be utilized in every aspect requiring authentication or authorization. Whether your solution is deployed purely to cloud, or you wish to combine it with on-premise resources, Azure has appropriate offering for you. Verify what the desired scenario is and know what kind of deployment is suitable. 
+Heart of it is of course Azure AD, which can be utilized in every aspect requiring authentication or authorization. Whether your solution is deployed purely to cloud, or you wish to combine it with on-premise resources, Azure has appropriate offering for you. Verify what the desired scenario is and know what kind of deployment is suitable.
 
-Abbreviations such as RBAC, MFA, OAuth, OpenID, SAS must mean something to you. Learn how to control and monitor user access to Azure resources and utilize advanced options offered by premium licenses. Know how to use Managed Identity and Security Principals to control machine access to Azure resources.
+Abbreviations such as RBAC, MFA, OAuth, OpenID, SAS must mean something to you. You have to be able to control and monitor user access to Azure resources and utilize advanced options offered by premium licenses. Know how to use Managed Identity and Security Principals to control service access to Azure resources. Learn how Key Vault can help store sensitive data and how to utilize it.
+
+### Deployment
+
+If you go back and read each previous section, the most frequent word used would probably be deployment. Since it plays a mayor role even before you start working with resources in Azure, it deserves an honorary mention.
+
+Azure Resource Manager templates, or simply ARM, is a term you will most definitely encounter when dealing with resource deployments. Understanding basic structure of ARM and how to export, as well as adjust them, will be expected of you. They can immensely help you during hands-on parts of the exam, if multiple resource deployment is required.
 
 ## So you want to Solution Architect (AZ-301: Microsoft Azure Architect Design)
 
