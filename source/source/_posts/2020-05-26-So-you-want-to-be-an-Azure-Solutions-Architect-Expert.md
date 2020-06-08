@@ -78,9 +78,9 @@ Tasks related to monitoring resources do not necessarily include only tools used
 
 ### Backup and migration
 
-Azure Migrate
-Backup
-Disaster Recovery
+A significant part of the curriculum is dedicated to migration from on-premise site to cloud environment, hence learning about available tools and how to utilize them is pretty much a necessity. Azure Migrate is a versatile service covering everything from analyzing on-site resource utilization, provisioning cloud counterparts and even executing planned migrations. Learning about its individual components and their specifics is the key to get by this part of the exam.
+
+On the other side, most notable backup services are covered by Azure Backup and Site Recovery. Since they play pivotal role in strengthening deployment resiliency and availability, they will be further mention in the design exam. For technological part, knowing how to deploy and configure them will suffice.
 
 ### Security components
 
@@ -92,9 +92,9 @@ Abbreviations such as RBAC, MFA, OAuth, OpenID, SAS must mean something to you. 
 
 ### Deployment
 
-If you go back and read each previous section, the most frequent word used would probably be deployment. Since it plays a mayor role even before you start working with resources in Azure, it deserves an honorary mention.
+If you go back and read previous sections, the most frequent word used would probably be deployment. Since it plays a mayor role even before you start working with resources in Azure, it deserves an honorary mention.
 
-Azure Resource Manager templates, or simply ARM, is a term you will most definitely encounter when dealing with resource deployments. Understanding basic structure of ARM and how to export, as well as adjust them, will be expected of you. They can immensely help you during hands-on parts of the exam, if multiple resource deployment is required.
+Azure Resource Manager templates, or simply ARM, is a term you will most definitely encounter when dealing with resource deployments. Understanding basic structure of ARM and how to export, as well as adjust them, will be expected of you. They can immensely help you during hands-on parts as well, especially if multiple resource deployment is required.
 
 ## So you want to Solution Architect (AZ-301: Microsoft Azure Architect Design)
 
