@@ -31,7 +31,7 @@ Lastly, try to go through a couple of practice tests. They will help you greatly
 
 ## So you want to Azure (AZ-300: Microsoft Azure Architect Technologies)
 
-![AZ-300](https://pixelrobots.co.uk/wp-content/uploads/2018/09/AZ-300.png)
+![AZ-300: Microsoft Azure Architect Technologies](https://img-a.udemycdn.com/course/480x270/2362258_cb67.jpg)
 
 With basic information out of the way, it is time to plunge ourselves into technical skills required. Exam marked as AZ-300 will put your knowledge of Azure services, deployment, configuration and networking to test.
 
@@ -97,6 +97,10 @@ If you go back and read previous sections, the most frequent word used would pro
 Azure Resource Manager templates, or simply ARM, is a term you will most definitely encounter when dealing with resource deployments. Understanding basic structure of ARM and how to export, as well as adjust them, will be expected of you. They can immensely help you during hands-on parts as well, especially if multiple resource deployment is required.
 
 ## So you want to Solution Architect (AZ-301: Microsoft Azure Architect Design)
+
+![AZ-301: Microsoft Azure Architect Design](https://img-a.udemycdn.com/course/750x422/2375594_e17b.jpg)
+
+Backed up by the knowledge of individual Azure services, design exam puts it all together under one roof. As a solution architect it will be your responsibility to create systems fulfilling both functional and non-functional requirements, while taking care not to overstep established restrictions. Desired reliability, availability, scalability and costs heavily influence your architecture and components used, hence a much deeper understanding of Azure services will be required.
 
 ### What type of design questions await
 
