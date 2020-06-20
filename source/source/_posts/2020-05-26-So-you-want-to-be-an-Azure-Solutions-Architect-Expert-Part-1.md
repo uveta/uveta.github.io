@@ -1,8 +1,9 @@
 ---
-title: So you want to be an Azure Solutions Architect Expert
+title: So you want to be an Azure Solutions Architect Expert - Part 1
 tags:
   - azure
   - certification
+  - advanced
 date: 2020-05-26 17:48:14
 ---
 
