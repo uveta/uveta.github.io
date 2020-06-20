@@ -12,6 +12,8 @@ date: 2020-05-26 17:48:14
 
 This article is intended for anyone actively trying to, or considering, obtaining Azure Solutions Architect Expert certification. As Azure currently offers well over 500 different services, even if you are not interested in certification, it can serve as a guideline to what Microsoft currently considers core Azure skills.
 
+<!-- more -->
+
 _Disclaimer: as AZ-300 and AZ-301 are being replaced with AZ-303 and AZ-304 exams late June 2020, you might find some information provided in this article to be outdated. I will try to take into account any information available for future versions and not go into details about topics that are becoming obsolete._
 
 ## Prerequisites
