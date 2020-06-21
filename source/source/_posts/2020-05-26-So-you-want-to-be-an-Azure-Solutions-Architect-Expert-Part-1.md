@@ -7,8 +7,7 @@ tags:
 date: 2020-05-26 17:48:14
 ---
 
-<!-- ![The culprit](https://miro.medium.com/max/3840/1*_HYOZExV1wV2f0OrfZ9YcA.png) -->
-![Goal!!!](https://www.thomasmaurer.ch/wp-content/uploads/2019/01/Azure-Solutions-Architect-Expert.jpg)
+![Goal!!!](architect-badge.jpg)
 
 This article is intended for anyone actively trying to, or considering, obtaining Azure Solutions Architect Expert certification. As Azure currently offers well over 500 different services, even if you are not interested in certification, it can serve as a guideline to what Microsoft currently considers core Azure skills.
 
@@ -22,19 +21,19 @@ In order to qualify for Azure Solutions Architect Expert certification (I will b
 
 ## Where to find study materials
 
-![Your new best friend](https://i0.wp.com/win10.guru/wp-content/uploads/2019/03/MicrosoftDocs.jpg)
+![Your new best friend](microsoft-learn.png)
 
 Answer to this question is very simple: [Microsoft Docs](https://docs.microsoft.com) has all the information you will ever need to prepare for this certification. The only problem is there a lot of it. Like, really a lot. Like, it would take you several lifetimes to only skim it through. Not to mention content is added to it on a daily basis. Still, official Microsoft documentation is the ultimate place where you will find answers to any question about Azure. It is also pretty easy to navigate and search for relevant information. If you have not worked with it already, take some time to familiarize yourself. Because you will be coming back to it regularly.
 
 Nick Colyer's courses offered by [Skylines Academy](https://courses.skylinesacademy.com/p/az-300-301) helped me identify all relevant topics required for the exams. Both of them clock at about 20 hours in total, which could be covered in a single weekend, if you are persistent enough. The course immensely benefited me getting into the meat and bones of each exam and understanding what is required to pass. I cannot recommend it enough, as the course should serve you as a starting point into further studying. As a bonus piece of information, both courses are also available on [A Cloud Guru](https://acloud.guru/azure-cloud-training) which offers seven day free trial.
 
-On the other hand, Pluralsight has great paths for both [AZ-300](https://www.pluralsight.com/paths/microsoft-azure-architect-technologies-az-300) and [AZ-301](https://www.pluralsight.com/paths/microsoft-azure-architect-design-az-301) exam. Each path consists of dozen courses going into great depth of each topic covered. What I consider its greatest obstacle is the sheer amount of video material, as both paths have, in total, well over 150 hours of content. I would recommend them only to applicants who have enough time to spare. If you are not one of them, try to go through the materials at increased speed (1.2x or 1.3x works fine) or at least use them to selectively strengthen knowledge in areas you find yourself lacking. Pluralsight comes with a ten day free trial, or, if you are lucky to have Visual Studio subscription, three to six months trial.
+On the other hand, Pluralsight has great paths for both [AZ-300](https://www.pluralsight.com/paths/microsoft-azure-architect-technologies-az-300) and [AZ-301](https://www.pluralsight.com/paths/microsoft-azure-architect-design-az-301) exam. Each path consists of dozen courses going into great depths of each topic covered. What I consider its greatest obstacle is the sheer amount of material, as both paths have, in total, well over 150 hours of video content. I would recommend them only to applicants who have enough time to spare. If you are not one of them, try to go through the materials at increased speed (1.2x or 1.3x works fine) or at least use them to selectively strengthen knowledge in areas you find yourself lacking. Pluralsight comes with a ten day free trial, or, if you are lucky to have Visual Studio subscription, three to six months trial.
 
-Lastly, try to go through a couple of practice tests. They will help you greatly, especially if you have never participated in this kind of exam. Some of them are offered on [ASAE certification page](https://docs.microsoft.com/en-us/learn/certifications/azure-solutions-architect). Also, both [AZ-300/AZ-303](https://www.udemy.com/course/azure-architect-technologies-practice-tests-az-300-az-303) and [AZ-301/AZ-304](https://www.udemy.com/course/az-301-azure-architect-design-practice-test) packs can be found at Udemy.
+Lastly, try to go through a couple of practice tests, especially if you have never participated in this kind of exam. Some of them are offered on [ASAE certification page](https://docs.microsoft.com/en-us/learn/certifications/azure-solutions-architect). Also, both [AZ-300/AZ-303](https://www.udemy.com/course/azure-architect-technologies-practice-tests-az-300-az-303) and [AZ-301/AZ-304](https://www.udemy.com/course/az-301-azure-architect-design-practice-test) packs can be found at Udemy.
 
 ## So you want to Azure (AZ-300: Microsoft Azure Architect Technologies)
 
-![AZ-300: Microsoft Azure Architect Technologies](https://img-a.udemycdn.com/course/480x270/2362258_cb67.jpg)
+![AZ-300: Microsoft Azure Architect Technologies](az-300-badge.jpg)
 
 With basic information out of the way, it is time to plunge ourselves into technical skills required. Exam marked as AZ-300 will put your knowledge of Azure services, deployment, configuration and networking to test.
 
@@ -98,23 +97,5 @@ Abbreviations such as RBAC, MFA, OAuth, OpenID, SAS must mean something to you. 
 If you go back and read previous sections, the most frequent word used would probably be deployment. Since it plays a mayor role even before you start working with resources in Azure, it deserves an honorary mention.
 
 Azure Resource Manager templates, or simply ARM, is a term you will most definitely encounter when dealing with resource deployments. Understanding basic structure of ARM and how to export, as well as adjust them, will be expected of you. They can immensely help you during hands-on parts as well, especially if multiple resource deployment is required.
-
-## So you want to Solution Architect (AZ-301: Microsoft Azure Architect Design)
-
-![AZ-301: Microsoft Azure Architect Design](https://img-a.udemycdn.com/course/750x422/2375594_e17b.jpg)
-
-Backed up by the knowledge of individual Azure services, design exam puts it all together under one roof. As a solution architect it will be your responsibility to create systems fulfilling both functional and non-functional requirements, while taking care not to overstep established restrictions. Desired reliability, availability, scalability and costs heavily influence your architecture and components used, hence a much deeper understanding of Azure services will be required.
-
-### What type of design questions await
-
-Question formats do not diverge much from the ones you encountered in [AZ-300 section](#What-type-of-technology-questions-await). You should however expect many more case-studies, which best suit approach taken during system design.
-
-### Reliability
-
-### Scalability
-
-### Availability
-
-### Cost optimization
 
 ## Final words
