@@ -100,4 +100,4 @@ theme: minos
 deploy:
   type: git
   repo: https://github.com/uveta/uveta.github.io
-  branch: gh-pages
+  branch: master
