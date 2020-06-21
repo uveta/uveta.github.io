@@ -9,7 +9,7 @@ categories:
   - blog
 ---
 
-![Goal!!!](architect-badge.jpg)
+{% asset_img architect-badge.jpg Goal!!! %}
 
 This post is intended for anyone actively trying to, or considering, obtaining Azure Solutions Architect Expert certification. As I have obtained certificate near the end of 2019, I wanted to share relevant information and findings gathered prior to and after taking exams, in order to help future applicants.
 
