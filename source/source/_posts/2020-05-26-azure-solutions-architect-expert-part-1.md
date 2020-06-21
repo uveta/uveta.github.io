@@ -5,6 +5,8 @@ tags:
   - certification
   - advanced
 date: 2020-05-26 17:48:14
+categories:
+  - blog
 ---
 
 ![Goal!!!](architect-badge.jpg)

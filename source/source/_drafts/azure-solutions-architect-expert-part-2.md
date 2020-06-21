@@ -5,6 +5,8 @@ tags:
   - certification
   - advanced
 date: 2020-06-20 22:02:14
+categories:
+  - blog
 ---
 
 ![Goal!!!](https://www.thomasmaurer.ch/wp-content/uploads/2019/01/Azure-Solutions-Architect-Expert.jpg)
