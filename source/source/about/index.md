@@ -7,12 +7,6 @@ article:
   readtime: false
   showDate: false
 ---
-My name is
+Hi, my name is Uroš, and I have been a tech enthusiast for almost 20 years. During that time I came in contact with various technologies, but I feel most comfortable in .NET world. Besides being an active developer and system architect, I am a software quality evangelist and a teacher.
 
-I live in
-
-I work in
-
-I love
-
-## image
+![Me and Che](me-and-che.jpg)
