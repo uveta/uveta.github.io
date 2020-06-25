@@ -7,6 +7,7 @@ tags:
 date: 2020-05-26 17:48:14
 categories:
   - blog
+disqusId: azure-solution-architect-expert-part-1
 ---
 
 {% asset_img architect-badge.jpg Goal!!! %}
@@ -104,4 +105,4 @@ Azure Resource Manager templates, or simply ARM, is a term you will most definit
 
 In this post I went through Azure Solutions Architect Expert certification prerequisites and recommended learning strategy. I have also covered most significant topics that you can encounter during first certification exam.
 
-In the next post I will go through skills and knowledge required for the second exam, i.e. AZ-301: Microsoft Azure Architect Design.
+In the next post I will go through skills and knowledge required for the second exam, i.e. AZ-301: Microsoft Azure Architect Design. Follow me on [Twitter](https://twitter.com/uveta) to get notified when it gets published.
