@@ -45,7 +45,7 @@ comment:
 
 # Other plugins and their settings.
 plugins:
-  mathjax: true
+  mathjax: false
   katex: false
   gallery: false
   clipboard: true
