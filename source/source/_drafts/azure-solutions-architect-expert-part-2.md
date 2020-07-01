@@ -4,9 +4,10 @@ tags:
   - azure
   - certification
   - advanced
-date: 2020-06-20 22:02:14
+date: 2020-07-01 17:48:14
 categories:
   - blog
+disqusId: azure-solution-architect-expert-part-2
 ---
 
 ![Goal!!!](https://www.thomasmaurer.ch/wp-content/uploads/2019/01/Azure-Solutions-Architect-Expert.jpg)
@@ -25,11 +26,56 @@ Backed up by the knowledge of individual Azure services, design exam puts it all
 
 Question formats do not diverge much from the ones you encountered in [AZ-300 section](#What-type-of-technology-questions-await). You should however expect many more case-studies, which best suit approach taken during system design.
 
-### Reliability
-
-### Scalability
+### Where to find study materials
+https://docs.microsoft.com/en-us/azure/architecture/
 
 ### Availability
+redundancy
+	GEO, local, zone
+	Azure service redundancy
+
+### Scalability
+choosing appropriate service tear
+	database
+	compute
+autoscaling
+
+### Reliability
+backup and recovery
+	Azure Site Recovery
+	Azure Backup
+	archive
+RTO, RLO, RPO
+
+### Security
+user management and authentication
+	access, SSO, MFA
+	hybrid identity (Azure AD Connect and Azure AD Connect Health)
+	self-service
+	B2B
+	PIM, RBAC, Identity Protection, JIT
+application security and authentication
+	Key Vault, Managed Identity
+data protection
+	encryption at rest, in transit, in use
+
+### Governance, auditing, compliance
+tagging
+Azure Policy
+Azure Blueprint
+
+### Misc
+Networking
+	addressing strategy
+	security
+	hybrid networks
+	load balancing and routing
+Compute
+	determine appropriate service (VM, App Service, Service Fabric, Azure Functions, containers)
+	AKS vs ACI
+Integration
+	external
+	public API - gateway architecture, management, keys
 
 ### Cost optimization
 
