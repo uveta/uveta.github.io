@@ -112,3 +112,11 @@ emoji:
   className: github-emoji
   styles:
   customEmojis:
+
+## hexo-generator-sitemap
+sitemap:
+  path: sitemap.xml
+  #template: ./source/sitemap_template.xml
+  rel: false
+  tags: true
+  categories: true
