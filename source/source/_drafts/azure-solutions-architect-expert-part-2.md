@@ -46,14 +46,15 @@ Understanding how Azure datacenters are organized on a global scale is imperativ
 * Regional pair. Each Azure region is paired with another one, with prescribed minimum distance between them. On one hand, it helps in case of regional outages, due to natural disasters or any similar impediments. Any service update is rolled to one region per pair at a time. Also, in case of global Azure outage, Microsoft will prioritize restoring only one region per pair.
 * Geography. Regions belonging to the same country are organized into geographies. Any regional pair is usually a part of the same geography, ensuring compliance with local laws. Exceptions do exists, especially for new geographies where usually only one region is deployed.
 
-Besides knowing how outage in any part of Azure infrastructure could affect you, it is vital to understand how specific resources are deployed. While most of them are being deployed to specific regions, some of them, e.g. Traffic Manager, are non-regional and are deployed globally. Also, get to know which services require distributing them into availability zones, in order to protect them from datacenter outages.
+Besides knowing how outage in any part of Azure infrastructure could affect you, it is vital to understand where each type of resources is deployed. While most of them are being deployed to specific regions, some of them, e.g. Traffic Manager, are non-regional and are deployed globally. Also, get to know which services allow distribution into availability zones, in order to handle datacenter outages.
 	
 ### Reliability
 backup and recovery
 	Azure Site Recovery
 	Azure Backup
 	archive
-RTO, RLO, RPO
+
+When it comes to designing backup and recovery, it is imperative to enforce sufficient Recovery Time Objectives (RTO) and Recovery Point Objectives (RPO). In simple mans terms, they both impose requirements on how your system should behave in case of an outage. While RTO determines maximum amount of time an outage is allowed to last, RPO specifies amount of data whose loss is acceptable during recovery. For critical systems components these values would normally be expressed in seconds, while rarely used or obsolete parts could afford even daily outages. Values imposed by business requirements have great impact not only during designing recovery, but also when it comes to cost optimization, which we will see in one of the following chapters.
 
 ### Scalability
 choosing appropriate service tear
@@ -78,18 +79,23 @@ tagging
 Azure Policy
 Azure Blueprint
 
-### Misc
-Networking
-	addressing strategy
-	security
-	hybrid networks
-	load balancing and routing
-Compute
-	determine appropriate service (VM, App Service, Service Fabric, Azure Functions, containers)
-	AKS vs ACI
-Integration
-	external
-	public API - gateway architecture, management, keys
+### Miscellaneous
+
+I will briefly cover some smaller topics that are not as substantial as previously mentioned ones. You will, however, be expected to know them.
+
+#### Networking
+
+Since virtual networks are ties that bind all other Azure resources, knowing how to design and utilize them is something that can not be overlooked. You will have little influence over their operation and reliability, as they fall within the competence of Microsoft. However, architects responsibility lay in other areas. Modeling addressing strategy for networks and sub-networks, connecting individual networks and potential on-premise systems, directing network flow via routing and load balancer, as well as establishing security boundaries and rules are just some of the skills that will be expected of you on design exam.
+	
+#### Compute
+
+determine appropriate service (VM, App Service, Service Fabric, Azure Functions, containers)
+AKS vs ACI
+	
+#### Integration
+
+external
+public API - gateway architecture, management, keys
 
 ### Cost optimization
 RTO RLO
