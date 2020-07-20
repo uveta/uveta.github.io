@@ -54,10 +54,10 @@ backup and recovery
 	Azure Backup
 	archive
 
-When it comes to designing backup and recovery, it is imperative to enforce sufficient Recovery Time Objectives (RTO) and Recovery Point Objectives (RPO). In simple mans terms, they both impose requirements on how your system should behave in case of an outage. While RTO determines maximum amount of time an outage is allowed to last, RPO specifies amount of data whose loss is acceptable during recovery. For critical systems components these values would normally be expressed in seconds, while rarely used or obsolete parts could afford even daily outages. Values imposed by business requirements have great impact not only during designing recovery, but also when it comes to cost optimization, which we will see in one of the following chapters.
+When it comes to designing backup and recovery, it is imperative to fulfill target Recovery Time Objectives (RTO) and Recovery Point Objectives (RPO). Simply put, they both impose requirements on how your system should behave in case of an outage. While RTO determines maximum amount of time an outage is allowed to last, RPO specifies permitted quantity of lost data during recovery. For critical systems components these values would normally be expressed in seconds, while rarely used or obsolete parts could afford even daily outages. Values imposed by business requirements have great impact not only during designing recovery, but also when it comes to cost optimization, which I will cover in one of the following chapters.
 
 ### Scalability
-choosing appropriate service tear
+choosing appropriate service tier
 	database
 	compute
 auto-scaling
@@ -79,23 +79,25 @@ tagging
 Azure Policy
 Azure Blueprint
 
+### Cost optimization
+RTO RLO
+
 ### Miscellaneous
 
-I will briefly cover some smaller topics that are not as substantial as previously mentioned ones. You will, however, be expected to know them.
+I will briefly cover topics not as extensive, as previously mentioned ones. You will, however, be expected to know them.
 
 #### Networking
 
-Since virtual networks are ties that bind all other Azure resources, knowing how to design and utilize them is something that can not be overlooked. You will have little influence over their operation and reliability, as they fall within the competence of Microsoft. However, architects responsibility lay in other areas. Modeling addressing strategy for networks and sub-networks, connecting individual networks and potential on-premise systems, directing network flow via routing and load balancer, as well as establishing security boundaries and rules are just some of the skills that will be expected of you on design exam.
+Since virtual networks are ties that bind all other Azure resources, knowing how to design and utilize them is something that can not be overlooked. As they fall within the competence of Microsoft, you will have little influence over their operation and reliability. However, architects responsibility lay in other areas. Modeling addressing strategy for networks and sub-networks, connecting virtual networks and on-premise systems, directing network flow via routing and load balancer, as well as establishing security boundaries and rules are just some of the skills that will be expected of you on design exam.
 	
 #### Compute
 
-determine appropriate service (VM, App Service, Service Fabric, Azure Functions, containers)
-AKS vs ACI
+Similar skills to ones required in technical exam are required, as choosing appropriate compute solution is still the main focus. There will however be additional requirements, requiring deeper knowledge of pricing tiers and respective offerings, total resource costs as well as scaling capabilities. Resource types covered by design exam are virtual machines, virtual machine scale sets, App Services, Service Fabric, Azure Functions and current container deployment offerings. Regarding last one, make sure you understand differences between Azure Kubernetes Service and Azure Container Instances.
 	
 #### Integration
 
 external
 public API - gateway architecture, management, keys
 
-### Cost optimization
-RTO RLO
+## Conclusion
+
