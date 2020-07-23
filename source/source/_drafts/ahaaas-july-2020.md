@@ -10,6 +10,8 @@ categories:
 disqusId: ahaaas-july-2020
 ---
 
+{% asset_img bulb.png Eureka %}
+
 Developer ahaaas
 
 <!-- more -->
