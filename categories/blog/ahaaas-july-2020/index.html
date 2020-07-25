@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Ahaaas - July 2020 - Uveta&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content="">
+
+
+
+<meta name="keywords" content="azure, cloud, microsoft, .net, C#, elasticsearch, software, development">
+
+
+
+    <meta name="description" content="In fast paced technology world, developers discover new insights practically on a daily level. Surely you have experienced these moments of almost divine wisdom, ending with &amp;#x201C;Now I know xyz c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ahaaas - July 2020">
+<meta property="og:url" content="https://www.uveta.io/categories/blog/ahaaas-july-2020/index.html">
+<meta property="og:site_name" content="Uveta&#39;s blog">
+<meta property="og:description" content="In fast paced technology world, developers discover new insights practically on a daily level. Surely you have experienced these moments of almost divine wisdom, ending with &amp;#x201C;Now I know xyz c">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/ahaaas-july-2020/bulb.png">
+<meta property="article:published_time" content="2020-07-25T17:12:39.000Z">
+<meta property="article:modified_time" content="2020-07-25T17:15:05.910Z">
+<meta property="article:author" content="Uroš Miletić">
+<meta property="article:tag" content="azure">
+<meta property="article:tag" content=".net">
+<meta property="article:tag" content="csharp">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="advanced">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.uveta.io/categories/blog/ahaaas-july-2020/bulb.png">
+
+
+
+
+
+<link rel="icon" href="/images/logo.svg">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168901242-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-168901242-1');
+</script>
+
+
+    
+    
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
+
+
+    
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    <img src="/images/logo.png" alt="" height="28">
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Blog</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#NET">1&nbsp;&nbsp;<b>.NET</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Azure">2&nbsp;&nbsp;<b>Azure</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Miscellaneous">3&nbsp;&nbsp;<b>Miscellaneous</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/uveta" target="_blank" rel="noopener">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Twitter" href="https://twitter.com/uveta" target="_blank" rel="noopener">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Linkedin" href="https://www.linkedin.com/in/uveta" target="_blank" rel="noopener">
+                
+                <i class="fab fa-linkedin"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Ahaaas - July 2020
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        
+        <span class="column is-narrow">
+            <time datetime="2020-07-25T17:12:39.000Z" itemprop="datePublished">Jul 25 2020</time>
+        </span>
+        
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/blog/">blog</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            5 minutes read (About 704 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><img src="/categories/blog/ahaaas-july-2020/bulb.png" class title="Eureka">
+
+<p>In fast paced technology world, developers discover new insights practically on a daily level. Surely you have experienced these moments of almost divine wisdom, ending with &#x201C;Now I know xyz can do that&#x201D; or &#x201C;I have to be aware of xyz&#x201D; or &#x201C;Eureka!&#x201D;. I have recorded some of my moments of clarity, or Ahaaas as I call them, hoping that some of them will prove useful to you, whether you&#x2019;d be dealing with .NET development, Azure or Docker.</p>
+<a id="more"></a>
+
+<h3 id="NET"><a href="#NET" class="headerlink" title=".NET"></a>.NET</h3><ul>
+<li>Mocking authentication in ASP.NET Core 3.0 integration tests <a href="https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests#mock-authentication" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests#mock-authentication</a></li>
+<li>Even though ASP.NET Core configuration entry names are case-insensitive, <code>Microsoft.Extensions.Configuration.ConfigurationBinder.Bind()</code> method is not and property name casing does matter. Prefer using <code>Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure()</code> extension to bind configuration sections to option types.</li>
+<li>Be careful when using array values in <code>Microsoft.Extensions.Configuration.IConfiguration</code> data sources, especially if you consider overriding with environment specific configurations <a href="https://rimdev.io/avoiding-aspnet-core-configuration-pitfalls-with-array-values/" target="_blank" rel="noopener">https://rimdev.io/avoiding-aspnet-core-configuration-pitfalls-with-array-values/</a></li>
+<li>If you cannot rely on your reverse proxy, it is possible to add client and IP rate limiting to ASP.NET Core. Source code and installation instructions are available at <a href="https://github.com/stefanprodan/AspNetCoreRateLimit" target="_blank" rel="noopener">https://github.com/stefanprodan/AspNetCoreRateLimit</a>. Remember, however, that Kestrel should not be used as a public facing web server.</li>
+<li>Controller input model validation can be automated using <code>[Microsoft.AspNetCore.Mvc.ApiController]</code> attribute and annotations from <code>System.ComponentModel.DataAnnotations</code> namespace <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation</a></li>
+<li>When using <code>[System.Runtime.Serialization.DataMember]</code> attribute to annotate serialization model properties, do not forget to annotate enclosing type with <code>[System.Runtime.Serialization.DataContract]</code> attribute. Most of traditional JSON serializers, such as Newtonsoft and Jil, honor property attributes, but expect type to be annotated as well. <code>System.Text.Json.JsonSerializer</code> surprisingly does not utilize <code>System.Runtime.Serialization</code> attributes and has his own set of annotations in <code>System.Text.Json.Serialization</code> namespace.</li>
+<li>Cool portability tool from .NET to .NET core comes from, you wouldn&#x2019;t believe it, AWS team. More details <a href="https://aws.amazon.com/blogs/aws/announcing-the-porting-assistant-for-net/" target="_blank" rel="noopener">https://aws.amazon.com/blogs/aws/announcing-the-porting-assistant-for-net/</a></li>
+<li><code>System.Net.Mail.SmtpClient</code> is obsolete for some time, recommended alternative is <a href="https://github.com/jstedfast/MailKit" target="_blank" rel="noopener">MailKit</a></li>
+<li><code>Microsoft.Extensions.Hosting.IApplicationLifetime</code> service is obsolete from .Net Core 3.0. If you utilize generic host, use <code>Microsoft.Extensions.Hosting.IHostApplicationLifetime</code> instead <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.iapplicationlifetime" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.iapplicationlifetime</a></li>
+<li>Imagine you have a concrete type implementing two different interfaces. Now imagine you register this type for each interface as a singleton in DI container. When resolving each interface, you will end up with a different instances, i.e. .NET core DI container will create two instances instead of sharing single one.</li>
+<li>If you are looking for Blazor components that you can use for commercial projects, Syncfusion offers a handful via their community license <a href="https://www.syncfusion.com/products/communitylicense" target="_blank" rel="noopener">https://www.syncfusion.com/products/communitylicense</a></li>
+</ul>
+<h3 id="Azure"><a href="#Azure" class="headerlink" title="Azure"></a>Azure</h3><ul>
+<li>If you use sessions with Azure Service Bus, be sure to assign session identifier to messages before sending them. Service Bus will not complain if session is missing on enqueue, but will make hell for consumers on delivery and practically keep messages in queue and attempt to deliver them, until expired.</li>
+<li>You can use Azure Log Analytics to collect custom virtual machine logs <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-sources-custom-logs" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-sources-custom-logs</a>. In Portal, open your  Log Analytics workspace and go to Advanced Settings-&gt;Data-&gt;Custom Logs. You can also collect Windows Event and IIS Logs, as well as Linux Syslog, in a similar fashion.</li>
+<li>Data sampling, configured in Application Insight&#x2019;s Usage and Estimated Costs, has no effect if you are using ASP.NET core applications without modifying telemetry sampling configuration. Ingested data can significantly increase costs, especially if Azure Functions are used, so use Daily Cap setting to get notified if the amount ingested passes the limit.</li>
+<li>Microsoft Q&amp;A is generally available and should help you find any technical information regarding Azure services <a href="https://docs.microsoft.com/en-us/answers/products/" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/answers/products/</a></li>
+</ul>
+<h3 id="Miscellaneous"><a href="#Miscellaneous" class="headerlink" title="Miscellaneous"></a>Miscellaneous</h3><ul>
+<li>Nice overview of most commonly used open source licenses, with usage restrictions <a href="https://choosealicense.com" target="_blank" rel="noopener">https://choosealicense.com</a></li>
+<li><a href="https://github.com/SteveDunn/PacManBlazor" target="_blank" rel="noopener">Steve Dunn</a> used Blazor to recreate original Pacman <a href="http://pacmanblazor.azurewebsites.net" target="_blank" rel="noopener">http://pacmanblazor.azurewebsites.net</a></li>
+<li>Postman automatically converts POST requests if it receives a 301 redirect status code. In this situation, it drops any request content and issues a GET request to redirecting location without any body data. This can lead to trouble, as user is never notified of such change during request execution. To avoid such issues, better turn off automatic redirects in Postman settings.</li>
+<li>Elasticsearch .NET client version 7.1.0 seems to have issues when running on .NET core 3.0. Updating client to latest version (7.8.0 at the moment of writing) seems to help.</li>
+</ul>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/azure/">#azure</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/net/">#.net</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/csharp/">#csharp</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/docker/">#docker</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/advanced/">#advanced</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/categories/blog/azure-solutions-architect-expert-part-1/">So you want to be an Azure Solutions Architect Expert - Part 1</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://www.uveta.io/categories/blog/ahaaas-july-2020/';
+        this.page.identifier = 'ahaaas-july-2020';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'uveta-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Uroš Miletić&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/uveta/uveta.github.io" target="_blank" rel="noopener">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#3273dc"
+            },
+            "button": {
+                "background": "#fff",
+                "text": "#3273dc"
+            }
+        }
+    });
+</script>
+
+    
+
+
+
+<script src="/js/script.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+    
+</body>
+</html>

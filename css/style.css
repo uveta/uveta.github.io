@@ -301,6 +301,9 @@ code, pre {
   font-size: 0.85rem;
   font-family: "Source Code Pro", monospace, "Microsoft YaHei"; }
 
+code {
+  color: #4078f2; }
+
 figure.highlight {
   padding: 0;
   width: 100%;
