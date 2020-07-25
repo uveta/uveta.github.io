@@ -4,6 +4,7 @@ tags:
   - azure
   - .net
   - csharp
+  - docker
   - advanced
 categories:
   - blog
@@ -12,34 +13,34 @@ disqusId: ahaaas-july-2020
 
 {% asset_img bulb.png Eureka %}
 
-Developer ahaaas
+In fast paced technology world, developers discover new insights practically on a daily level. Surely you have experienced these moments of almost divine wisdom, ending up with _Now I know xyz can do that_ or _I have to be aware of xyz_ or _Eureka!_. I have recorded some of my moments of clarity, or Ahaaas as I call them, hoping that some of them will prove useful to you, whether you'd be dealing with .NET development, Azure or Docker.
 
 <!-- more -->
 
 ### .NET
 
-* How to mock authentication in ASP.NET Core 3.0 integration tests <https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests#mock-authentication>
-* Even though ASP.NET Core configuration entries are case-insensitive, `Microsoft.Extensions.Configuration.ConfigurationBinder.Bind` method is not and property name casing does matter. Prefer using `Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure` extension to bind configuration sections to option types.
+* Mocking authentication in ASP.NET Core 3.0 integration tests <https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests#mock-authentication>
+* Even though ASP.NET Core configuration entry names are case-insensitive, `Microsoft.Extensions.Configuration.ConfigurationBinder.Bind()` method is not and property name casing does matter. Prefer using `Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure()` extension to bind configuration sections to option types.
 * Be careful when using array values in `Microsoft.Extensions.Configuration.IConfiguration` data sources, especially if you consider overriding with environment specific configurations <https://rimdev.io/avoiding-aspnet-core-configuration-pitfalls-with-array-values/>
-* If you cannot rely on your reverse proxy, it is possible to add client and IP rate limiting to ASP.NET Core. Source code and installation instructions available at <https://github.com/stefanprodan/AspNetCoreRateLimit>. But remember that Kestrel should not be used as a public facing web server.
+* If you cannot rely on your reverse proxy, it is possible to add client and IP rate limiting to ASP.NET Core. Source code and installation instructions are available at <https://github.com/stefanprodan/AspNetCoreRateLimit>. Remember, however, that Kestrel should not be used as a public facing web server.
 * Controller input model validation can be automated using `[Microsoft.AspNetCore.Mvc.ApiController]` attribute and annotations from `System.ComponentModel.DataAnnotations` namespace <https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation>
-* When using `[System.Runtime.Serialization.DataMember]` attribute to annotate serialization model properties, do not forget to annotate type with `[System.Runtime.Serialization.DataContract]` attribute. Most of traditional JSON serializers, such as Newtonsoft and Jil, honor them, but expect type to be annotated as well. `System.Text.Json.JsonSerializer` surprisingly does not recognize `[System.Runtime.Serialization]` and has his own set of annotations in `System.Text.Json.Serialization` namespace.
+* When using `[System.Runtime.Serialization.DataMember]` attribute to annotate serialization model properties, do not forget to annotate enclosing type with `[System.Runtime.Serialization.DataContract]` attribute. Most of traditional JSON serializers, such as Newtonsoft and Jil, honor property attributes, but expect type to be annotated as well. `System.Text.Json.JsonSerializer` surprisingly does not utilize `System.Runtime.Serialization` attributes and has his own set of annotations in `System.Text.Json.Serialization` namespace.
 * Cool portability tool from .NET to .NET core comes from, you wouldn’t believe it, AWS team. More details <https://aws.amazon.com/blogs/aws/announcing-the-porting-assistant-for-net/>
 * `System.Net.Mail.SmtpClient` is obsolete for some time, recommended alternative is [MailKit](https://github.com/jstedfast/MailKit)
 * `Microsoft.Extensions.Hosting.IApplicationLifetime` service is obsolete from .Net Core 3.0. If you utilize generic host, use `Microsoft.Extensions.Hosting.IHostApplicationLifetime` instead <https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.iapplicationlifetime>
-* Imagine you have a concrete type implementing two different interfaces. Now imagine you register this service for each interface as a singleton in DI container. When resolving via each interface, you will end up with a different instances, i.e. .NET core DI container will create two type instances instead of sharing single one.
-* If you are looking for Blazor components that you can use for commercial projects, Syncfusion offers a bunch of them via their community license <https://www.syncfusion.com/products/communitylicense>
+* Imagine you have a concrete type implementing two different interfaces. Now imagine you register this type for each interface as a singleton in DI container. When resolving each interface, you will end up with a different instances, i.e. .NET core DI container will create two instances instead of sharing single one.
+* If you are looking for Blazor components that you can use for commercial projects, Syncfusion offers a handful via their community license <https://www.syncfusion.com/products/communitylicense>
 
 ### Azure
 
-* If you use sessions with Azure Service Bus, be sure to assign session identifier to messages before sending them. Service Bus will not complain on enqueue, but will make hell for consumers on delivery and practically keep messages in queue until expired.
-* You can use Azure Log Analytics to collect custom VM logs <https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-sources-custom-logs>. In Portal, open your  Log Analytics workspace and go to Advanced Settings->Data->Custom Logs. You can also collect Windows Event and IIS Logs, as well as Linux Syslog, in a similar fashion.
+* If you use sessions with Azure Service Bus, be sure to assign session identifier to messages before sending them. Service Bus will not complain if session is missing on enqueue, but will make hell for consumers on delivery and practically keep messages in queue and attempt to deliver them, until expired.
+* You can use Azure Log Analytics to collect custom virtual machine logs <https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-sources-custom-logs>. In Portal, open your  Log Analytics workspace and go to Advanced Settings->Data->Custom Logs. You can also collect Windows Event and IIS Logs, as well as Linux Syslog, in a similar fashion.
 * Data sampling, configured in Application Insight's Usage and Estimated Costs, has no effect if you are using ASP.NET core applications without modifying telemetry sampling configuration. Ingested data can significantly increase costs, especially if Azure Functions are used, so use Daily Cap setting to get notified if the amount ingested passes the limit.
 * Microsoft Q&A is generally available and should help you find any technical information regarding Azure services <https://docs.microsoft.com/en-us/answers/products/>
 
 ### Miscellaneous
 
-* Nice overview of most commonly used open source licenses, with usage scenarios and detailed explanation <https://choosealicense.com>
+* Nice overview of most commonly used open source licenses, with usage restrictions <https://choosealicense.com>
 * [Steve Dunn](https://github.com/SteveDunn/PacManBlazor) used Blazor to recreate original Pacman <http://pacmanblazor.azurewebsites.net>
-* Postman automatically converts POST to GET requests if it receives a 301 redirect status code. In this situation, it also drops any request content and issues GET request to redirecting location without any body data. This can lead to trouble, as user is never notified of such change during request execution. To avoid such issues, better turn off automatic redirects in Postman settings.
+* Postman automatically converts POST requests if it receives a 301 redirect status code. In this situation, it drops any request content and issues a GET request to redirecting location without any body data. This can lead to trouble, as user is never notified of such change during request execution. To avoid such issues, better turn off automatic redirects in Postman settings.
 * Elasticsearch .NET client version 7.1.0 seems to have issues when running on .NET core 3.0. Updating client to latest version (7.8.0 at the moment of writing) seems to help.

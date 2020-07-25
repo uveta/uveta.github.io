@@ -15,10 +15,6 @@ disqusId: azure-solution-architect-expert-part-1
 This post is intended for anyone actively trying to, or considering, obtaining Azure Solutions Architect Expert certification. As I have obtained certificate near the end of 2019, I wanted to share relevant information and findings gathered prior to and after taking exams, in order to help future applicants.
 
 <!-- more -->
-This post is part of my Azure Architect certification guide:
-
-* [So you want to be an Azure Solutions Architect Expert - Part 1](/categories/blog/azure-solutions-architect-expert-part-1)
-* [So you want to be an Azure Solutions Architect Expert - Part 2](/categories/blog/azure-solutions-architect-expert-part-2)
 
 _Disclaimer: as AZ-300 and AZ-301 are being replaced with AZ-303 and AZ-304 exams late June 2020, you might find some information provided in this post to be outdated. I will try to take into account all information available for future versions and not go into details about topics that are becoming obsolete._
 
