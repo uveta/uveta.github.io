@@ -27,7 +27,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.uveta.io/categories/blog/ahaaas-july-2020/bulb.png">
 <meta property="article:published_time" content="2020-07-25T17:12:39.000Z">
-<meta property="article:modified_time" content="2020-07-26T13:57:50.403Z">
+<meta property="article:modified_time" content="2020-07-28T18:18:36.318Z">
 <meta property="article:author" content="Uroš Miletić">
 <meta property="article:tag" content="azure">
 <meta property="article:tag" content="advanced">
@@ -199,7 +199,7 @@
         <span class="column is-narrow">
             
             
-            5 minutes read (About 702 words)
+            5 minutes read (About 730 words)
         </span>
         
     </div>
@@ -212,14 +212,14 @@
 
 <h3 id="NET"><a href="#NET" class="headerlink" title=".NET"></a>.NET</h3><ul>
 <li>Mocking authentication in ASP.NET Core 3.0 integration tests <a href="https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests#mock-authentication" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests#mock-authentication</a></li>
-<li>Even though ASP.NET Core configuration entry names are case-insensitive, <code>Microsoft.Extensions.Configuration.ConfigurationBinder.Bind()</code> method is not and property name casing does matter. Prefer using <code>Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure()</code> extension to bind configuration sections to option types.</li>
-<li>Be careful when using array values in <code>Microsoft.Extensions.Configuration.IConfiguration</code> data sources, especially if you consider overriding with environment specific configurations <a href="https://rimdev.io/avoiding-aspnet-core-configuration-pitfalls-with-array-values/" target="_blank" rel="noopener">https://rimdev.io/avoiding-aspnet-core-configuration-pitfalls-with-array-values/</a></li>
+<li>Even though ASP.NET Core <code>IConfiguration</code> entry names are case-insensitive, <code>ConfigurationBinder.Bind()</code> method is not and property name casing does matter. Prefer using <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.optionsconfigurationservicecollectionextensions.configure" target="_blank" rel="noopener">Configure()</a> options extension method to bind configuration sections to option types.</li>
+<li>Be careful when using array values in <code>IConfiguration</code> data sources, especially if you consider overriding with environment specific configurations <a href="https://rimdev.io/avoiding-aspnet-core-configuration-pitfalls-with-array-values/" target="_blank" rel="noopener">https://rimdev.io/avoiding-aspnet-core-configuration-pitfalls-with-array-values/</a></li>
 <li>If you cannot rely on your reverse proxy, it is possible to add client and IP rate limiting to ASP.NET Core. Source code and installation instructions are available at <a href="https://github.com/stefanprodan/AspNetCoreRateLimit" target="_blank" rel="noopener">https://github.com/stefanprodan/AspNetCoreRateLimit</a>. Remember, however, that Kestrel should not be used as a public facing web server.</li>
-<li>Controller input model validation can be automated using <code>[Microsoft.AspNetCore.Mvc.ApiController]</code> attribute and annotations from <code>System.ComponentModel.DataAnnotations</code> namespace <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation</a></li>
-<li>When using <code>[System.Runtime.Serialization.DataMember]</code> attribute to annotate serialization model properties, do not forget to annotate enclosing type with <code>[System.Runtime.Serialization.DataContract]</code> attribute. Most of traditional JSON serializers, such as Newtonsoft and Jil, honor property attributes, but expect type to be annotated as well. <code>System.Text.Json.JsonSerializer</code> surprisingly does not utilize <code>System.Runtime.Serialization</code> attributes and has his own set of annotations in <code>System.Text.Json.Serialization</code> namespace.</li>
+<li>Controller input model validation can be automated using <code>[ApiController]</code> attribute and annotations from <code>DataAnnotations</code> namespace <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation</a></li>
+<li>When using <code>[DataMember]</code> attribute to annotate serialization model properties, do not forget to add <code>[DataContract]</code> to  enclosing type as well. Most of traditional JSON serializers, such as Newtonsoft and Jil, honor property attributes, but expect type to be annotated as well. <code>System.Text.Json.JsonSerializer</code> surprisingly does not utilize attributes from <code>System.Runtime.Serialization</code> namespace and uses its own <a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to#customize-individual-property-names" target="_blank" rel="noopener">annotations</a></li>
 <li>Cool portability tool from .NET to .NET core comes from, you wouldn&#x2019;t believe it, AWS team. More details <a href="https://aws.amazon.com/blogs/aws/announcing-the-porting-assistant-for-net/" target="_blank" rel="noopener">https://aws.amazon.com/blogs/aws/announcing-the-porting-assistant-for-net/</a></li>
-<li><code>System.Net.Mail.SmtpClient</code> is obsolete for some time, recommended alternative is <a href="https://github.com/jstedfast/MailKit" target="_blank" rel="noopener">MailKit</a></li>
-<li><code>Microsoft.Extensions.Hosting.IApplicationLifetime</code> service is obsolete from .Net Core 3.0. If you utilize generic host, use <code>Microsoft.Extensions.Hosting.IHostApplicationLifetime</code> instead <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.iapplicationlifetime" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.iapplicationlifetime</a></li>
+<li><code>System.Net.Mail.SmtpClient</code> is obsolete for some time; recommended alternative is <a href="https://github.com/jstedfast/MailKit" target="_blank" rel="noopener">MailKit</a></li>
+<li><code>IApplicationLifetime</code> service is obsolete from .Net Core 3.0. If you utilize generic host, use <code>IHostApplicationLifetime</code> instead <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.iapplicationlifetime" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.iapplicationlifetime</a></li>
 <li>Imagine you have a concrete type implementing two different interfaces. Now imagine you register this type for each interface as a singleton in DI container. When resolving each interface, you will end up with a different instances, i.e. .NET core DI container will create two instances instead of sharing single one.</li>
 <li>If you are looking for Blazor components that you can use for commercial projects, Syncfusion offers a handful via their community license <a href="https://www.syncfusion.com/products/communitylicense" target="_blank" rel="noopener">https://www.syncfusion.com/products/communitylicense</a></li>
 </ul>
@@ -231,7 +231,7 @@
 </ul>
 <h3 id="Miscellaneous"><a href="#Miscellaneous" class="headerlink" title="Miscellaneous"></a>Miscellaneous</h3><ul>
 <li>Nice overview of most commonly used open source licenses, with usage restrictions <a href="https://choosealicense.com" target="_blank" rel="noopener">https://choosealicense.com</a></li>
-<li><a href="https://github.com/SteveDunn/PacManBlazor" target="_blank" rel="noopener">Steve Dunn</a> used Blazor to recreate original Pacman <a href="http://pacmanblazor.azurewebsites.net" target="_blank" rel="noopener">http://pacmanblazor.azurewebsites.net</a></li>
+<li>Steve Dunn used Blazor to recreate original Pacman <a href="http://pacmanblazor.azurewebsites.net" target="_blank" rel="noopener">http://pacmanblazor.azurewebsites.net</a>. With a little bit of JS interop, he was able to demonstrate potential of client-side Blazor running on WebAssembly. Source code can be found on <a href="https://github.com/SteveDunn/PacManBlazor" target="_blank" rel="noopener">Github</a></li>
 <li>Postman automatically converts POST requests if it receives a 301 redirect status code. In this situation, it drops any request content and issues a GET request to redirecting location without any body data. This can lead to trouble, as user is never notified of such change during request execution. To avoid such issues, better turn off automatic redirects in Postman settings.</li>
 <li>Elasticsearch .NET client version 7.1.0 seems to have issues when running on .NET core 3.0. Updating client to latest version (7.8.0 at the moment of writing) seems to help.</li>
 </ul>
