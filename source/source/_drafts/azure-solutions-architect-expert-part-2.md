@@ -49,12 +49,13 @@ Understanding how Azure datacenters are organized on a global scale is imperativ
 Besides knowing how outage in any part of Azure infrastructure could affect you, it is vital to understand where each type of resources is deployed. While most of them are being deployed to specific regions, some of them, e.g. Traffic Manager, are non-regional and are deployed globally. Also, get to know which services allow distribution into availability zones, in order to handle datacenter outages.
 	
 ### Reliability
-backup and recovery
-	Azure Site Recovery
-	Azure Backup
-	archive
 
-When it comes to designing backup and recovery, it is imperative to fulfill target Recovery Time Objectives (RTO) and Recovery Point Objectives (RPO). Simply put, they both impose requirements on how your system should behave in case of an outage. While RTO determines maximum amount of time an outage is allowed to last, RPO specifies permitted quantity of lost data during recovery. For critical systems components these values would normally be expressed in seconds, while rarely used or obsolete parts could afford even daily outages. Values imposed by business requirements have great impact not only during designing recovery, but also when it comes to cost optimization, which I will cover in one of the following chapters.
+When designing backup and recovery solution, it is imperative to take into account target Recovery Time Objectives (RTO) and Recovery Point Objectives (RPO). Simply put, they both impose requirements on how your system should behave in case of an outage. While RTO determines maximum period of time an outage is allowed to last, RPO specifies permitted amount of data loss during recovery. For critical system components these values would normally be expressed in seconds, while rarely used or obsolete parts could afford even daily outages. Values imposed by these requirements have great impact not only during recovery design, but also when it comes to cost optimization, which I will cover in one of the following chapters.
+
+To successfully conquer this part of the exam, deeper understanding of two services is required:
+
+* Azure Backup. As the name implies, the service is used for managing backups of other services, be it Azure VM disks, on-premise file systems or SQL servers running on Azure VMs. Although you should be familiar with configuring and deploying it from technologies exam, understanding costs and data retention will be required on design exam.
+* Azure Site Recovery. This one is a complex hydra, since it can span multiple Azure regions and even handle on-premise systems connected via VPN. It heavily relies on Backup service and removes the need for manual intervention in case of a failure. I recommend spending some time trying out Site Recovery in Azure Portal, if you have a chance. How to identify failure (both infrastructure and application), how to recover to a secondary deployment (both Azure and on-premise) and how to minimize amount of lost data and downtime (RPO and RTO) are just some of the areas you will need to be proficient in. Luckily, Site Recovery allows recovery testing, which can help getting a good grip on what can happen in case of a system failure.
 
 ### Scalability
 choosing appropriate service tier
@@ -98,6 +99,9 @@ Similar skills to ones required in technical exam are required, as choosing appr
 
 external
 public API - gateway architecture, management, keys
+
+### Archive
+Storing not-frequently accessed data for auditing and compliance purposes is a necessity by today's standards. Almost all Azure storage services include an archive tier, so you should be covered whether you are using Storage Accounts, Data Lake or Azure Backup, just to name a few. You would still need to know how to calculate the costs of archiving data, as well as special conditions for storing and accessing it.
 
 ## Conclusion
 
