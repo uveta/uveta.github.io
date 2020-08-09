@@ -35,9 +35,10 @@ Question formats do not diverge much from the ones mentioned in [previous post](
 
 ### Where to find study materials
 
-The same can be said for study materials. Microsoft documentation and video courses I previously suggested offer more than enough information needed to pass design exam as well. Special significance should be paid to [Azure architecture section](https://docs.microsoft.com/en-us/azure/architecture/), containing reference architectures used for different types of deployments. I suggest studying most commonly used ones and how their individual pieces fit together to achieve desired system requirements.
+The same can be said for study materials. Microsoft documentation and video courses I previously suggested offer more than enough information needed to pass design exam as well. Special significance should be paid to [Azure architecture section](https://docs.microsoft.com/en-us/azure/architecture/), containing reference architectures for different types of deployments. I suggest studying most commonly used ones and how their individual pieces fit together to achieve desired system requirements.
 
 ### Availability
+
 Understanding how Azure datacenters are organized on a global scale is imperative when planning for availability of your deployment. Although Microsoft offers generous SLA for all of its services, outages happen, and careful planning can help you mitigate such interruptions. Most important topics that are covered by design exam include:
 
 * Datacenter. Basic building block of Azure, consisting of physical devices, storage, power and network connections.
@@ -46,8 +47,8 @@ Understanding how Azure datacenters are organized on a global scale is imperativ
 * Regional pair. Each Azure region is paired with another one, with prescribed minimum distance between them. On one hand, it helps in case of regional outages, due to natural disasters or any similar impediments. Any service update is rolled to one region per pair at a time. Also, in case of global Azure outage, Microsoft will prioritize restoring only one region per pair.
 * Geography. Regions belonging to the same country are organized into geographies. Any regional pair is usually a part of the same geography, ensuring compliance with local laws. Exceptions do exists, especially for new geographies where usually only one region is deployed.
 
-Besides knowing how outage in any part of Azure infrastructure could affect you, it is vital to understand where each type of resources is deployed. While most of them are being deployed to specific regions, some of them, e.g. Traffic Manager, are non-regional and are deployed globally. Also, get to know which services allow distribution into availability zones, in order to handle datacenter outages.
-	
+Besides knowing how outage in any part of Azure infrastructure could affect you, it is vital to understand where each type of resources is deployed. While most of them are being deployed to specific regions, some of them, e.g. Traffic Manager, are non-regional and are deployed globally. You also need to know which services allow distribution into availability zones, in order to handle datacenter outages.
+
 ### Reliability
 
 When designing backup and recovery solution, it is imperative to take into account target Recovery Time Objectives (RTO) and Recovery Point Objectives (RPO). Simply put, they both impose requirements on how your system should behave in case of an outage. While RTO determines maximum period of time an outage is allowed to last, RPO specifies permitted amount of data loss during recovery. For critical system components these values would normally be expressed in seconds, while rarely used or obsolete parts could afford even daily outages. Values imposed by these requirements have great impact not only during recovery design, but also when it comes to cost optimization, which I will cover in one of the following chapters.
@@ -58,12 +59,13 @@ To successfully conquer this part of the exam, deeper understanding of two servi
 * Azure Site Recovery. This one is a complex hydra, since it can span multiple Azure regions and even handle on-premise systems connected via VPN. It heavily relies on Backup service and removes the need for manual intervention in case of a failure. I recommend spending some time trying out Site Recovery in Azure Portal, if you have a chance. How to identify failure (both infrastructure and application), how to recover to a secondary deployment (both Azure and on-premise) and how to minimize amount of lost data and downtime (RPO and RTO) are just some of the areas you will need to be proficient in. Luckily, Site Recovery allows recovery testing, which can help getting a good grip on what can happen in case of a system failure.
 
 ### Scalability
-choosing appropriate service tier
-	database
-	compute
-auto-scaling
+
+Most compute and database resources offered by Azure support scaling out of the box. The trick is knowing which service tier you have to use for specific resource type, as well how to effectively configure scaling to support increase of demand. Whether you are using VM scale sets or App Service, knowing how to configure auto-scaling rules and based on what conditions can scaling be initiated is a must. Even services such as Function App, which inherently handle scaling, support further adjusting it, which can be used to control burst of work and better handle costs of potentially unlimited compute resources.
+
+All three previously mentioned areas (availability, reliability and scalability) represent pillars of any highly available and resilient deployment. I would once again emphasize the importance of [Azure architecture documentation](https://docs.microsoft.com/en-us/azure/architecture/), which is an endless well from where you can pull out reference architectures and analyze how to build systems for specific set of requirements.
 
 ### Security
+
 user management and authentication
 	access, SSO, MFA
 	hybrid identity (Azure AD Connect and Azure AD Connect Health)
@@ -76,32 +78,34 @@ data protection
 	encryption at rest, in transit, in use
 
 ### Governance, auditing, compliance
+
 tagging
 Azure Policy
 Azure Blueprint
 
 ### Cost optimization
+
 RTO RLO
 
 ### Miscellaneous
 
-I will briefly cover topics not as extensive, as previously mentioned ones. You will, however, be expected to know them.
+I will briefly cover topics not as extensive as previously mentioned ones. You will, however, be expected to know them.
 
 #### Networking
 
 Since virtual networks are ties that bind all other Azure resources, knowing how to design and utilize them is something that can not be overlooked. As they fall within the competence of Microsoft, you will have little influence over their operation and reliability. However, architects responsibility lay in other areas. Modeling addressing strategy for networks and sub-networks, connecting virtual networks and on-premise systems, directing network flow via routing and load balancer, as well as establishing security boundaries and rules are just some of the skills that will be expected of you on design exam.
-	
+
 #### Compute
 
 Similar skills to ones required in technical exam are required, as choosing appropriate compute solution is still the main focus. There will however be additional requirements, requiring deeper knowledge of pricing tiers and respective offerings, total resource costs as well as scaling capabilities. Resource types covered by design exam are virtual machines, virtual machine scale sets, App Services, Service Fabric, Azure Functions and current container deployment offerings. Regarding last one, make sure you understand differences between Azure Kubernetes Service and Azure Container Instances.
-	
+
 #### Integration
 
 external
 public API - gateway architecture, management, keys
 
-### Archive
+### Archiving and data retention
+
 Storing not-frequently accessed data for auditing and compliance purposes is a necessity by today's standards. Almost all Azure storage services include an archive tier, so you should be covered whether you are using Storage Accounts, Data Lake or Azure Backup, just to name a few. You would still need to know how to calculate the costs of archiving data, as well as special conditions for storing and accessing it.
 
 ## Conclusion
-
