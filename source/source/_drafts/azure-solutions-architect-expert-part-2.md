@@ -62,20 +62,14 @@ To successfully conquer this part of the exam, deeper understanding of two servi
 
 Most compute and database resources offered by Azure support scaling out of the box. The trick is knowing which service tier you have to use for specific resource type, as well how to effectively configure scaling to support increase of demand. Whether you are using VM scale sets or App Service, knowing how to configure auto-scaling rules and based on what conditions can scaling be initiated is a must. Even services such as Function App, which inherently handle scaling, support further adjusting it, which can be used to control burst of work and better handle costs of potentially unlimited compute resources.
 
-All three previously mentioned areas (availability, reliability and scalability) represent pillars of any highly available and resilient deployment. I would once again emphasize the importance of [Azure architecture documentation](https://docs.microsoft.com/en-us/azure/architecture/), which is an endless well from where you can pull out reference architectures and analyze how to build systems for specific set of requirements.
+All previously mentioned areas (availability, reliability and scalability) represent pillars of any highly available and resilient deployment. I would once again emphasize the importance of [Azure architecture documentation](https://docs.microsoft.com/en-us/azure/architecture/), which is an endless well from where you can pull out reference architectures and analyze how to build systems fulfilling specific set of requirements.
 
 ### Security
 
-user management and authentication
-	access, SSO, MFA
-	hybrid identity (Azure AD Connect and Azure AD Connect Health)
-	self-service
-	B2B
-	PIM, RBAC, Identity Protection, JIT
-application security and authentication
-	Key Vault, Managed Identity
-data protection
-	encryption at rest, in transit, in use
+As with any cloud environment, security is involved in almost all of Azure's components and processes. For the purpose of design exam, I would divide security topics into following:
+* User management, authentication and authorization. Beside knowing how to work with Azure AD and role-based access control (RBAC), which were covered in technologies exam, you will be expected to handle more advanced scenarios and options offered by Azure AD. Configuring single-sign on (SSO), multi-factor authentication (MFA) and dealing with hybrid identity using Azure AD Connect are just some of the examples. As you are expected to handle big enterprises, automating and auditing certain tasks will be a necessity. Hence premium AD options such as Privileged Identity Management (PIM), self-service management, Identity Protection and Just In Time (JIT) VM access should not flow under your radar.
+* Application security. Securing our compute resources comes in two flavours: handling service access to different Azure resources and protecting application settings. While Managed Identity can handle service authentication, using service principals and RBAC, Azure Key Vault is usually used for storing sensitive application configurations and certificates.
+* Data protection. As our systems will deal with user data, it is imperative for all of its components to safeguard it. By designing a system that encrypts data at rest, in transit and while in use we can minimize the possibility and impact of data exposure. Knowing how different resources, based on their purpose, handle each part of data flow is a key to conquering these problems.
 
 ### Governance, auditing, compliance
 
