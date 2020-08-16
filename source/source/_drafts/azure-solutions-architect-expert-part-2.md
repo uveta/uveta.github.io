@@ -79,7 +79,9 @@ Azure Blueprint
 
 ### Cost optimization
 
-RTO RLO
+First step into providing good cost optimization is knowing when and how are you charged for using Azure resources. Although some costs are fixed, e.g each GB stored, VM reserved, certificate purchased and public IP address assigned, others are charged per usage unit, such as FunctionApp and Container Instances execution time, ingress/egress data per GB and Cosmos DB request units, just to name a few. Different service tiers can also drastically affect costs of entire deployment, due to extended features offered and more strict SLAs. No one will expect of you to provide exact price of deployment, but knowing how to reduce costs, while still adhering to requirements imposed, will be vital. 
+
+In case of designing for reliability, you will mostly be faced with task of minimizing deployment cost, while maintaining specific RTO and RLO values. Knowing how each storage resource (Cosmos DB, blob and file storage) and recovery service (Site Recovery and Backup) handles these parameters is a skill you will have to master.
 
 ### Miscellaneous
 
