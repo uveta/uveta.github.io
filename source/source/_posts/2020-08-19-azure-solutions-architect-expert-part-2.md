@@ -4,11 +4,12 @@ tags:
   - azure
   - certification
   - advanced
-date: 2020-08-19 17:48:14
 categories:
   - blog
 disqusId: azure-solution-architect-expert-part-2
+date: 2020-08-19 17:48:14
 ---
+
 
 {% asset_img architect-badge.jpg Goal!!! %}
 
