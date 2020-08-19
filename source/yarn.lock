@@ -1036,6 +1036,11 @@ hexo-deployer-git@^2.1.0:
     moment "^2.18.0"
     swig-templates "^2.0.2"
 
+hexo-feed@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/hexo-feed/-/hexo-feed-1.0.2.tgz#0da1d20b4d5cc35122e88af3a3d57ec4ddb75870"
+  integrity sha512-qOmk+CJPOAGnI73l5pqFVUdslmiEpGkNT4J3fAasAio11zx4Ot9MFVCay/v5bYHqfcX7IitYrP0pUPHcslC+Zg==
+
 hexo-filter-emoji@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/hexo-filter-emoji/-/hexo-filter-emoji-2.2.1.tgz#19d46307293744177a2e125492e6c146bd2fa794"

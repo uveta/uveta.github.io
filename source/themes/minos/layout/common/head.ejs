@@ -36,6 +36,10 @@ if (languages.length > 1) {
 <link rel="alternative" href="<%- get_config('rss') %>" title="<%= get_config('title') %>" type="application/atom+xml">
 <% } %>
 
+<link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%= full_url_for(`/rss.xml`) %>" />
+<link rel="alternate" type="application/atom+xml" title="<%= config.title %>" href="<%= full_url_for(`/atom.xml`) %>" />
+<link rel="alternate" type="application/json" title="<%= config.title %>" href="<%= full_url_for(`/feed.json`) %>" />
+
 <% if (has_config('favicon')) { %>
 <link rel="icon" href="<%- get_config('favicon') %>">
 <% } %>
