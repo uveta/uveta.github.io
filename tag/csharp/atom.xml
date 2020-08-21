@@ -5,11 +5,11 @@
     <link href="https://www.uveta.io" />
     <updated>2020-07-25T17:12:39.000Z</updated>
     <category term="azure" />
+    <category term="certification" />
+    <category term="advanced" />
     <category term=".net" />
     <category term="csharp" />
     <category term="docker" />
-    <category term="advanced" />
-    <category term="certification" />
     <entry>
         <id>https://www.uveta.io/categories/blog/ahaaas-july-2020/</id>
         <title>Ahaaas - July 2020</title>
@@ -46,10 +46,10 @@
 &lt;/ul&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="azure" />
+        <category term="advanced" />
         <category term=".net" />
         <category term="csharp" />
         <category term="docker" />
-        <category term="advanced" />
         <updated>2020-07-25T17:12:39.000Z</updated>
     </entry>
 </feed>
