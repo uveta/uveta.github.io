@@ -1,20 +1,29 @@
 <?xml version="1.0"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://www.uveta.io</id>
-    <title>Uveta&#39;s blog • Posts by &#34;csharp&#34; tag</title>
-    <link href="https://www.uveta.io" />
-    <updated>2020-09-05T07:32:56.000Z</updated>
-    <category term="azure" />
-    <category term="certification" />
-    <category term="advanced" />
-    <category term=".net" />
-    <category term="csharp" />
-    <category term="containers" />
-    <entry>
-        <id>https://www.uveta.io/categories/blog/ahaaas-august-2020/</id>
-        <title>Ahaaas - August 2020</title>
-        <link rel="alternate" href="https://www.uveta.io/categories/blog/ahaaas-august-2020/"/>
-        <content type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/ahaaas-august-2020/cartoon-1294877.png&#34; class title=&#34;Eureka&#34;&gt;
+<rss version="2.0">
+    <channel>
+        <title>Uveta&#39;s blog • Posts by &#34;containers&#34; tag</title>
+        <link>https://www.uveta.io</link>
+        <description>Uveta&#39;s blog about all things Azure</description>
+        <language>en,default</language>
+        <pubDate>Sat, 05 Sep 2020 09:32:56 +0200</pubDate>
+        <lastBuildDate>Sat, 05 Sep 2020 09:32:56 +0200</lastBuildDate>
+        <category>azure</category>
+        <category>certification</category>
+        <category>advanced</category>
+        <category>.net</category>
+        <category>csharp</category>
+        <category>containers</category>
+        <item>
+            <guid isPermalink="true">https://www.uveta.io/categories/blog/ahaaas-august-2020/</guid>
+            <title>Ahaaas - August 2020</title>
+            <link>https://www.uveta.io/categories/blog/ahaaas-august-2020/</link>
+            <category>azure</category>
+            <category>advanced</category>
+            <category>.net</category>
+            <category>csharp</category>
+            <category>containers</category>
+            <pubDate>Sat, 05 Sep 2020 09:32:56 +0200</pubDate>
+            <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/ahaaas-august-2020/cartoon-1294877.png&#34; class title=&#34;Eureka&#34;&gt;
 
 &lt;p&gt;New month, new experiences from my life as a developer. Please enjoy collection of my moments of clarity, that come after solving previously unencountered problems. Or as I like to call them - Ahaaas!&lt;/p&gt;
 &lt;a id=&#34;more&#34;&gt;&lt;/a&gt;
@@ -73,19 +82,19 @@
 &lt;li&gt;&lt;p&gt;GitHub is launching its own &lt;a href=&#34;https://github.blog/2020-09-01-introducing-github-container-registry/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Container Registry&lt;/a&gt;! At the moment, they are just missing their own Kubernetes offering to close development and deployment circle.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;/body&gt;&lt;/html&gt;</content>
-        <category term="azure" />
-        <category term="advanced" />
-        <category term=".net" />
-        <category term="csharp" />
-        <category term="containers" />
-        <updated>2020-09-05T07:32:56.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://www.uveta.io/categories/blog/ahaaas-july-2020/</id>
-        <title>Ahaaas! - July 2020</title>
-        <link rel="alternate" href="https://www.uveta.io/categories/blog/ahaaas-july-2020/"/>
-        <content type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/ahaaas-july-2020/bulb.png&#34; class title=&#34;Eureka&#34;&gt;
+&lt;/body&gt;&lt;/html&gt; ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://www.uveta.io/categories/blog/ahaaas-july-2020/</guid>
+            <title>Ahaaas! - July 2020</title>
+            <link>https://www.uveta.io/categories/blog/ahaaas-july-2020/</link>
+            <category>azure</category>
+            <category>advanced</category>
+            <category>.net</category>
+            <category>csharp</category>
+            <category>containers</category>
+            <pubDate>Sat, 25 Jul 2020 19:12:39 +0200</pubDate>
+            <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/ahaaas-july-2020/bulb.png&#34; class title=&#34;Eureka&#34;&gt;
 
 &lt;p&gt;In fast paced technology world, developers discover new insights practically on a daily level. Surely you have experienced these moments of almost divine wisdom, ending with &amp;#x201C;Now I know xyz can do that&amp;#x201D; or &amp;#x201C;I have to be aware of xyz&amp;#x201D; or &amp;#x201C;Eureka!&amp;#x201D;. I have recorded my moments of clarity, or Ahaaas as I call them, hoping that some of them will prove useful to you, whether you&amp;#x2019;d be dealing with .NET development, Azure or Docker.&lt;/p&gt;
 &lt;a id=&#34;more&#34;&gt;&lt;/a&gt;
@@ -115,12 +124,7 @@
 &lt;li&gt;Postman automatically converts POST requests if it receives a 301 redirect status code. In this situation, it drops any request content and issues a GET request to redirecting location without any body data. This can lead to trouble, as user is never notified of such change during request execution. To avoid such issues, better turn off automatic redirects in Postman settings.&lt;/li&gt;
 &lt;li&gt;Elasticsearch .NET client version 7.1.0 seems to have issues when running on .NET core 3.0. Updating client to latest version (7.8.0 at the moment of writing) seems to help.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/body&gt;&lt;/html&gt;</content>
-        <category term="azure" />
-        <category term="advanced" />
-        <category term=".net" />
-        <category term="csharp" />
-        <category term="containers" />
-        <updated>2020-07-25T17:12:39.000Z</updated>
-    </entry>
-</feed>
+&lt;/body&gt;&lt;/html&gt; ]]></description>
+        </item>
+    </channel>
+</rss>
