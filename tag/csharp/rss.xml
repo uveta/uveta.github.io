@@ -8,24 +8,24 @@
         <pubDate>Sat, 05 Sep 2020 09:32:56 +0200</pubDate>
         <lastBuildDate>Sat, 05 Sep 2020 09:32:56 +0200</lastBuildDate>
         <category>azure</category>
+        <category>certification</category>
+        <category>advanced</category>
         <category>.net</category>
         <category>csharp</category>
         <category>containers</category>
-        <category>advanced</category>
-        <category>certification</category>
         <item>
             <guid isPermalink="true">https://www.uveta.io/categories/blog/ahaaas-august-2020/</guid>
             <title>Ahaaas! - August 2020</title>
             <link>https://www.uveta.io/categories/blog/ahaaas-august-2020/</link>
             <category>azure</category>
+            <category>advanced</category>
             <category>.net</category>
             <category>csharp</category>
             <category>containers</category>
-            <category>advanced</category>
             <pubDate>Sat, 05 Sep 2020 09:32:56 +0200</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/ahaaas-august-2020/cartoon-1294877.png&#34; class title=&#34;Eureka&#34;&gt;
 
-&lt;p&gt;New month, new exciting moments from my life as a developer. I hope you will enjoy reading about these flashes of clarity, that come sudenly after solving previously unencountered problems. Or as I like to call them - Ahaaas!&lt;/p&gt;
+&lt;p&gt;New month, new exciting moments from my life as a developer. I hope you will enjoy reading about these flashes of clarity, that come suddenly after solving unfamiliar problems. Or as I like to call them - Ahaaas!&lt;/p&gt;
 &lt;a id=&#34;more&#34;&gt;&lt;/a&gt;
 
 &lt;h3 id=&#34;NET&#34;&gt;&lt;a href=&#34;#NET&#34; class=&#34;headerlink&#34; title=&#34;.NET&#34;&gt;&lt;/a&gt;.NET&lt;/h3&gt;&lt;ul&gt;
@@ -89,10 +89,10 @@
             <title>Ahaaas! - July 2020</title>
             <link>https://www.uveta.io/categories/blog/ahaaas-july-2020/</link>
             <category>azure</category>
+            <category>advanced</category>
             <category>.net</category>
             <category>csharp</category>
             <category>containers</category>
-            <category>advanced</category>
             <pubDate>Sat, 25 Jul 2020 19:12:39 +0200</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/ahaaas-july-2020/bulb.png&#34; class title=&#34;Eureka&#34;&gt;
 

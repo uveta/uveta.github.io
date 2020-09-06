@@ -5,18 +5,18 @@
     <link href="https://www.uveta.io" />
     <updated>2020-09-05T07:32:56.000Z</updated>
     <category term="azure" />
+    <category term="certification" />
+    <category term="advanced" />
     <category term=".net" />
     <category term="csharp" />
     <category term="containers" />
-    <category term="advanced" />
-    <category term="certification" />
     <entry>
         <id>https://www.uveta.io/categories/blog/ahaaas-august-2020/</id>
         <title>Ahaaas! - August 2020</title>
         <link rel="alternate" href="https://www.uveta.io/categories/blog/ahaaas-august-2020/"/>
         <content type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/ahaaas-august-2020/cartoon-1294877.png&#34; class title=&#34;Eureka&#34;&gt;
 
-&lt;p&gt;New month, new exciting moments from my life as a developer. I hope you will enjoy reading about these flashes of clarity, that come sudenly after solving previously unencountered problems. Or as I like to call them - Ahaaas!&lt;/p&gt;
+&lt;p&gt;New month, new exciting moments from my life as a developer. I hope you will enjoy reading about these flashes of clarity, that come suddenly after solving unfamiliar problems. Or as I like to call them - Ahaaas!&lt;/p&gt;
 &lt;a id=&#34;more&#34;&gt;&lt;/a&gt;
 
 &lt;h3 id=&#34;NET&#34;&gt;&lt;a href=&#34;#NET&#34; class=&#34;headerlink&#34; title=&#34;.NET&#34;&gt;&lt;/a&gt;.NET&lt;/h3&gt;&lt;ul&gt;
@@ -75,10 +75,10 @@
 &lt;/ul&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="azure" />
+        <category term="advanced" />
         <category term=".net" />
         <category term="csharp" />
         <category term="containers" />
-        <category term="advanced" />
         <updated>2020-09-05T07:32:56.000Z</updated>
     </entry>
     <entry>
@@ -117,10 +117,10 @@
 &lt;/ul&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="azure" />
+        <category term="advanced" />
         <category term=".net" />
         <category term="csharp" />
         <category term="containers" />
-        <category term="advanced" />
         <updated>2020-07-25T17:12:39.000Z</updated>
     </entry>
 </feed>
