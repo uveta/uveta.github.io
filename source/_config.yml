@@ -6,7 +6,7 @@
 title: Uveta's blog
 subtitle: ''
 description: Uveta's blog about all things Azure
-keywords: azure, cloud, microsoft, .net, C#, elasticsearch, software, development
+keywords: azure, cloud, microsoft, .net, dotnet, dotnetcore, aspnetcore, csharp, C#, elasticsearch, software, development, containers, docker, kubernetes
 author: Uroš Miletić
 language: ['en']
 timezone: 'Europe/Prague'
