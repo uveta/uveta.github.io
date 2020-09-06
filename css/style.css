@@ -431,6 +431,9 @@ figure.highlight {
     height: 100%;
     position: absolute; }
 
+.border-0 {
+  border: 0; }
+
 .ins-section-container {
   position: relative;
   background: #f7f7f7; }
