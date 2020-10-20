@@ -24,12 +24,31 @@ Although they are still available as part of Web Apps (check [Web Jobs](https://
 
 As we established in the previous section, Azure WebJobs SDK is an essential piece of Function Apps. It is responsible for running custom application and provides bindings to external resources. Another part is, for completeness' sake, the custom application itself, responsible for whatever purpose user sees it fit. But we mustn't forget about another, equally important component. The glue that ties it all together, the [Azure Functions Host](https://github.com/Azure/azure-functions-host).
 
-## Function Host
+### Functions Host
 
-Function Host is, in its core, a lightweight ASP.NET Core application running on top of Azure WebJobs SDK. It serves as a connector between custom application, executed by a trigger, all _function.json_ files, containing individual functions metadata, and single _host.json_ file, containing host configuration including logging, specific trigger options and various extension settings, common for all functions that are part of a single Function App.
+Functions Host is, in its core, a lightweight ASP.NET Core application running on top of Azure WebJobs SDK. It serves as a connector between custom application, executed by a trigger, all _function.json_ files, containing individual functions metadata, and single _host.json_ file, containing host configuration including logging, specific trigger options and various extension settings, common for all functions that are part of a single Function App.
 
-Even though custom application is discovered and managed by Function Host, it is executed via WebJobs SDK. Function scaling, based on number of input triggers fired, is not handled by Host as well. This responsibility lies outside of host instances and is managed by an independent component - Scale Controller.
+Custom application itself is discovered and managed by Function Host, and executed via WebJobs SDK. Scaling, however, lies outside of responsibilities of Host instances. It is managed by an independent component - Scale Controller.
 
+### Scale Controller
+
+Just as Functions Host is responsible for handling and running individual functions, Scale Controller also plays a managerial role, but for Host instances themselves. It is in charge of creating and destroying individual Hosts, depending on the current workload. Scaling decisions are made based on metrics coming from resources used as input triggers. Scale Controller is responsible for consuming these metrics and work out optimal number of Host instances. 
+
+As an example, let us have a function triggering of an Azure Service Bus. Scale Controller would have to monitor current number of active messages, as well as maximum message throughput obtained from configuration. In case active message count starts rapidly rising, it will spin up new instances to handle increased load. As number decreases, so will Scale Controller start destroying inactive instances.
+
+## Deployment and Hosting
+
+I have already mentioned that Function Apps support plethora of programming languages and scripts, e.g .NET, Java, JavaScript, Powershell and Bash, just to name a few. Heck, even containers could be involved, as Docker images can be hosted in Function Apps as well. 
+
+On the other hand, multiple hosting scenarios are possible: consumption, running functions only when required; dedicated, that uses existing App Service Plans to run functions beside existing App Services; and finally premium, using dedicated elastic App Service Plans to offer unparalleled performance, response time and scaling capabilities. Each of them has its strengths and weaknesses, and I encourage you to go through official documentation before deciding to use functions.
+
+Overabundance of supported application and hosting models sadly has its negative sides - not all combinations are supported and not all of them operate effectively together. When other factors are taken into account, such as in-process and out-of process hosting, supported runtimes and operating systems, as well as minimum performance requirements, available options can seriously get limited. I would recommend reading comparison of [Azure Functions hosting plans](https://docs.microsoft.com/en-us/azure/azure-functions/functions-scale) before getting seriously involved. The article also contains well-organized support tables for each of hosting options.
+
+
+
+## Tips and trick
+
+I could have named this section Azure Functions Best Practices, but Microsoft already [beat me to it](https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices). Instead of repeating the same points, I wanted to focus on additional points that I became aware through my experience working with functions. Information following will not only help you better understand what and what can't functions be used for, but also how to use them more efficiently and what to do in case you encounter or suspect any issues.
 
 
 built on top of Azure WebJobs SDK - but doesnt require Azure https://github.com/Azure/azure-functions-host
