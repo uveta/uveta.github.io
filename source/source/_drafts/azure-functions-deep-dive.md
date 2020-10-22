@@ -18,7 +18,7 @@ Ever wondered what happens under the hood of Azure Functions? How can your serve
 
 In 2014 (ancient history!) Microsoft introduced WebJobs. As a part of their Azure Web Sites PAAS offering (later re-branded as Azure Web Apps), it allowed uses to run arbitrary application in Azure, be it a Windows executable, Powershell, bash script, or code written in .NET, Java, PHP, Python or JavaScript. Not only that, but it had built-in input and output bindings for various Azure resources, such as blob storage, queue or Service Bus. From the get-go, you could trigger your WebJob from all of these resources, and write to them, without having to handle communication yourself. Later extensions allowed jobs to be triggered by CRON timer and HTTP request. Sounds familiar? This is how Azure WebJobs SDK came to be, which later served as platform on which Azure Functions are based on.
 
-Although they are still available as part of Web Apps (check [Web Jobs](https://docs.microsoft.com/en-us/azure/app-service/webjobs-create) blade on your App Service) and have their fair share of usage, Web Jobs have mostly been replaced with higher order resources, such as Function or Logic Apps. 
+Although they are still available as part of Web Apps (check [Web Jobs](https://docs.microsoft.com/en-us/azure/app-service/webjobs-create) blade on your App Service) and have their fair share of usage, Web Jobs have mostly been replaced with higher order resources, such as Function or Logic Apps.
 
 ## Components
 
@@ -38,28 +38,39 @@ As an example, let us have a function triggering of an Azure Service Bus. Scale 
 
 ## Deployment and Hosting
 
-I have already mentioned that Function Apps support plethora of programming languages and scripts, e.g .NET, Java, JavaScript, Powershell and Bash, just to name a few. Heck, even containers could be involved, as Docker images can be hosted in Function Apps as well. 
+I have already mentioned that Function Apps support plethora of programming languages and scripts, e.g .NET, Java, JavaScript, Powershell and Bash, just to name a few. Heck, even containers could be involved, as Docker images can be hosted in Function Apps as well.
 
 On the other hand, multiple hosting scenarios are possible: consumption, running functions only when required; dedicated, that uses existing App Service Plans to run functions beside existing App Services; and finally premium, using dedicated elastic App Service Plans to offer unparalleled performance, response time and scaling capabilities. Each of them has its strengths and weaknesses, and I encourage you to go through official documentation before deciding to use functions.
 
 Overabundance of supported application and hosting models sadly has its negative sides - not all combinations are supported and not all of them operate effectively together. When other factors are taken into account, such as in-process and out-of process hosting, supported runtimes and operating systems, as well as minimum performance requirements, available options can seriously get limited. I would recommend reading comparison of [Azure Functions hosting plans](https://docs.microsoft.com/en-us/azure/azure-functions/functions-scale) before getting seriously involved. The article also contains well-organized support tables for each of hosting options.
 
-
-
 ## Tips and trick
 
-I could have named this section Azure Functions Best Practices, but Microsoft already [beat me to it](https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices). Instead of repeating the same points, I wanted to focus on additional points that I became aware through my experience working with functions. Information following will not only help you better understand what and what can't functions be used for, but also how to use them more efficiently and what to do in case you encounter or suspect any issues.
+I could have named this section 'Azure Functions Best Practices', but Microsoft already [beat me to it!](https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices) Instead of repeating the same conventions you've heard over and over again, I wanted to focus on something different. Specifically, on certain points that I became aware through my experience working with functions. Information following will help you better understand what and what functions can't be used for, how to use them in a more efficient way and what to do if it all goes haywire.
 
+### Logging
 
-built on top of Azure WebJobs SDK - but doesnt require Azure https://github.com/Azure/azure-functions-host
-azure functions host
-in process and out of process hosting https://weblog.west-wind.com/posts/2019/Mar/16/ASPNET-Core-Hosting-on-IIS-with-ASPNET-Core-22
-scaling model https://docs.microsoft.com/en-us/azure/azure-functions/functions-scale#how-the-consumption-and-premium-plans-work
-	no container on consumption plan
-logging categories and levels https://docs.microsoft.com/en-us/azure/azure-functions/functions-monitoring?tabs=cmd#configure-categories-and-log-levels
-Pay attention to Azure function limits https://github.com/Azure/azure-functions-host/wiki/Host-Health-Monitor
+Unless you added your own custom logging infrastructure, there is a good chance that all telemetry, requests and traces are consumed by Application Insights associated with your Function App. I will not go into detail on how to query this data, but will leave you with a [handy explanation](https://docs.microsoft.com/en-us/azure/azure-functions/configure-monitoring) on how it is organized and how to locate individual function components logs.
+
+Default logging configuration is pretty great, and you would not need to modify it 99.99% of the time. But there is still that 00.01% that will eventually come up, be it during development or trying to solve an issue in production. As all .NET Core applications, functions use structured logging as well, which can be adjusted either by modifying host.json configuration directly, or via [application settings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json#override-hostjson-values). The most interesting categories that you can modify logging levels are:
+
+* Function - includes execution start/stop time, dependencies tracking, thrown exceptions, as well as any logs from custom application, in case it is consuming provided ILogger instance
+* Host - contains function invocation count, success rate and duration telemetry; invocation success and failures are also logged
+* Microsoft - in case custom application was written in .NET, handles logs coming from .NET components used, e.g. HttpClient, Hosting etc.
+* Worker - if running non .NET application, its console output would be written using this category
+
+Reading the list, you must have thought: "Cool, I can monitor individual function components. But wait a minute... Where is the Scale Controller?!". Don't worry, Microsoft got you covered. Gathering logs from [Scale Controller](https://docs.microsoft.com/en-us/azure/azure-functions/functions-monitoring?tabs=cmd#scale-controller-logs) is available, but only as a preview feature. It can be configured exclusively using application settings.
+
+### Function sandbox
+
 Overview of Azure Web App sandbox, used by Azure Functions and Azure App Services https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox
-Override host.json values by app settings https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json#override-hostjson-values
+
+### Function limits
+
+Pay attention to Azure function limits https://github.com/Azure/azure-functions-host/wiki/Host-Health-Monitor
+
+### Override for sure
+
 If using function startup, extension options defined in host.json could be ignored https://github.com/Azure/azure-functions-servicebus-extension/issues/81#issuecomment-621431750
 
 ## Conclusion
