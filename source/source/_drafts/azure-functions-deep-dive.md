@@ -59,18 +59,38 @@ Default logging configuration is pretty great, and you would not need to modify 
 * Microsoft - in case custom application was written in .NET, handles logs coming from .NET components used, e.g. HttpClient, Hosting etc.
 * Worker - if running non .NET application, its console output would be written using this category
 
-Reading the list, you must have thought: "Cool, I can monitor individual function components. But wait a minute... Where is the Scale Controller?!". Don't worry, Microsoft got you covered. Gathering logs from [Scale Controller](https://docs.microsoft.com/en-us/azure/azure-functions/functions-monitoring?tabs=cmd#scale-controller-logs) is available, but only as a preview feature. It can be configured exclusively using application settings.
+Reading the list, you must have thought: "Cool, so I can monitor individual function components. But wait a minute... Where is the Scale Controller?!". No worries, Microsoft is on the case. Gathering logs from [Scale Controller](https://docs.microsoft.com/en-us/azure/azure-functions/functions-monitoring?tabs=cmd#scale-controller-logs) is available, but still as a preview feature. For now, it can be configured exclusively using application settings.
 
 ### Function sandbox
 
-Overview of Azure Web App sandbox, used by Azure Functions and Azure App Services https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox
+It goes without saying, but don't expect your functions to be running on bare metal. Whats more, they are not even hosted on dedicated Virtual Machine. Instead, Function Apps are constrained to what is called an [Azure Web App sandbox](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox), which, by the way, is the same environment running App Services. The sandbox imposes many limitations, but most important ones, from the point of view of Function App developer, are:
 
-### Function limits
+* no access to Windows shared components - meaning no writing to registry, no service management using SCM and no access to processes outside of sandbox. One more important feature missing is usage of GDI32 graphics subsystem, which is still sadly used by most PDF generator tools.
+* no disk access - generally you are not able to read/write to disk even if the target file exists. There are however two exceptions, you can either use storage shared by all sandboxes (/home) or local sandbox storage (/local). Note however that they have limited amount of data that can be stored.
+* limited network features - custom application is allowed to listen on any incoming port, but it will only be available within the sandbox, not even from other function instances. It can also not use localhost or 127.0.0.1 address to open connection to ports it did not open itself. On the other hand, some of the outgoing ports are restricted, namely 137, 138, 139 and 445.
 
-Pay attention to Azure function limits https://github.com/Azure/azure-functions-host/wiki/Host-Health-Monitor
+### Function performance counter limits
 
-### Override for sure
+These limitations are essentially imposed by the Web App sandbox environment as well. Unlike the ones listed in the previous chapter, these ones can be avoided if you adapt your application to run in Function App more efficiently. Please note that they apply only when hosting on Consumption Plan; if you are hosting using Dedicated or Premium Plans, limitations will depend on VM size used. [Host Health Monitor](https://github.com/Azure/azure-functions-host/wiki/Host-Health-Monitor) will start issuing warnings once function approaches or breaks any of the limits, so keep an eye out on Application Insights failures.
 
-If using function startup, extension options defined in host.json could be ignored https://github.com/Azure/azure-functions-servicebus-extension/issues/81#issuecomment-621431750
+#### Number of active (600) and total (1200) connections
+
+If you are developing a function requiring a lot of external resources, you can easily find yourself exhausting all available active connections. Your function can be ran multiple times as part of the same sandbox, e.g. when you are consuming a queue. The limit of 600 connections applies to all the instances combined.
+
+Best trick to avoid breaking the limit is having a single HttpClient instance and reusing it. It is thread safe and will spare you the need to constantly create and dispose of HttpClients, which is a bad practice overall. If multiple functions can reuse same external data, consider caching it in shared storage. Try to do as little work in a function as possible, as long running functions tend to exhaust connection limit more often.
+
+#### Number of threads (512)
+
+If you are using System.Threading types to start threads manually, consider switching to Tasks, as they are able to utilize thread pool more efficiently. As a general advice, do not try to run many things in parallel, so avoid Threads, TPL and similar multithreaded libraries. It is better to have multiple smaller functions, than trying to handle everything in a single one.
+
+#### Number of child processes (32)
+
+Consider this limitation if your function has to spawn other processes. Too many child processes can also lead to increased memory usage, which directly affects billed costs of your Function App. In case Consumption Plan is not used, excessive process spawning can lead to underlying VM memory exhaustion.
+
+### Override host configuration in code
+
+If you notice parts of modified host.json configuration are ignored by FunctionApp, using default values instead, you might be running into the same issue I stumbled upon couple of times. However, there is a way how to ensure overriding host configuration, if you are running in-process application. [The solution](https://github.com/Azure/azure-functions-servicebus-extension/issues/81#issuecomment-621431750]) requires injecting dependencies using FunctionStartup, and is especially useful for changing extensions configuration.
 
 ## Conclusion
+
+Deep dive into Azure Functions originally started as another [Ahaaas article](/categories/blog/ahaaas-august-2020/). As I have noticed there are more than five different points concerning functions, I decided to write a more encompassing article. After bringing up ancient Azure history, I dissected most important function components and went through deploying and hosting options. Finally, I have included some of my personal experiences working with Azure Functions.
