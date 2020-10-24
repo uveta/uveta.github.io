@@ -3,6 +3,7 @@ title: Azure Functions Deep Dive
 tags:
   - azure
   - advanced
+date: 2020-10-24 17:16:59
 categories:
   - blog
 disqusId: azure-functions-deep-dive
