@@ -43,7 +43,7 @@ Serves as an entry-point for clients. After creating a job, client should be abl
 
 We will save all jobs in a _repository_, which will allow individual pattern components to read and update their state. For now, let's consider a repository an abstraction, as concrete implementation and storage technology may vary, depending on usage scenario.
 
-In order to establish a binding between an _endpoint_ and a _worker_, let's introduce a concept of a _job queue_. Similar to how _repository_ was defined, implementation may range from memory one to a hyper-scale message broker.
+In order to establish a binding between an _endpoint_ and a _worker_, let's introduce a concept of a _job queue_. Similar to how _repository_ was defined, implementation may range from memory one to a hyper-scale message broker. But all of them will have one thing in common: they have to provide both a _producer_ and a _consumer_, depending on which component requires _queue_ services.
 
 Final pattern architecture is depicted in the diagram bellow. As we have all core components defined, why don't we move on to more amusing part and see how could we implement it using APS.NET Core.
 
@@ -64,16 +64,15 @@ As _endpoint_ is user independent concept, it will be up to pattern to provide t
 
 ### Configuring job services
 
-Using [one of the sample projects](https://github.com/uveta/extensions-jobs/tree/main/samples/MvcDemo), I wanted to demonstrate how this plugin architecture can be achieved. The following code includes definition of one _endpoint_ and its bound _worker_.
+As we are using ASP.NET Core as our primary hosting environment, we should definitely follow one of its basic principals and use a plugin architecture for configuring related services. Using [one of the sample projects](https://github.com/uveta/extensions-jobs/tree/main/samples/MvcDemo), I want to demonstrate what kind of solution should we strive for. The following example includes definition of one _endpoint_ and its bound _worker_.
 
 <script src="https://gist.github.com/uveta/777c12716df3015ebc67a651916bea23.js"></script>
 
-In this case, _PingRequest_ and _PingResponse_ correspond to input and output types, defined by user. _PingWorker_ represents a custom implementation of _IWorker_, which is also users concern. Other components (_endpoint_, _repository_ and _queue_) are provided by pattern and only configured here.
+In this case, _PingRequest_ and _PingResponse_ correspond to input and output types, defined by user. _PingWorker_ represents a custom implementation of _IWorker_, which is also left to users. Other components (_endpoint_, _repository_ and _queue_) are provided by pattern and only configured here.
 
 ### Plugging in worker implementation
 
-WorkerInvoker
-
+The base role of a _worker_ is simple: it should start listening for incoming jobs from _queue_; whenever one is received, it should process it and update job's status and output using _repository_. As it should be running for the whole lifetime of a service, a natural solution is to use [hosted service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services) for implementation. In our case, we could extract all common code (starting queue consumer, input/output serialization and job update) to a _WorkerInvoker&lt;TWorker&gt;_ hosted service, which would be bound to each _worker_ using it as a generic type.
 
 ### Exposing Endpoint
 
