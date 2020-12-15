@@ -13,6 +13,8 @@ abc abc abc
 
 <!-- more -->
 
+_This post is part of [C# Advent Calendar 2020](https://www.csadvent.christmas/). Cheers to [Matt Groves](https://twitter.com/mgroves) for letting me participate!_
+
 created from the need to run long running operations using RESTful operations [the pattern](http://restalk-patterns.org/long-running-operation-polling.html). But it could be used in many other ways, as it generalizes the process of submitting requests. With some consideration, the pattern can be extended to provide a scalable solution needed by micro-service architectures.  
 
 ## Building blocks
@@ -62,20 +64,36 @@ In order to make the implementation as universal as possible, we need to limit o
 
 As _endpoint_ is user independent concept, it will be up to pattern to provide the implementation. On the other hand, _worker_ is responsible for executing custom actions, hence it's implementation has to be provided by the patter user. This reasoning will come into play during design, as we would like to provide plugin architecture for individual pattern components. This will allow utilizing only building blocks required for given scenario, while the user would provide implementation of parts requiring customization.
 
+### Plugging in worker implementation
+
+The role of a _worker_ is simple: it should listen for incoming jobs from _queue_; whenever one is received, it should process it and update job's status and output using _repository_; then it waits for the next one... This cycle is supposed to run for the whole application lifetime, as new jobs can arrive at any time. A natural solution to implement such functionality are [hosted services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services). In our case, we could extract all common code (starting queue consumer, input/output serialization and job update) to a _WorkerInvoker&lt;TWorker&gt;_ hosted service, bound to specific _worker_ by it generic type _TWorker_.
+
+Adding _TWorker_ type to DI container has multiple benefits. On one side, it can be injected into _WorkerInvoker&lt;TWorker&gt;_, removing the need to construct it manually. On the other hand, it allows developers to freely inject business services into it.
+
+### Exposing endpoints
+
+_Endpoint_ represents an entry point for pattern clients, which is the responsibility of controllers in MVC world. In our case, we should use a controller. Its methods and client behavior should follow [pattern definition](http://restalk-patterns.org/long-running-operation-polling.html) to the letter:
+
+* Allow creating new jobs using POST requests; respond with status 202 (Accepted), containing job resource URL, where its status can be queried
+* Client should poll for job status using URL from previous step
+* When job processing is finished successfully, use 303 (See Other) redirect to provide client with an output resource URL
+* In case of job failure or cancellation, it is up to client to stop polling
+* After polling finishes, client should issue DELETE request to job resource URL in order to dispose of reserved resources; if not done by client, server should clean up old jobs
+
+The burden of creating such controller should not fall on the user; it is the responsibility of the pattern itself, as flow can be generalized. For this purpose we should implement a generic _JobsController&lt;TEndpoint&gt; which would be bound to specific _endpoint_ via its type parameter _TEndpoint_. 
+
 ### Configuring job services
 
-As we are using ASP.NET Core as our primary hosting environment, we should definitely follow one of its basic principals and use a plugin architecture for configuring related services. Using [one of the sample projects](https://github.com/uveta/extensions-jobs/tree/main/samples/MvcDemo), I want to demonstrate what kind of solution should we strive for. The following example includes definition of one _endpoint_ and its bound _worker_.
+As ASP.NET Core is used as our primary hosting environment, we should clearly follow principals it was build upon and use a plugin architecture for configuring services. Using [one of the sample projects](https://github.com/uveta/extensions-jobs/tree/main/samples/MvcDemo), I want to demonstrate what kind of solution should we strive for. The following example includes definition of one _endpoint_ and its bound _worker_.
 
 <script src="https://gist.github.com/uveta/777c12716df3015ebc67a651916bea23.js"></script>
 
 In this case, _PingRequest_ and _PingResponse_ correspond to input and output types, defined by user. _PingWorker_ represents a custom implementation of _IWorker_, which is also left to users. Other components (_endpoint_, _repository_ and _queue_) are provided by pattern and only configured here.
 
-### Plugging in worker implementation
+### Implementation alternatives
 
-The base role of a _worker_ is simple: it should start listening for incoming jobs from _queue_; whenever one is received, it should process it and update job's status and output using _repository_. As it should be running for the whole lifetime of a service, a natural solution is to use [hosted service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services) for implementation. In our case, we could extract all common code (starting queue consumer, input/output serialization and job update) to a _WorkerInvoker&lt;TWorker&gt;_ hosted service, which would be bound to each _worker_ using it as a generic type.
-
-### Exposing Endpoint
-
-Jobs Controller
+use endpoints in different scenarios
+other queue and repository implementations
+scaling and limiting workers
 
 ## Conclusion
