@@ -72,15 +72,16 @@ Adding _TWorker_ type to DI container has multiple benefits. On one side, it can
 
 ### Exposing endpoints
 
-_Endpoint_ represents an entry point for pattern clients, which is the responsibility of controllers in MVC world. In our case, we should use a controller. Its methods and client behavior should follow [pattern definition](http://restalk-patterns.org/long-running-operation-polling.html) to the letter:
+As controllers are used as primary entry point into MVC applications, they are an obvious choice for coupling with our _endpoints_. Implemented controller should follow [pattern definition](http://restalk-patterns.org/long-running-operation-polling.html) to the letter. --change-- Hence, it should expose several routes:
 
-* Allow creating new jobs using POST requests; respond with status 202 (Accepted), containing job resource URL, where its status can be queried
-* Client should poll for job status using URL from previous step
-* When job processing is finished successfully, use 303 (See Other) redirect to provide client with an output resource URL
-* In case of job failure or cancellation, it is up to client to stop polling
-* After polling finishes, client should issue DELETE request to job resource URL in order to dispose of reserved resources; if not done by client, server should clean up old jobs
+* POST _/jobs_ : allows creating new jobs; responds with status 202 (Accepted), containing job resource URL
+* GET _/jobs/{jobId}_: resource URL can be used for polling job status, while in progress; when processing is finished, use 303 (See Other) redirect to provide client with an output resource URL
+* GET _/jobs/{jobId}/output_: output resource URL; should return 200 (OK) with output values, after job processing finished; returns 404 (NotFound) error otherwise
+* DELETE _/jobs/{jobId}_: disposes of any reserved resources; client should call it after polling finishes and output is obtained; if not done by client, server should clean up old jobs automatically
 
-The burden of creating such controller should not fall on the user; it is the responsibility of the pattern itself, as flow can be generalized. For this purpose we should implement a generic _JobsController&lt;TEndpoint&gt; which would be bound to specific _endpoint_ via its type parameter _TEndpoint_. 
+The burden of creating such controller should not fall on the user; it is the responsibility of the pattern itself, since all of the routes behavior is known in advance. For this purpose we should implement a generic _JobsController&lt;TEndpoint&gt; which would be bound to specific _endpoint_ via its type parameter _TEndpoint_.
+
+Since we would like to support multiple _endpoints_ per service, we would have to provide different type for each controller, as it is required by ASP.NET Core. This is not possible by simply changing type parameter, as generic would still be considered the same type. Instead, individual controllers would have to be created from base generic dynamically, using `System.Reflection.Emit.TypeBuilder`. They would then be included in MVC using custom `Microsoft.AspNetCore.Mvc.ApplicationParts.IApplicationPartTypeProvider`.
 
 ### Configuring job services
 
@@ -92,8 +93,11 @@ In this case, _PingRequest_ and _PingResponse_ correspond to input and output ty
 
 ### Implementation alternatives
 
-use endpoints in different scenarios
-other queue and repository implementations
-scaling and limiting workers
+Proposed usage is just one of many possible. As all building blocks are introduced as abstract concepts, they can be adapted to different scenarios than initially intended. For example, an _endpoint_ could be used to issue an RPC call without knowing the address of remote service; client would use _endpoint_ to create a new job, which would reach designated worker via queue, effectively removing the need of individual services knowing other ones even exists.
+
+Further improvements can be introduced on _workers_ as well. In order to use them in a real-world scenarios, there has to be a possibility of configuring their maximum scaling and execution period limits. This is however very dependent on _queue_ implementation, since _workers_ are invoked as new jobs are received by consumers.
+
+Finally, default memory implementations of _queue_ and _repository_ are only good for [demonstration purposes](https://github.com/uveta/extensions-jobs/tree/main/samples/MvcDemo). _Repository_ should offer some form of permanent external storage, especially if usage in multi-service applications is considered. Same goes for _queue_, as the need for underlying message broker is evident in even simple production scenarios.
 
 ## Conclusion
+
