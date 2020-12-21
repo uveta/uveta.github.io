@@ -9,7 +9,7 @@ categories:
 disqusId: asynchronous-job-pattern-the-asp-net-core-mvc-way
 ---
 
-I wanted to talk about a pattern which our project fully embraced, coming from its specific needs. It was designed to solve long running operations, using [RESTful approach](http://restalk-patterns.org/long-running-operation-polling.html), but we soon realized it could be used in many other ways. As it generalizes the process of submitting request and obtaining response, the pattern can be extended to provide a scalable solution needed by micro-service architecture.
+Let me present a pattern which was used to solved a problem haunting our enterprise application for ages. We initially designed it to handle long running operations, using [RESTful approach](http://restalk-patterns.org/long-running-operation-polling.html), but we soon realized it could be used in many other ways. As it generalizes the process of submitting requests and obtaining responses, the pattern can be extended to provide a scalable solution, much needed by micro-service architecture.
 
 <!-- more -->
 
@@ -17,9 +17,9 @@ _This post is part of [C# Advent Calendar 2020](https://www.csadvent.christmas/)
 
 ## Building blocks
 
-From a _client_ perspective, the pattern usage is pretty simple: it submits a _job_ for processing to an _endpoint_; _job_ status is polled until processing is finished; if status was successful, use _endpoint_ to obtain output.
+From a _client_ perspective, the pattern usage is pretty simple: it submits a _job_ for processing to an _endpoint_; _job_ status is polled until processing is finished; if status was successful, client uses _endpoint_ to obtain output.
 
-However, several components are needed to achieve such functionality. Lets dig a bit deeper and see what does the pattern consist of.
+On server side, several components are required to achieve such functionality. Lets take a look at the big picture and define individual pattern pieces.
 
 ### Job
 
@@ -31,7 +31,7 @@ A _job_ is a principal entity, representing _client_ intent processed by a desig
 
 ### Worker
 
-Component that does heavy lifting. Main responsibility is actual processing, as each _worker_ is able to handle certain type of _jobs_. In simple terms, we can describe it as a function accepting input parameters and returning either _job_ output or an error.
+Component that does heavy lifting. Main responsibility is actual processing, as each _worker_ is able to handle specific _job_ type. In simple terms, we can describe it as a function accepting input parameters and returning either _job_ output or an error.
 
 ### Endpoint
 
@@ -54,8 +54,6 @@ Final pattern architecture is depicted in the diagram bellow. As all core compon
 
 ## ASP.NET Core implementation
 
-Final version can be found on [Github](https://github.com/uveta/extensions-jobs).
-
 ### Implementation considerations
 
 In order to make the implementation as universal as possible, we need to limit _job_ inputs and outputs to one of each. If multiple values are expected, they could be provided via a custom model. `JobExecutionResult` will serve as a wrapper for output value, containing result of _worker_ execution and any possible issues. If we define them as types `TInput` and `TOutput`, our _worker_ and _endpoint_ could look something like this:
@@ -67,7 +65,7 @@ As _endpoint_ is user independent concept, it will be up to pattern to provide t
 
 ### Plugging in worker implementation
 
-_Worker_ flow is straightforward: it should use _queue consumer_ to listen for incoming _jobs_; whenever one is received, it should process it and update _job_ status and output via _repository_; then it has to wait for the next one... This cycle is supposed to run for the whole application lifetime, as new _jobs_ can arrive at any time. A natural solution to implement such functionality are [hosted services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services). In our case, we could extract all common code (starting _queue consumer_, input/output serialization and _job_ update) to a `WorkerInvoker<TWorker>` hosted service, bound to specific _worker_ by it generic type `TWorker`.
+_Worker_ flow is straightforward: it should use _queue consumer_ to listen for incoming _jobs_; whenever one is received, it should process it and update _job_ status and output via _repository_; then it waits for next one and repeats previous steps. This cycle is supposed to run for the whole application lifetime, as new _jobs_ can arrive at any time. A natural solution to implement such functionality are [hosted services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services). In our case, we could extract all common code (starting _queue consumer_, input/output serialization and _job_ update) to a `WorkerInvoker<TWorker>` hosted service, bound to specific _worker_ by it generic type `TWorker`.
 
 Adding `TWorker` type to DI container has multiple benefits. On one side, it can be injected into `WorkerInvoker<TWorker>`, removing the need to create it manually. On the other hand, it allows developers of `TWorker` to freely inject business services into it.
 
@@ -112,3 +110,5 @@ Finally, default memory implementations of _queue_ and _repository_ are only goo
 ## Conclusion
 
 In this article I explained which set of problems did we solve using long running job pattern. We also saw one of the ways to implement it, using ASP.NET Core MVC. As a final observation, I described how inner pattern components can be used outside of MVC, in any system that wants to generalize request/response flow and reduce service coupling.
+
+Source code and samples can be found on [Github](https://github.com/uveta/extensions-jobs). Individual packages have also been published to [nuget.org](https://www.nuget.org/packages/Uveta.Extensions.Jobs/), in case you would like to try them out in your own applications.
