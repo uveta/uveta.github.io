@@ -7,9 +7,12 @@ tags:
 categories:
   - blog
 disqusId: asynchronous-job-pattern-the-asp-net-core-mvc-way
+date: 2020-12-21 21:33:44
 ---
 
-Let me present a pattern which was used to solved a problem haunting our enterprise application for ages. We initially designed it to handle long running operations, using [RESTful approach](http://restalk-patterns.org/long-running-operation-polling.html), but we soon realized it could be used in many other ways. As it generalizes the process of submitting requests and obtaining responses, the pattern can be extended to provide a scalable solution, much needed by micro-service architecture.
+{% asset_img calendar.jpg Advent calendar %}
+
+Let me present a pattern we used to solve a problem haunting our enterprise application for ages. It was initially designed to handle long running operations, using [RESTful approach](http://restalk-patterns.org/long-running-operation-polling.html), but we soon realized it could be used in many other ways. As it generalizes the system of submitting requests and obtaining responses, it can easily be adapted to different business processes, while keeping unified client interface.
 
 <!-- more -->
 
@@ -111,4 +114,4 @@ Finally, default memory implementations of _queue_ and _repository_ are only goo
 
 In this article I explained which set of problems did we solve using long running job pattern. We also saw one of the ways to implement it, using ASP.NET Core MVC. As a final observation, I described how inner pattern components can be used outside of MVC, in any system that wants to generalize request/response flow and reduce service coupling.
 
-Source code and samples can be found on [Github](https://github.com/uveta/extensions-jobs). Individual packages have also been published to [nuget.org](https://www.nuget.org/packages/Uveta.Extensions.Jobs/), in case you would like to try them out in your own applications.
+Source code and samples can be found on [Github](https://github.com/uveta/extensions-jobs). Individual packages have also been published to [nuget.org](https://www.nuget.org/packages/Uveta.Extensions.Jobs/), in case you would like to try them in your own application.
