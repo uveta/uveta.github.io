@@ -5,11 +5,13 @@
     <link href="https://www.uveta.io" />
     <updated>2020-11-29T19:00:10.000Z</updated>
     <category term="azure" />
+    <category term="certification" />
+    <category term="advanced" />
     <category term=".net" />
     <category term="csharp" />
     <category term="containers" />
-    <category term="advanced" />
-    <category term="certification" />
+    <category term="microservices" />
+    <category term="dotnet" />
     <entry>
         <id>https://www.uveta.io/categories/blog/windows-vs-linux-appservice-whats-the-difference/</id>
         <title>Windows vs Linux App Service - What is the Difference?</title>
@@ -160,10 +162,10 @@
 &lt;/ul&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="azure" />
+        <category term="advanced" />
         <category term=".net" />
         <category term="csharp" />
         <category term="containers" />
-        <category term="advanced" />
         <updated>2020-09-05T07:32:56.000Z</updated>
     </entry>
     <entry>
@@ -223,8 +225,8 @@
 &lt;p&gt;If you would have any additional questions or remarks, I am eager to hear them in the comments bellow. If you are interested in future posts from Azure and .NET world, follow me on &lt;a href=&#34;https://twitter.com/uveta&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Twitter&lt;/a&gt; to get notified as soon as they get published.&lt;/p&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="azure" />
-        <category term="advanced" />
         <category term="certification" />
+        <category term="advanced" />
         <updated>2020-08-19T15:48:14.000Z</updated>
     </entry>
     <entry>
@@ -263,10 +265,10 @@
 &lt;/ul&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="azure" />
+        <category term="advanced" />
         <category term=".net" />
         <category term="csharp" />
         <category term="containers" />
-        <category term="advanced" />
         <updated>2020-07-25T17:12:39.000Z</updated>
     </entry>
     <entry>
@@ -331,8 +333,8 @@
 &lt;p&gt;In the next post I will go through skills and knowledge required for the second exam, i.e. AZ-301: Microsoft Azure Architect Design. Follow me on &lt;a href=&#34;https://twitter.com/uveta&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Twitter&lt;/a&gt; to get notified when it gets published.&lt;/p&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="azure" />
-        <category term="advanced" />
         <category term="certification" />
+        <category term="advanced" />
         <updated>2020-06-26T15:48:14.000Z</updated>
     </entry>
 </feed>

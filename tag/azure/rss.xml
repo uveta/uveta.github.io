@@ -8,11 +8,13 @@
         <pubDate>Sun, 29 Nov 2020 20:00:10 +0100</pubDate>
         <lastBuildDate>Sun, 29 Nov 2020 20:00:10 +0100</lastBuildDate>
         <category>azure</category>
+        <category>certification</category>
+        <category>advanced</category>
         <category>.net</category>
         <category>csharp</category>
         <category>containers</category>
-        <category>advanced</category>
-        <category>certification</category>
+        <category>microservices</category>
+        <category>dotnet</category>
         <item>
             <guid isPermalink="true">https://www.uveta.io/categories/blog/windows-vs-linux-appservice-whats-the-difference/</guid>
             <title>Windows vs Linux App Service - What is the Difference?</title>
@@ -103,10 +105,10 @@
             <title>Ahaaas! - August 2020</title>
             <link>https://www.uveta.io/categories/blog/ahaaas-august-2020/</link>
             <category>azure</category>
+            <category>advanced</category>
             <category>.net</category>
             <category>csharp</category>
             <category>containers</category>
-            <category>advanced</category>
             <pubDate>Sat, 05 Sep 2020 09:32:56 +0200</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/ahaaas-august-2020/cartoon-1294877.png&#34; class title=&#34;Eureka&#34;&gt;
 
@@ -174,8 +176,8 @@
             <title>So you want to be an Azure Solutions Architect Expert - Part 2</title>
             <link>https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-2/</link>
             <category>azure</category>
-            <category>advanced</category>
             <category>certification</category>
+            <category>advanced</category>
             <pubDate>Wed, 19 Aug 2020 17:48:14 +0200</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/azure-solutions-architect-expert-part-2/architect-badge.jpg&#34; class title=&#34;Goal!!!&#34;&gt;
 
@@ -235,10 +237,10 @@
             <title>Ahaaas! - July 2020</title>
             <link>https://www.uveta.io/categories/blog/ahaaas-july-2020/</link>
             <category>azure</category>
+            <category>advanced</category>
             <category>.net</category>
             <category>csharp</category>
             <category>containers</category>
-            <category>advanced</category>
             <pubDate>Sat, 25 Jul 2020 19:12:39 +0200</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/ahaaas-july-2020/bulb.png&#34; class title=&#34;Eureka&#34;&gt;
 
@@ -277,8 +279,8 @@
             <title>So you want to be an Azure Solutions Architect Expert - Part 1</title>
             <link>https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-1/</link>
             <category>azure</category>
-            <category>advanced</category>
             <category>certification</category>
+            <category>advanced</category>
             <pubDate>Fri, 26 Jun 2020 17:48:14 +0200</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/azure-solutions-architect-expert-part-1/architect-badge.jpg&#34; class title=&#34;Goal!!!&#34;&gt;
 
