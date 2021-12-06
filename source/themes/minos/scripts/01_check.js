@@ -34,8 +34,7 @@ const missingDeps = [
     'hexo-generator-index',
     'hexo-generator-tag',
     'hexo-renderer-ejs',
-    'hexo-renderer-marked',
-    'hexo-renderer-sass',
+    'hexo-renderer-marked'
 ].map(checkDependency).some(installed => !installed);
 if (missingDeps) {
     logger.error('Please install the missing dependencies in the root directory of your Hexo site.');

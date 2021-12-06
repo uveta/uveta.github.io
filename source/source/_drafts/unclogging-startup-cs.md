@@ -9,6 +9,10 @@ categories:
 disqusId: unclogging-startup-cs
 ---
 
+<!-- more -->
+
+_This post is part of [C# Advent Calendar 2010](https://www.csadvent.christmas/). Cheers to [Matthew D. Groves](https://twitter.com/mgroves) for letting me participate!_
+
 toc
     .net 6 disclaimer
     tldr
