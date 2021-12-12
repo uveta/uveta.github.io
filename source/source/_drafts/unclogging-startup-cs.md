@@ -25,21 +25,29 @@ One design standard to keep in mind is that almost all parts of ASP.NET Core are
 
 ## MVC
 
-// MvcExtensions.cs
-public static IServiceCollection AddMvc(this IServiceCollection services)
+Whether you are using Controllers only, or including Views and Razor Pages, MVC setup is more or less the same. The goal is to call [AddControllers()](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addcontrollers), [AddControllersWithViews()](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addcontrollerswithviews) or [AddRazorPages()](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addrazorpages), based on your scenario, and define configuration for [MvcOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions), and possibly [RazorPagesOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.razorpages.razorpagesoptions). If you are using [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializer) or [Newtonsoft Json.NET](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) for model serialization, you could also decide to configure them in a similar manner. Whole setup would look like this:
+
+```
+public static class MvcExtensions
 {
-	services.AddControllers();
-	services.AddSingleton<IConfigureOptions<MvcOptions>, ConfigureMvcOptions>();
-	return services;
+    public static IServiceCollection ConfigureMvc(this IServiceCollection services)
+    {
+        services.AddControllers().AddNewtonsoftJson();
+        services.AddSingleton<IConfigureOptions<MvcOptions>, ConfigureMvcOptions>();
+        services.AddSingleton<IConfigureOptions<MvcNewtonsoftJsonOptions>, ConfigureNewtonsoftOptions>();
+        return services;
+    }
 }
 
-// ConfigureMvcOptions.cs
-public class ConfigureMvcOptions: IConfigureOptions<MvcOptions>
+public class ConfigureMvcOptions : IConfigureOptions<MvcOptions>
 {
-	public void Configure (MvcOptions options)
-	{
-	}
+    public void Configure(MvcOptions options)
+    {
+        options.SuppressAsyncSuffixInActionNames = true;
+    }
 }
+```
+
 
 ## Security
 
@@ -48,6 +56,53 @@ public class ConfigureMvcOptions: IConfigureOptions<MvcOptions>
 ### Authorization
 
 ## Open API
+
+```
+public static class OpenApiExtensions
+{
+    public static IServiceCollection AddOpenApi(this IServiceCollection services)
+    {
+        services.AddSwaggerGen();
+        services.AddSwaggerGenNewtonsoftSupport();
+        services.AddSingleton<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGenOptions>();
+        services.AddSingleton<IConfigureOptions<SwaggerOptions>, ConfigureSwaggerOptions>();
+        services.AddSingleton<IConfigureOptions<SwaggerUIOptions>, ConfigureSwaggerUiOptions>();
+        return services;
+    }
+}
+
+public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
+{
+    public void Configure(SwaggerGenOptions options)
+    {
+        options.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo", Version = "v1" });
+    }
+}
+
+public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerOptions>
+{
+    public void Configure(SwaggerOptions options)
+    {
+        options.RouteTemplate = "swagger/{documentName}/swagger.json";
+        options.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+        {
+            swaggerDoc.Servers = new[] {
+                new OpenApiServer {
+                    Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{httpReq.PathBase}",
+                    Description = "Default"
+                }
+            };
+        });
+    }
+}
+
+public class ConfigureSwaggerUiOptions : IConfigureOptions<SwaggerUIOptions>
+{
+    public void Configure(SwaggerUIOptions options)
+    {
+    }
+}
+```
 
 ## Application Insights
 
