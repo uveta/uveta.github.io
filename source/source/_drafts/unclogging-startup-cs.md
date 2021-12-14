@@ -128,12 +128,10 @@ public class ConfigureAuthorizationOptions : IConfigureOptions<AuthorizationOpti
 }
 ```
 
-## Open API
+## OpenAPI
 
-OpenAPI (Swagger)
-  Swashbuckle package
-  SwaggerGenOptions, SwaggerOptions, SwaggerUIOptions
-  
+If you care about consumers of your REST services, you are publishing its description using OpenAPI specification. In case you are working with ASP.NET Core, you are probably using awesome [Swashbuckle](https://www.nuget.org/packages/Swashbuckle.AspNetCore/) package. As with the other framework parts, even this extension allows you to configure it in a similar fashion. Whether its modifying default definition file generation using `SwaggerGenOptions`, or adjusting swagger user interface via `SwaggerUIOptions`, everything can be broken down and put into separate types. 
+
 ```csharp
 public static class OpenApiExtensions
 {
@@ -183,21 +181,38 @@ public class ConfigureSwaggerUiOptions : IConfigureOptions<SwaggerUIOptions>
 
 ## Application Insights
 
-Application insights
-    ApplicationInsightsServiceOptions
+How about some Azure extensions? Most of the time you will not even need them, as ASP.NET Core seamlessly integrates with most of Azure resources. However, one particular extension I recommend using is [Application Insights](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore). You want to have application telemetry under control, and this package allows you to fine tune telemetry data that will be ingested by Azure. From setup point of view, there is nothing surprising:
 
-## Versioning
+```csharp
+public static class TelemetryExtensions
+{
+    public static IServiceCollection ConfigureTelemetry(this IServiceCollection services)
+    {
+        services.AddApplicationInsightsTelemetry();
+        services.AddSingleton<IConfigureOptions<ApplicationInsightsServiceOptions>, ConfigureApplicationInsights>();
+        return services;
+    }
+}
 
-API Versioning
-    AddVersionedApiExplorer(), AddApiVersioning()
-     ApiExplorerOptions, ApiVersioningOptions
+public class ConfigureApplicationInsights : IConfigureOptions<ApplicationInsightsServiceOptions>
+{
+    public void Configure(ApplicationInsightsServiceOptions options)
+    {
+        options.EnableHeartbeat = true;
+        options.EnableAppServicesHeartbeatTelemetryModule = true;
+    }
+}
+```
 
 ## The rest
 
-SPA, StaticFiles, DefaultFiles
+SPA, StaticFiles, DefaultFiles, Versioning
 Cors
     AddCors
     CorsOptions
+API Versioning
+    AddVersionedApiExplorer(), AddApiVersioning()
+     ApiExplorerOptions, ApiVersioningOptions
 
 ## Application
 
