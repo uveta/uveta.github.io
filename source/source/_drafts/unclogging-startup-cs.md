@@ -204,18 +204,27 @@ public class ConfigureApplicationInsights : IConfigureOptions<ApplicationInsight
 }
 ```
 
-## The rest
+## ASP.NET Core extras
 
-SPA, StaticFiles, DefaultFiles, Versioning
-Cors
-    AddCors
-    CorsOptions
-API Versioning
-    AddVersionedApiExplorer(), AddApiVersioning()
-     ApiExplorerOptions, ApiVersioningOptions
+You've probably already gotten the gist of it by now; use extension methods to extract service definitions, and options to do actual service configuration. For completeness, let me give you the rest of commonly used ASP.NET Core features and types used for configuration.
 
-## Application
+* Default files middleware via [UseDefaultFiles()](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles) - [DefaultFilesOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.defaultfilesoptions)
+* Static files middleware via [UseStaticFiles()](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles) - [StaticFileOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions)
+* Cross-Origin Resource Sharing via [AddCors()](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.corsservicecollectionextensions.addcors) - [CorsOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.cors.infrastructure.corsoptions?view=aspnetcore-6.0)
+* API Versioning services via [AddApiVersioning() and AddVersionedApiExplorer()](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Versioning) - [ApiExplorerOptions](https://github.com/dotnet/aspnet-api-versioning/blob/master/src/Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer/ApiExplorerOptions.cs) and [ApiVersioningOptions](https://github.com/dotnet/aspnet-api-versioning/blob/master/src/Common/Versioning/ApiVersioningOptions.cs)
 
-Last but not least, what about your own application code?
+## Application code
+
+Last but not least, what about your own application code? I highly recommend following the same principles, in order to properly decouple your code and avoid doing application setup in a single place. If you are using clean architecture, and have your code properly layered, initialization could be as simple as:
+
+```
+services
+    .AddDomain()
+    .AddApplicationServices()
+    .AddRepositories()
+    .AddIntegration();
+```
 
 ## Conclusion
+
+[GitHub](https://github.com/uveta/demo-unclogging-startup)
