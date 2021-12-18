@@ -7,7 +7,9 @@ tags:
 categories:
   - blog
 disqusId: unclutter-startup-cs
+date: 2021-12-18 15:00:09
 ---
+
 
 {% asset_img calendar.jpg Advent calendar %}
 
