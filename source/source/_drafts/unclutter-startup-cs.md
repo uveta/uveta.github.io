@@ -1,12 +1,12 @@
 ---
-title: Unclogging Startup.cs
+title: Unclutter Startup.cs
 tags:
   - advanced
   - dotnet
   - azure
 categories:
   - blog
-disqusId: unclogging-startup-cs
+disqusId: unclutter-startup-cs
 ---
 
 {% asset_img calendar.jpg Advent calendar %}
@@ -212,6 +212,8 @@ You've probably already gotten the gist of it by now; use extension methods to e
 * Static files middleware via [UseStaticFiles()](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles) - [StaticFileOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions)
 * Cross-Origin Resource Sharing via [AddCors()](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.corsservicecollectionextensions.addcors) - [CorsOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.cors.infrastructure.corsoptions?view=aspnetcore-6.0)
 * API Versioning services via [AddApiVersioning() and AddVersionedApiExplorer()](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Versioning) - [ApiExplorerOptions](https://github.com/dotnet/aspnet-api-versioning/blob/master/src/Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer/ApiExplorerOptions.cs) and [ApiVersioningOptions](https://github.com/dotnet/aspnet-api-versioning/blob/master/src/Common/Versioning/ApiVersioningOptions.cs)
+
+## Pipeline
 
 ## Application code
 
