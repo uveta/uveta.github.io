@@ -1,0 +1,3 @@
+[submodule "source/themes/minos"]
+	path = source/themes/minos
+	url = https://github.com/uveta/hexo-theme-minos
