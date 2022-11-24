@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>So you want to be an Azure Solutions Architect Expert - Part 2 - Uveta&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content="Uveta's blog about all things Azure">
+
+
+
+<meta name="keywords" content="azure, cloud, microsoft, .net, dotnet, dotnetcore, aspnetcore, csharp, C#, elasticsearch, software, development, containers, docker, kubernetes">
+
+
+
+    <meta name="description" content="Microsoft Azure Architect Design is the second exam required for obtaining Azure Solutions Architect Expert certification. Backed up by deployment and configuration skills, obtained from preparation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="So you want to be an Azure Solutions Architect Expert - Part 2">
+<meta property="og:url" content="https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-2/index.html">
+<meta property="og:site_name" content="Uveta&#39;s blog">
+<meta property="og:description" content="Microsoft Azure Architect Design is the second exam required for obtaining Azure Solutions Architect Expert certification. Backed up by deployment and configuration skills, obtained from preparation">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-2/architect-badge.jpg">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-2/az-301-badge.png">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-2/microsoft-docs-architecture.PNG">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-2/multi-region-web-app-diagram.png">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-2/serverless-web-app.png">
+<meta property="article:published_time" content="2020-08-19T15:48:14.000Z">
+<meta property="article:modified_time" content="2020-08-19T15:48:14.000Z">
+<meta property="article:author" content="Uroš Miletić">
+<meta property="article:tag" content="azure">
+<meta property="article:tag" content="certification">
+<meta property="article:tag" content="advanced">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-2/architect-badge.jpg">
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Uveta&#39;s blog" href="https://www.uveta.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Uveta&#39;s blog" href="https://www.uveta.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Uveta&#39;s blog" href="https://www.uveta.io/feed.json" />
+
+
+<link rel="icon" href="/images/logo.svg">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168901242-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-168901242-1');
+</script>
+
+
+    
+    
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    <img src="/images/logo.png" alt="" height="28">
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Blog</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/contact">Contact</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#So-you-want-to-Solution-Architect-AZ-301-Microsoft-Azure-Architect-Design">1&nbsp;&nbsp;<b>So you want to Solution Architect (AZ-301: Microsoft Azure Architect Design)</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#What-type-of-design-questions-await">1.1&nbsp;&nbsp;What type of design questions await</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Where-to-find-study-materials">1.2&nbsp;&nbsp;Where to find study materials</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Availability">1.3&nbsp;&nbsp;Availability</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Reliability">1.4&nbsp;&nbsp;Reliability</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Scalability">1.5&nbsp;&nbsp;Scalability</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Security">1.6&nbsp;&nbsp;Security</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Cost-optimization">1.7&nbsp;&nbsp;Cost optimization</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Governance-and-auditing">1.8&nbsp;&nbsp;Governance and auditing</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Miscellaneous">1.9&nbsp;&nbsp;Miscellaneous</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Networking">1.9.1&nbsp;&nbsp;Networking</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Compute">1.9.2&nbsp;&nbsp;Compute</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Archiving-and-data-retention">1.9.3&nbsp;&nbsp;Archiving and data retention</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Conclusion">2&nbsp;&nbsp;<b>Conclusion</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/uveta">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/uveta">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/in/uveta">
+                
+                <i class="fab fa-linkedin"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            So you want to be an Azure Solutions Architect Expert - Part 2
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        
+        <span class="column is-narrow">
+            
+                <time datetime="2020-08-19T15:48:14.000Z" itemprop="datePublished">Aug 19 2020</time>
+            
+        </span>
+        
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/blog/">blog</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            14 minutes read (About 2101 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><img src="/categories/blog/azure-solutions-architect-expert-part-2/architect-badge.jpg" class="" title="Goal!!!">
+
+<p>Microsoft Azure Architect Design is the second exam required for obtaining Azure Solutions Architect Expert certification. Backed up by deployment and configuration skills, obtained from preparation for Microsoft Azure Architect Technologies exam, we will tackle design of more complex and robust systems in this part.</p>
+<span id="more"></span>
+
+<p>This post is part of my Azure Architect certification guide:</p>
+<ul>
+<li><a href="/categories/blog/azure-solutions-architect-expert-part-1">So you want to be an Azure Solutions Architect Expert - Part 1</a></li>
+<li><a href="/categories/blog/azure-solutions-architect-expert-part-2">So you want to be an Azure Solutions Architect Expert - Part 2</a> (this post)</li>
+</ul>
+<p><em>Disclaimer: on June 29, AZ-303 and AZ-304 were released, but only as beta for the time being. Exams being replaced, i.e. AZ-300 and AZ-301, will retire on September 30. I will take into account AZ-304 curriculum, and not dwell on AZ-301 topics that are becoming obsolete.</em></p>
+<h2 id="So-you-want-to-Solution-Architect-AZ-301-Microsoft-Azure-Architect-Design"><a href="#So-you-want-to-Solution-Architect-AZ-301-Microsoft-Azure-Architect-Design" class="headerlink" title="So you want to Solution Architect (AZ-301: Microsoft Azure Architect Design)"></a>So you want to Solution Architect (AZ-301: Microsoft Azure Architect Design)</h2><p><img src="az-301-badge.png" alt="AZ-301: Microsoft Azure Architect Design"></p>
+<p>Armed with knowledge of individual Azure services, design exam puts it all together under one roof. As a solution architect it will be your responsibility to create systems fulfilling both functional and non-functional requirements, while taking care not to overstep established restrictions. Desired reliability, availability, scalability and costs heavily influence your architecture and components used, hence a much deeper understanding of Azure services is required.</p>
+<h3 id="What-type-of-design-questions-await"><a href="#What-type-of-design-questions-await" class="headerlink" title="What type of design questions await"></a>What type of design questions await</h3><p>Question formats do not diverge much from the ones mentioned in <a href="/categories/blog/azure-solutions-architect-expert-part-1/#What-type-of-technology-questions-await">previous post</a>. You should however expect many more case-studies, which best suit to illustrate obstacles confronted by a system designer.</p>
+<h3 id="Where-to-find-study-materials"><a href="#Where-to-find-study-materials" class="headerlink" title="Where to find study materials"></a>Where to find study materials</h3><p><img src="microsoft-docs-architecture.PNG" alt="Microsoft Azure architecture documentation"></p>
+<p>The same can be said for study materials. Microsoft documentation and video courses I previously suggested offer more than enough information needed to pass design exam as well. Special significance should be paid to <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/architecture/">Azure architecture section</a>, containing reference architectures for different types of deployments. I suggest studying most commonly used ones by analyzing individual components and how they fit together to achieve desired system requirements.</p>
+<h3 id="Availability"><a href="#Availability" class="headerlink" title="Availability"></a>Availability</h3><p><img src="multi-region-web-app-diagram.png" alt="App Service in multiple regions"></p>
+<p>Understanding how Azure datacenters are organized on a global scale is imperative when planning for availability of your deployment. Although Microsoft offers generous SLA for all of its services, outages happen, and careful planning can help you mitigate such interruptions. Most important terms, covered by design exam, include:</p>
+<ul>
+<li>Datacenter. Basic building block of Azure, consisting of physical devices, storage, power and network connections.</li>
+<li>Availability zone. Collection of one or more datacenters with independent power and network connections. Most Azure resources can be distributed between different availability zones, helping against individual datacenter outages.</li>
+<li>Region. Specific location where Azure resources are deployed, guaranteeing compliance and data residency for specific state or country where datacenters are located. With regard to availability zones, each region contains at least 3 of them.</li>
+<li>Regional pair. Each Azure region is paired with another one, with prescribed minimum distance between them. This ensures resiliency in case of regional outages, due to natural disasters or any similar impediments. Any service update is rolled to one region per pair at a time. Also, in case of global Azure outage, Microsoft will prioritize restoring only one region per pair.</li>
+<li>Geography. Regions belonging to the same country are organized into geographies. Any regional pair is usually a part of the same geography, ensuring compliance and data residency. Exceptions do exists, especially for new geographies where usually only one region is deployed.</li>
+</ul>
+<p>Besides knowing how outage in any part of Azure infrastructure could affect you, it is vital to understand where each type of resources is deployed. While most of them are being deployed to specific regions, some of them, e.g. Traffic Manager, are non-regional and are deployed globally. Knowing which services allow distribution into availability zones, in order to handle datacenter outages, is also required.</p>
+<h3 id="Reliability"><a href="#Reliability" class="headerlink" title="Reliability"></a>Reliability</h3><p>When designing backup and recovery solution, it is imperative to take into account target Recovery Time Objectives (RTO) and Recovery Point Objectives (RPO). Simply put, they both impose requirements on how your system should behave in case of an outage. While RTO determines maximum period of time an outage is allowed to last, RPO specifies permitted amount of data loss during recovery. For critical system components these values would normally be expressed in seconds, while rarely used or obsolete parts could afford even daily outages. Values imposed by these requirements have great impact not only during recovery design, but also when optimizing costs, which I will cover in the following sections.</p>
+<p>To successfully conquer this part of the exam, deeper understanding of two services is required:</p>
+<ul>
+<li>Azure Backup. As the name implies, the service is used for managing backups of other services, be it Azure VM disks, on-premise file systems or SQL servers running on Azure VMs. Although you should be familiar with configuring and deploying it from technologies exam, understanding costs and data retention specifics will be required on design exam.</li>
+<li>Azure Site Recovery. This one is a complex hydra, since it can span multiple Azure regions and even handle on-premise systems connected via VPN. It heavily relies on Backup service and removes the need for manual intervention in case of a failure. I recommend spending some time trying out Site Recovery in Azure Portal, if you have a chance. How to identify failure (both infrastructure and application), how to recover to a secondary deployment (both Azure and on-premise) and how to minimize amount of lost data and downtime (RPO and RTO) are just some of the areas you will need to be proficient in. Luckily, Site Recovery allows manual failovers, allowing you to test and get a good grip on what can happen in case of a system failure.</li>
+</ul>
+<h3 id="Scalability"><a href="#Scalability" class="headerlink" title="Scalability"></a>Scalability</h3><p><img src="serverless-web-app.png" alt="Scalable serverless application"></p>
+<p>Most compute and database resources, offered by Azure, support scaling out of the box. The trick is knowing which service tier you have to use for specific resource type, as well how to effectively configure scaling to support increase of demand. Whether you are using VM scale sets or App Service, knowing how to configure auto-scaling rules and conditions is a must. Even services such as Function App, which inherently handle scaling, support further adjustments to it. This can be used to control burst of work and better handle costs of potentially unlimited compute resources.</p>
+<p>All previously mentioned areas (availability, reliability and scalability) represent pillars of any highly available and resilient deployment. I would once again emphasize the importance of <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/architecture/">Azure architecture documentation</a>, which is an endless pool of reference architectures, allowing building systems fulfilling specific set of requirements.</p>
+<h3 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h3><p>As with any cloud environment, security is involved in almost all of Azure’s components and processes. For the purpose of design exam, I would divide security topics into following:</p>
+<ul>
+<li>User management, authentication and authorization. Beside knowing how to work with Azure AD and role-based access control (RBAC), which were covered in technologies exam, you will be expected to handle more advanced scenarios and options offered by Azure AD. Configuring single-sign on (SSO), multi-factor authentication (MFA) and dealing with hybrid identity using Azure AD Connect are just some of the examples. As you are expected to handle enterprise level deployments, automating and auditing certain tasks will be a necessity. Hence premium AD options such as Privileged Identity Management (PIM), self-service management, Identity Protection and Just In Time (JIT) VM access should not flow under your radar.</li>
+<li>Application security. Securing our compute resources comes in two flavours: handling service access to other Azure resources and protecting application data. While Managed Identity can handle service authentication, using service principals and RBAC, Azure Key Vault is usually used for storing sensitive application settings and certificates.</li>
+<li>Data protection. As our systems will deal with user data, it is imperative for all of its components to safeguard it. By designing a system that encrypts data at rest, in transit and while in use we can minimize the possibility and impact of data exposure. Knowing how different resources, based on their purpose, handle each part of data flow is a key to conquering these problems.</li>
+</ul>
+<h3 id="Cost-optimization"><a href="#Cost-optimization" class="headerlink" title="Cost optimization"></a>Cost optimization</h3><p>First step into providing good cost optimization is knowing when and how are you charged for using Azure resources. Although some costs are fixed, e.g each GB stored, VM reserved, certificate purchased and public IP address assigned, others are charged per usage unit, such as FunctionApp and Container Instances execution time, number of read/write requests to storage accounts and Cosmos DB request units, just to name a few. Different service tiers can also dramatically affect costs of entire deployment, due to extra features offered and more strict SLAs. No one will expect of you to provide exact price of deployment, but knowing how to reduce costs, while still adhering to requirements imposed, will be vital. </p>
+<p>In case of designing for reliability, you will mostly be faced with task of minimizing deployment cost, while maintaining specific RTO and RLO values. Knowing how each storage resource (Cosmos DB, blob and file storage) and recovery service (Site Recovery and Backup) handles these parameters is a skill you will have to master.</p>
+<h3 id="Governance-and-auditing"><a href="#Governance-and-auditing" class="headerlink" title="Governance and auditing"></a>Governance and auditing</h3><p>All parts of an enterprise must be compliant with pre-established rules, which does not exempt deployments made to Azure. Governance in Azure further includes creating and adhering completely new set of rules, specific for cloud environment. As an example, you could be tasked with designing resource tagging policy, in order to help identify business unit, application or employees responsible for specific resource or groups of resources.</p>
+<p>In order to ensure all deployed resources are compliant, Azure allows us to define policies for different scopes, i.e directory, subscription, resource group, etc. This goes even beyond deployments, as policy rules can be applied to user accounts, RBAC and other security entities governed by Azure AD. Azure Blueprints makes work with policies more straightforward, giving us possibility to define compliant resource templates ready for deployment. Blueprints go much further than simple ARM templates, as they are backed up by Cosmos DB, available to any user or group with access rights, and provide audit log upon deployment.</p>
+<h3 id="Miscellaneous"><a href="#Miscellaneous" class="headerlink" title="Miscellaneous"></a>Miscellaneous</h3><p>I will briefly cover further topics encountered during exam, that are not as extensive as previously mentioned ones.</p>
+<h4 id="Networking"><a href="#Networking" class="headerlink" title="Networking"></a>Networking</h4><p>Since virtual networks are ties that bind all other Azure resources, knowing how to design and utilize them is something that can not be overlooked. As they fall within the competence of Microsoft, you will have little influence over their operation and reliability. However, architect’s responsibility lay in other areas. Modeling addressing strategy for networks and sub-networks, connecting virtual networks and on-premise systems, directing network flow via routing and load balancers, as well as establishing security boundaries and rules are just some of the skills that will be expected of you on design exam.</p>
+<h4 id="Compute"><a href="#Compute" class="headerlink" title="Compute"></a>Compute</h4><p>Similar skills to ones required in technical exam are required, as choosing appropriate compute solution is still the main focus. There will however be additional requirements, requiring deeper knowledge of pricing tiers and respective offerings, total resource costs as well as scaling capabilities. Resource types covered by design exam are virtual machines, virtual machine scale sets, App Services, Service Fabric, Function Apps and containerized deployments. Regarding last one, make sure you understand difference between Azure Kubernetes Service and Azure Container Instances.</p>
+<h4 id="Archiving-and-data-retention"><a href="#Archiving-and-data-retention" class="headerlink" title="Archiving and data retention"></a>Archiving and data retention</h4><p>Storing not-frequently accessed data for auditing and compliance purposes is a necessity by today’s standards. Almost all Azure storage services include an archive tier, so you should be covered whether you are using Storage Accounts, Data Lake or Azure Backup, just to name a few. You would still need to know how to calculate the costs of archiving data, as well as special conditions for storing and accessing it.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In this post I described most important topics that are covered by AZ-301: Microsoft Azure Architect Design exam. Including previous post in the series, I have covered complete curriculum for Azure Solutions Architect Expert exam in its current form.</p>
+<p>If you would have any additional questions or remarks, I am eager to hear them in the comments bellow. If you are interested in future posts from Azure and .NET world, follow me on <a target="_blank" rel="noopener" href="https://twitter.com/uveta">Twitter</a> to get notified as soon as they get published.</p>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/azure/">#azure</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/certification/">#certification</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/advanced/">#advanced</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/categories/blog/ahaaas-august-2020/">Ahaaas! - August 2020</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/categories/blog/ahaaas-july-2020/">Ahaaas! - July 2020</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-2/';
+        this.page.identifier = 'azure-solution-architect-expert-part-2';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'uveta-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 Uroš Miletić&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noreferrer noopener">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="https://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/uveta/uveta.github.io">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#3273dc"
+            },
+            "button": {
+                "background": "#fff",
+                "text": "#3273dc"
+            }
+        }
+    });
+</script>
+
+    
+
+
+
+<script src="/js/script.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+    
+</body>
+</html>

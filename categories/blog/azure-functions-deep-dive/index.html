@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Azure Functions Deep Dive - Uveta&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content="Uveta's blog about all things Azure">
+
+
+
+<meta name="keywords" content="azure, cloud, microsoft, .net, dotnet, dotnetcore, aspnetcore, csharp, C#, elasticsearch, software, development, containers, docker, kubernetes">
+
+
+
+    <meta name="description" content="Ever wondered what happens under the hood of Azure Functions? How can your server code magically run without a server? How does it know when to scale and how much? How to adjust your application to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Azure Functions Deep Dive">
+<meta property="og:url" content="https://www.uveta.io/categories/blog/azure-functions-deep-dive/index.html">
+<meta property="og:site_name" content="Uveta&#39;s blog">
+<meta property="og:description" content="Ever wondered what happens under the hood of Azure Functions? How can your server code magically run without a server? How does it know when to scale and how much? How to adjust your application to">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/azure-functions-deep-dive/banner.jpg">
+<meta property="article:published_time" content="2020-10-24T15:16:59.000Z">
+<meta property="article:modified_time" content="2020-10-24T15:16:59.000Z">
+<meta property="article:author" content="Uroš Miletić">
+<meta property="article:tag" content="azure">
+<meta property="article:tag" content="advanced">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.uveta.io/categories/blog/azure-functions-deep-dive/banner.jpg">
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Uveta&#39;s blog" href="https://www.uveta.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Uveta&#39;s blog" href="https://www.uveta.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Uveta&#39;s blog" href="https://www.uveta.io/feed.json" />
+
+
+<link rel="icon" href="/images/logo.svg">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168901242-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-168901242-1');
+</script>
+
+
+    
+    
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    <img src="/images/logo.png" alt="" height="28">
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Blog</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/contact">Contact</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#How-did-it-all-start">1&nbsp;&nbsp;<b>How did it all start</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Components">2&nbsp;&nbsp;<b>Components</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Functions-Host">2.1&nbsp;&nbsp;Functions Host</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Scale-Controller">2.2&nbsp;&nbsp;Scale Controller</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Deployment-and-Hosting">3&nbsp;&nbsp;<b>Deployment and Hosting</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Tips-and-trick">4&nbsp;&nbsp;<b>Tips and trick</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Logging">4.1&nbsp;&nbsp;Logging</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Function-sandbox">4.2&nbsp;&nbsp;Function sandbox</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Function-performance-counter-limits">4.3&nbsp;&nbsp;Function performance counter limits</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Number-of-active-600-and-total-1200-connections">4.3.1&nbsp;&nbsp;Number of active (600) and total (1200) connections</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Number-of-threads-512">4.3.2&nbsp;&nbsp;Number of threads (512)</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Number-of-child-processes-32">4.3.3&nbsp;&nbsp;Number of child processes (32)</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Override-host-configuration-in-code">4.4&nbsp;&nbsp;Override host configuration in code</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Conclusion">5&nbsp;&nbsp;<b>Conclusion</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/uveta">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/uveta">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/in/uveta">
+                
+                <i class="fab fa-linkedin"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Azure Functions Deep Dive
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        
+        <span class="column is-narrow">
+            
+                <time datetime="2020-10-24T15:16:59.000Z" itemprop="datePublished">Oct 24 2020</time>
+            
+        </span>
+        
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/blog/">blog</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            13 minutes read (About 1950 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><img src="/categories/blog/azure-functions-deep-dive/banner.jpg" class="" title="Function in action">
+
+<p>Ever wondered what happens under the hood of Azure Functions? How can your server code magically run without a server? How does it know when to scale and how much? How to adjust your application to run optimally as a function? I’ve got you covered.</p>
+<span id="more"></span>
+
+<h2 id="How-did-it-all-start"><a href="#How-did-it-all-start" class="headerlink" title="How did it all start"></a>How did it all start</h2><p>In 2014 (ancient history!) Microsoft introduced WebJobs. As a part of their Azure Web Sites PAAS offering (later re-branded as Azure Web Apps), it allowed uses to run arbitrary application in Azure, be it a Windows executable, Powershell, bash script, or code written in .NET, Java, PHP, Python or JavaScript. Not only that, but it had built-in input and output bindings for various Azure resources, such as blob storage, queue or Service Bus. From the get-go, you could trigger your WebJob from all of these resources, and write to them, without having to handle communication yourself. Later extensions allowed jobs to be triggered by CRON timers and HTTP requests. Sounds familiar? This is how Azure WebJobs SDK came to be, which later served as a base platform for Azure Functions.</p>
+<p>Although they are still available as part of Web Apps (check <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/app-service/webjobs-create">Web Jobs</a> blade on your App Service) and have their fair share of usage, Web Jobs have mostly been replaced with higher order resources, such as Function or Logic Apps.</p>
+<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><p>As we established in the previous section, Azure WebJobs SDK is an essential piece of Function Apps. It is responsible for running custom application and provides bindings to external resources. Another part is, for completeness’ sake, the custom application itself, serving whatever purpose user sees fit. But we mustn’t forget about another, equally important component. The glue that ties it all together, the <a target="_blank" rel="noopener" href="https://github.com/Azure/azure-functions-host">Azure Functions Host</a>.</p>
+<h3 id="Functions-Host"><a href="#Functions-Host" class="headerlink" title="Functions Host"></a>Functions Host</h3><p>Functions Host is, in its core, a lightweight ASP.NET Core application running on top of Azure WebJobs SDK. It serves as a connector between custom application (executed by a trigger), all <em>function.json</em> files (containing individual functions metadata) and single <em>host.json</em> file (host configuration including logging, specific trigger options and various extension settings, common for all functions that are part of a single Function App).</p>
+<p>Custom application itself is discovered and managed by Functions Host, and executed via WebJobs SDK. Scaling, however, lies outside of responsibilities of Host instances. It is managed by an independent component - Scale Controller.</p>
+<h3 id="Scale-Controller"><a href="#Scale-Controller" class="headerlink" title="Scale Controller"></a>Scale Controller</h3><p>Just as Functions Host is responsible for handling and running individual functions, Scale Controller also plays a managerial role, but for Host instances themselves. It is in charge of creating and destroying individual Hosts, depending on the current workload. Scaling decisions are made based on metrics gathered from resources used as input triggers. Scale Controller is responsible for consuming these metrics and adjusting number of active Host instances.</p>
+<p>As an example, let us have a function triggering of an Azure Service Bus. Scale Controller would have to monitor current number of active messages, as well as maximum message throughput obtained from configuration. In case active message count starts rapidly rising, it will spin up new instances to handle increased load. As number of messages decreases, so will inactive instances be destroyed by Scale Controller.</p>
+<h2 id="Deployment-and-Hosting"><a href="#Deployment-and-Hosting" class="headerlink" title="Deployment and Hosting"></a>Deployment and Hosting</h2><p>I have already mentioned that Function Apps support plethora of programming languages and scripts, e.g .NET, Java, JavaScript, Powershell and Bash, and the list goes on. Even containers are supported, as custom Docker images can be hosted in Function Apps as well.</p>
+<p>On the other hand, multiple hosting plan scenarios are possible: Consumption, running functions only when required; Dedicated, using deployed App Service Plans to run functions alongside existing App Services; and finally Premium, using dedicated elastic App Service Plans to offer unparalleled performance, response time and scaling capabilities. Each of them has its strengths and weaknesses, and I encourage you to go through official documentation before considering function usage.</p>
+<p>Overabundance of supported application and hosting models sadly has its negative sides - not all combinations are supported and not all of them operate effectively together. When other factors are taken into account, such as in-process and out-of process hosting, supported runtimes and operating systems, as well as minimum performance requirements, available options can seriously get limited. I would recommend reading comparison of <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-scale">Azure Functions hosting plans</a> before getting seriously involved. The article also contains well-organized support tables for each of hosting options.</p>
+<h2 id="Tips-and-trick"><a href="#Tips-and-trick" class="headerlink" title="Tips and trick"></a>Tips and trick</h2><p>I could have named this section ‘Azure Functions Best Practices’, but Microsoft already <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices">beat me to it!</a> Instead of repeating the same conventions you’ve heard over and over again, I wanted to focus on something different. Specifically, on certain points that I became aware through my experience working with functions. Information following will help you better understand what and what functions can’t be used for, how to use them in a more efficient way and what to do if it all goes haywire.</p>
+<h3 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h3><p>Unless you added your own custom logging infrastructure, there is a good chance that all telemetry, requests and traces are consumed by Application Insights associated with your Function App. I will not go into detail on how to query this data, but will leave you with a <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/azure-functions/configure-monitoring">handy explanation</a> on how it is organized and how to locate individual function components logs.</p>
+<p>Default logging configuration is pretty great, and you would not need to modify it 99.99% of the time. But there is still that 00.01% that will eventually come up, be it during development or trying to solve an issue in production. As all .NET Core applications, functions use structured logging as well, which can be adjusted either by modifying <em>host.json</em> configuration directly, or via <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json#override-hostjson-values">application settings</a>. The most interesting categories that support modifying logging levels are:</p>
+<ul>
+<li>Function - includes execution start/stop time, dependencies tracking, thrown exceptions, as well as any logs from custom application, in case the code is consuming provided ILogger instance</li>
+<li>Host - contains function invocation count, success rate and duration telemetries; invocation success and failures are also logged</li>
+<li>Microsoft - in case custom application was written in .NET, handles logs coming from .NET components used, e.g. HttpClient, Hosting etc.</li>
+<li>Worker - if running non .NET application, its’ console output would be written using this category</li>
+</ul>
+<p>Reading the list, you must have thought: “Cool, so I can monitor individual function components. But wait a minute… Where is the Scale Controller?!”. No worries, Microsoft is on the case. Gathering logs from <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-monitoring?tabs=cmd#scale-controller-logs">Scale Controller</a> is available, but still as a preview feature. For now, it can be configured exclusively using application settings.</p>
+<h3 id="Function-sandbox"><a href="#Function-sandbox" class="headerlink" title="Function sandbox"></a>Function sandbox</h3><p>It goes without saying, but don’t expect your functions to be running on bare metal. Whats more, they are not even hosted on dedicated Virtual Machine. Instead, Function Apps are constrained to what is called an <a target="_blank" rel="noopener" href="https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox">Azure Web App sandbox</a>, which, by the way, is the same environment running App Services. The sandbox imposes many limitations, but most important ones, from the point of view of Function App developer, are:</p>
+<ul>
+<li>no access to Windows shared components - meaning no writing to registry, no service management using SCM and no access to processes outside of sandbox. One more important feature missing is usage of GDI32 graphics subsystem, which is still, sadly, used by most PDF generator tools.</li>
+<li>no disk access - generally, you are not able to read/write to disk even if the target path exists. There are however two exceptions: you can either use storage shared by all sandboxes (/home) or local sandbox storage (/local). Note, however, that local storage is deleted when host instance is terminated.</li>
+<li>limited network features - custom application is allowed to listen on any incoming port, but that port will only be available within the sandbox and not to external clients. It cannot use localhost or 127.0.0.1 address to open connection to ports it did not open itself. On the other side, some of the outgoing ports are restricted, namely 137, 138, 139 and 445.</li>
+</ul>
+<h3 id="Function-performance-counter-limits"><a href="#Function-performance-counter-limits" class="headerlink" title="Function performance counter limits"></a>Function performance counter limits</h3><p>These limitations are essentially imposed by the Web App sandbox environment as well. Unlike the ones listed in the previous chapter, these ones can be circumvented if your application is properly adapted to run in Function App. Please note that they apply only when hosting on Consumption Plan; if you are hosting using Dedicated or Premium Plans, limitations will depend on VM size used. All the limitations are tracked by <a target="_blank" rel="noopener" href="https://github.com/Azure/azure-functions-host/wiki/Host-Health-Monitor">Host Health Monitor</a>, which will start issuing warnings once function approaches or breaks any of the limits. Keep an eye out on Application Insights, where all function failures are logged.</p>
+<h4 id="Number-of-active-600-and-total-1200-connections"><a href="#Number-of-active-600-and-total-1200-connections" class="headerlink" title="Number of active (600) and total (1200) connections"></a>Number of active (600) and total (1200) connections</h4><p>If you are developing a function requiring a lot of external resources, you can easily find yourself exhausting all available active connections. As each function can be ran multiple times (e.g. when it is triggered by a queue), as part of the same sandbox, the limit of 600 connections applies to all the instances combined.</p>
+<ul>
+<li>Best trick to avoid breaking the limit is having a single HttpClient instance and reusing it. It is thread safe and will spare you the need to constantly create and dispose of HttpClients, which is a bad practice overall. </li>
+<li>If multiple functions can reuse same external data, consider caching it in shared storage. </li>
+<li>Try to do as little work in a function as possible, as long running functions tend to exhaust connection limit more often.</li>
+</ul>
+<h4 id="Number-of-threads-512"><a href="#Number-of-threads-512" class="headerlink" title="Number of threads (512)"></a>Number of threads (512)</h4><p>If you are using System.Threading types to start threads manually, consider switching to Tasks, as they are able to utilize thread pool more efficiently. As a general advice, do not try to run many things in parallel, so avoid Threads, TPL and similar multithreaded libraries. It is better to have multiple smaller functions, than trying to handle everything in a single one.</p>
+<h4 id="Number-of-child-processes-32"><a href="#Number-of-child-processes-32" class="headerlink" title="Number of child processes (32)"></a>Number of child processes (32)</h4><p>Consider this limitation if your function has to spawn other processes. Too many child processes can also lead to increased memory usage, which directly affects billed costs of your Function App. In case Consumption Plan is not used, excessive process spawning can lead to underlying VM memory exhaustion.</p>
+<h3 id="Override-host-configuration-in-code"><a href="#Override-host-configuration-in-code" class="headerlink" title="Override host configuration in code"></a>Override host configuration in code</h3><p>If you notice parts of custom <em>host.json</em> configuration are ignored by FunctionApp, using default values instead, you might be running into the same issue I stumbled upon couple of times. Yet there is a way to ensure overriding host configuration, if you are running in-process application. <a target="_blank" rel="noopener" href="https://github.com/Azure/azure-functions-servicebus-extension/issues/81#issuecomment-621431750]">The solution</a> requires injecting dependencies using <em>FunctionStartup</em>, and is especially useful for changing extensions configuration.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Deep dive into Azure Functions originally started as another <a href="/categories/blog/ahaaas-august-2020/">Ahaaas article</a>. As I have noticed there are more than five different points concerning functions, I decided to dig a bit deeper and bring you this text.</p>
+<p>In this article, I brought up ancient Azure history, in order to explain how Azure Functions came to be. Furthermore, I dissected most important function components and went through deploying and hosting options. Finally, I have included some of my personal experiences working with Azure Functions.</p>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/azure/">#azure</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/advanced/">#advanced</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/categories/blog/windows-vs-linux-appservice-whats-the-difference/">Windows vs Linux App Service - What is the Difference?</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/categories/blog/ahaaas-august-2020/">Ahaaas! - August 2020</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://www.uveta.io/categories/blog/azure-functions-deep-dive/';
+        this.page.identifier = 'azure-functions-deep-dive';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'uveta-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 Uroš Miletić&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noreferrer noopener">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="https://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/uveta/uveta.github.io">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#3273dc"
+            },
+            "button": {
+                "background": "#fff",
+                "text": "#3273dc"
+            }
+        }
+    });
+</script>
+
+    
+
+
+
+<script src="/js/script.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+    
+</body>
+</html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Asynchronous Job Pattern - The ASP.NET Core MVC Way - Uveta&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content="Uveta's blog about all things Azure">
+
+
+
+<meta name="keywords" content="azure, cloud, microsoft, .net, dotnet, dotnetcore, aspnetcore, csharp, C#, elasticsearch, software, development, containers, docker, kubernetes">
+
+
+
+    <meta name="description" content="Let me present a pattern we used to solve a problem haunting our enterprise application for ages. It was initially designed to handle long running operations, using RESTful approach, but we soon rea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Asynchronous Job Pattern - The ASP.NET Core MVC Way">
+<meta property="og:url" content="https://www.uveta.io/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/index.html">
+<meta property="og:site_name" content="Uveta&#39;s blog">
+<meta property="og:description" content="Let me present a pattern we used to solve a problem haunting our enterprise application for ages. It was initially designed to handle long running operations, using RESTful approach, but we soon rea">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/calendar.jpg">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/architecture.png">
+<meta property="article:published_time" content="2020-12-21T20:33:44.000Z">
+<meta property="article:modified_time" content="2020-12-21T20:33:44.000Z">
+<meta property="article:author" content="Uroš Miletić">
+<meta property="article:tag" content="advanced">
+<meta property="article:tag" content="microservices">
+<meta property="article:tag" content="dotnet">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.uveta.io/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/calendar.jpg">
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Uveta&#39;s blog" href="https://www.uveta.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Uveta&#39;s blog" href="https://www.uveta.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Uveta&#39;s blog" href="https://www.uveta.io/feed.json" />
+
+
+<link rel="icon" href="/images/logo.svg">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168901242-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-168901242-1');
+</script>
+
+
+    
+    
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    <img src="/images/logo.png" alt="" height="28">
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Blog</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/contact">Contact</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Building-blocks">1&nbsp;&nbsp;<b>Building blocks</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Job">1.1&nbsp;&nbsp;Job</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Worker">1.2&nbsp;&nbsp;Worker</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Endpoint">1.3&nbsp;&nbsp;Endpoint</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Job-Repository-and-Queue">1.4&nbsp;&nbsp;Job Repository and Queue</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#ASP-NET-Core-implementation">2&nbsp;&nbsp;<b>ASP.NET Core implementation</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Implementation-considerations">2.1&nbsp;&nbsp;Implementation considerations</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Plugging-in-worker-implementation">2.2&nbsp;&nbsp;Plugging in worker implementation</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Exposing-endpoints">2.3&nbsp;&nbsp;Exposing endpoints</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Few-words-on-repository-and-queue">2.4&nbsp;&nbsp;Few words on repository and queue</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Configuring-job-services">2.5&nbsp;&nbsp;Configuring job services</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Usage-alternatives">3&nbsp;&nbsp;<b>Usage alternatives</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Conclusion">4&nbsp;&nbsp;<b>Conclusion</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/uveta">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/uveta">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/in/uveta">
+                
+                <i class="fab fa-linkedin"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Asynchronous Job Pattern - The ASP.NET Core MVC Way
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        
+        <span class="column is-narrow">
+            
+                <time datetime="2020-12-21T20:33:44.000Z" itemprop="datePublished">Dec 21 2020</time>
+            
+        </span>
+        
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/blog/">blog</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            10 minutes read (About 1531 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><img src="/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/calendar.jpg" class="" title="Advent calendar">
+
+<p>Let me present a pattern we used to solve a problem haunting our enterprise application for ages. It was initially designed to handle long running operations, using <a target="_blank" rel="noopener" href="http://restalk-patterns.org/long-running-operation-polling.html">RESTful approach</a>, but we soon realized it could be used in many other ways. As it generalizes the system of submitting requests and obtaining responses, it can easily be adapted to different business processes, while keeping unified client interface.</p>
+<span id="more"></span>
+
+<p><em>This post is part of <a target="_blank" rel="noopener" href="https://www.csadvent.christmas/">C# Advent Calendar 2020</a>. Cheers to <a target="_blank" rel="noopener" href="https://twitter.com/mgroves">Matthew D. Groves</a> for letting me participate!</em></p>
+<h2 id="Building-blocks"><a href="#Building-blocks" class="headerlink" title="Building blocks"></a>Building blocks</h2><p>From a <em>client</em> perspective, the pattern usage is pretty simple: it submits a <em>job</em> for processing to an <em>endpoint</em>; <em>job</em> status is polled until processing is finished; if status was successful, client uses <em>endpoint</em> to obtain output.</p>
+<p>On server side, several components are required to achieve such functionality. Lets take a look at the big picture and define individual pattern pieces.</p>
+<h3 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h3><p>A <em>job</em> is a principal entity, representing <em>client</em> intent processed by a designated <em>worker</em>. It is composed of:</p>
+<ul>
+<li><strong>Header</strong>, containing job metadata such as unique identifier, current status, time of creation/start/finish, potential issues as well as estimated time of completion</li>
+<li><strong>Input parameters</strong></li>
+<li><strong>Output values</strong></li>
+</ul>
+<h3 id="Worker"><a href="#Worker" class="headerlink" title="Worker"></a>Worker</h3><p>Component that does heavy lifting. Main responsibility is actual processing, as each <em>worker</em> is able to handle specific <em>job</em> type. In simple terms, we can describe it as a function accepting input parameters and returning either <em>job</em> output or an error.</p>
+<h3 id="Endpoint"><a href="#Endpoint" class="headerlink" title="Endpoint"></a>Endpoint</h3><p>Serves as an entry-point for <em>clients</em>. After creating a job, <em>client</em> should be able to obtain <em>job</em> status at any point in time, as well as output after processing is finished. <em>Endpoint</em> should also allow <em>client</em> to cancel and clean-up a <em>job</em>. Hence, it needs to provide following services:</p>
+<ul>
+<li>Create <em>job</em></li>
+<li>Get <em>job</em> status</li>
+<li>Get <em>job</em> output</li>
+<li>Delete <em>job</em></li>
+</ul>
+<h3 id="Job-Repository-and-Queue"><a href="#Job-Repository-and-Queue" class="headerlink" title="Job Repository and Queue"></a>Job Repository and Queue</h3><p>A <em>repository</em> will be used to store all <em>jobs</em>, which would allow both <em>endpoint</em> and <em>worker</em> to read and update <em>job</em> state. For now, let’s consider <em>repository</em> an abstraction, as concrete implementation and storage technology may vary, depending on usage scenario.</p>
+<p>Binding between an <em>endpoint</em> and a <em>worker</em> would be achieved using a <em>job queue</em> concept. It has to provide a <em>producer</em> and a <em>consumer</em>, depending on the component using <em>queue</em> services. Similar to how <em>repository</em> was defined, implementation may range from memory one to a hyper-scale message broker. </p>
+<p>Final pattern architecture is depicted in the diagram bellow. As all core components are defined, we should move on to implementation using APS.NET Core.</p>
+<p><img src="architecture.png" alt="Job pattern architecture"></p>
+<h2 id="ASP-NET-Core-implementation"><a href="#ASP-NET-Core-implementation" class="headerlink" title="ASP.NET Core implementation"></a>ASP.NET Core implementation</h2><h3 id="Implementation-considerations"><a href="#Implementation-considerations" class="headerlink" title="Implementation considerations"></a>Implementation considerations</h3><p>In order to make the implementation as universal as possible, we need to limit <em>job</em> inputs and outputs to one of each. If multiple values are expected, they could be provided via a custom model. <code>JobExecutionResult</code> will serve as a wrapper for output value, containing result of <em>worker</em> execution and any possible issues. If we define them as types <code>TInput</code> and <code>TOutput</code>, our <em>worker</em> and <em>endpoint</em> could look something like this:</p>
+<script src="https://gist.github.com/uveta/85943b7354871239058c4b45ffca8ee9.js"></script>
+<script src="https://gist.github.com/uveta/9ebe4d6514c8bf6d22dca908eeeb0c04.js"></script>
+
+<p>As <em>endpoint</em> is user independent concept, it will be up to pattern to provide the implementation. On the other hand, <em>worker</em> is responsible for executing custom actions, hence it’s implementation has to be provided by the pattern user. This reasoning will come into play during design, as we would like to provide plugin architecture for individual pattern components. This will allow utilizing only building blocks required for given scenario, while the user would provide implementation of required and customizable parts.</p>
+<h3 id="Plugging-in-worker-implementation"><a href="#Plugging-in-worker-implementation" class="headerlink" title="Plugging in worker implementation"></a>Plugging in worker implementation</h3><p><em>Worker</em> flow is straightforward: it should use <em>queue consumer</em> to listen for incoming <em>jobs</em>; whenever one is received, it should process it and update <em>job</em> status and output via <em>repository</em>; then it waits for next one and repeats previous steps. This cycle is supposed to run for the whole application lifetime, as new <em>jobs</em> can arrive at any time. A natural solution to implement such functionality are <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services">hosted services</a>. In our case, we could extract all common code (starting <em>queue consumer</em>, input/output serialization and <em>job</em> update) to a <code>WorkerInvoker&lt;TWorker&gt;</code> hosted service, bound to specific <em>worker</em> by it generic type <code>TWorker</code>.</p>
+<p>Adding <code>TWorker</code> type to DI container has multiple benefits. On one side, it can be injected into <code>WorkerInvoker&lt;TWorker&gt;</code>, removing the need to create it manually. On the other hand, it allows developers of <code>TWorker</code> to freely inject business services into it.</p>
+<h3 id="Exposing-endpoints"><a href="#Exposing-endpoints" class="headerlink" title="Exposing endpoints"></a>Exposing endpoints</h3><p>Since controllers are used as primary entry point into MVC applications, they are an obvious choice for coupling with <em>endpoints</em>. In this case, <a target="_blank" rel="noopener" href="http://restalk-patterns.org/long-running-operation-polling.html">initial description</a> should be followed to the letter, as we are in domain of HTTP REST operations. Hence, controllers should include following routes:</p>
+<ul>
+<li><strong>POST <em>/jobs</em></strong>: allows creating new jobs; responds with status <em>202 (Accepted)</em>, containing <em>job</em> resource <em>URL</em></li>
+<li><strong>GET <em>/jobs/{jobId}</em></strong>: resource <em>URL</em> can be used for polling <em>job</em> status, while in progress; when processing is finished, use <em>303 (See Other)</em> redirect to provide client with an output resource <em>URL</em></li>
+<li><strong>GET <em>/jobs/{jobId}/output</em></strong>: output resource <em>URL</em>; should return <em>200 (OK)</em> result containing output value, after <em>job</em> processing finishes; returns <em>404 (NotFound)</em> error otherwise</li>
+<li><strong>DELETE <em>/jobs/{jobId}</em></strong>: disposes of any reserved resources; client should call it after polling finishes and output is obtained; if not done by client, server should clean up old <em>jobs</em> automatically</li>
+</ul>
+<p>The burden of creating a controller should not fall on the user; it is the responsibility of the pattern itself, since each route functionality is known in advance. For this purpose we could implement a generic <code>JobsController&lt;TEndpoint&gt;</code>, which would be bound to specific <em>endpoint</em> via its type parameter <code>TEndpoint</code>.</p>
+<p>As multiple <em>endpoints</em> per service have to be supported, MVC requires providing different underlying type for each controller. This is not possible with our idea of using a generic one, as changing generic’s type parameter does not change overall generic type. Instead, we should create individual controller type from base generic dynamically, using a bit of <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.typebuilder">TypeBuilder</a> reflection magic. Generated types could then be added to MVC using custom <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.iapplicationparttypeprovider">IApplicationPartTypeProvider</a>.</p>
+<h3 id="Few-words-on-repository-and-queue"><a href="#Few-words-on-repository-and-queue" class="headerlink" title="Few words on repository and queue"></a>Few words on repository and queue</h3><p>Following how we defined <em>job repository</em> and <em>queue</em>, respecting interfaces would be:</p>
+<script src="https://gist.github.com/uveta/44ca3dfbba05536e5091fbc353b611ec.js"></script>
+<script src="https://gist.github.com/uveta/585866e8ae67e75d7c65eac9cccb6d0b.js"></script>
+
+<p>The pattern has to supply default memory implementation for both of them. Although this should suffice for test and single-service usage, it completely falls flat in any advanced scenarios. Hence, replacing default implementations must be allowed via extensions.</p>
+<h3 id="Configuring-job-services"><a href="#Configuring-job-services" class="headerlink" title="Configuring job services"></a>Configuring job services</h3><p>We should follow principals ASP.NET Core was build upon and adopt a plugin architecture in order to configure our pattern services. I used <a target="_blank" rel="noopener" href="https://github.com/uveta/extensions-jobs/tree/main/samples/MvcDemo">a sample project</a> to demonstrate how such behavior could be achieved. The following example includes definition of one <em>endpoint</em> and its bound <em>worker</em>.</p>
+<script src="https://gist.github.com/uveta/777c12716df3015ebc67a651916bea23.js"></script>
+
+<p>In this case, <code>PingRequest</code> and <code>PingResponse</code> correspond to input and output types. <code>PingWorker</code> represents a custom implementation of <code>IWorker</code>, supplied by user. Other components (<em>endpoint</em>, <em>repository</em> and <em>queue</em>) are provided by pattern and only configured here.</p>
+<h2 id="Usage-alternatives"><a href="#Usage-alternatives" class="headerlink" title="Usage alternatives"></a>Usage alternatives</h2><p>Proposed implementation is just one of many possible, as well as its usage. All building blocks are introduced as abstract concepts, which can be adapted for different scenarios than initially intended. For example, an <em>endpoint</em> could be utilized to issue an RPC call without knowing the address of remote service; client would use <em>endpoint</em> to create a new job, which would reach designated <em>worker</em> via queue, effectively removing the need of individual services knowing other ones even exist. Only constraint is imposed by specific business feature, having strictly defined input and output.</p>
+<p>Further improvements can be introduced on <em>workers</em> as well. In order to use them in a real-world scenarios, there has to be a possibility of configuring their maximum scaling and execution period limits. This feature will have to be supported by <em>queue</em> implementation, as <em>worker</em> is invoked based on actions triggered by <em>queue consumer</em>.</p>
+<p>Finally, default memory implementations of <em>queue</em> and <em>repository</em> are only good for <a target="_blank" rel="noopener" href="https://github.com/uveta/extensions-jobs/tree/main/samples/MvcDemo">demonstration purposes</a>. <em>Repository</em> should offer some form of permanent external storage, especially if usage in multi-service applications is considered. Same goes for <em>queue</em>, as the need for underlying message broker is evident in even simple production scenarios.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In this article I explained which set of problems did we solve using long running job pattern. We also saw one of the ways to implement it, using ASP.NET Core MVC. As a final observation, I described how inner pattern components can be used outside of MVC, in any system that wants to generalize request/response flow and reduce service coupling.</p>
+<p>Source code and samples can be found on <a target="_blank" rel="noopener" href="https://github.com/uveta/extensions-jobs">Github</a>. Individual packages have also been published to <a target="_blank" rel="noopener" href="https://www.nuget.org/packages/Uveta.Extensions.Jobs/">nuget.org</a>, in case you would like to try them in your own application.</p>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/advanced/">#advanced</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/microservices/">#microservices</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/dotnet/">#dotnet</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/categories/blog/unclutter-startup-cs/">Unclutter Startup.cs</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/categories/blog/windows-vs-linux-appservice-whats-the-difference/">Windows vs Linux App Service - What is the Difference?</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://www.uveta.io/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/';
+        this.page.identifier = 'asynchronous-job-pattern-the-asp-net-core-mvc-way';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'uveta-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 Uroš Miletić&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noreferrer noopener">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="https://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/uveta/uveta.github.io">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#3273dc"
+            },
+            "button": {
+                "background": "#fff",
+                "text": "#3273dc"
+            }
+        }
+    });
+</script>
+
+    
+
+
+
+<script src="/js/script.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+    
+</body>
+</html>

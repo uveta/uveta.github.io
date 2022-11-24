@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Ahaaas! - July 2020 - Uveta&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content="Uveta's blog about all things Azure">
+
+
+
+<meta name="keywords" content="azure, cloud, microsoft, .net, dotnet, dotnetcore, aspnetcore, csharp, C#, elasticsearch, software, development, containers, docker, kubernetes">
+
+
+
+    <meta name="description" content="In fast paced technology world, developers discover new insights practically on a daily level. Surely you have experienced these moments of almost divine wisdom, ending with “Now I know xyz can do t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ahaaas! - July 2020">
+<meta property="og:url" content="https://www.uveta.io/categories/blog/ahaaas-july-2020/index.html">
+<meta property="og:site_name" content="Uveta&#39;s blog">
+<meta property="og:description" content="In fast paced technology world, developers discover new insights practically on a daily level. Surely you have experienced these moments of almost divine wisdom, ending with “Now I know xyz can do t">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/ahaaas-july-2020/bulb.png">
+<meta property="article:published_time" content="2020-07-25T17:12:39.000Z">
+<meta property="article:modified_time" content="2020-07-25T17:12:39.000Z">
+<meta property="article:author" content="Uroš Miletić">
+<meta property="article:tag" content="azure">
+<meta property="article:tag" content="advanced">
+<meta property="article:tag" content=".net">
+<meta property="article:tag" content="csharp">
+<meta property="article:tag" content="containers">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.uveta.io/categories/blog/ahaaas-july-2020/bulb.png">
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Uveta&#39;s blog" href="https://www.uveta.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Uveta&#39;s blog" href="https://www.uveta.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Uveta&#39;s blog" href="https://www.uveta.io/feed.json" />
+
+
+<link rel="icon" href="/images/logo.svg">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168901242-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-168901242-1');
+</script>
+
+
+    
+    
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    <img src="/images/logo.png" alt="" height="28">
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Blog</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/contact">Contact</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#NET">1&nbsp;&nbsp;<b>.NET</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Azure">2&nbsp;&nbsp;<b>Azure</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Miscellaneous">3&nbsp;&nbsp;<b>Miscellaneous</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/uveta">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/uveta">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/in/uveta">
+                
+                <i class="fab fa-linkedin"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Ahaaas! - July 2020
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        
+        <span class="column is-narrow">
+            
+                <time datetime="2020-07-25T17:12:39.000Z" itemprop="datePublished">Jul 25 2020</time>
+            
+        </span>
+        
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/blog/">blog</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            5 minutes read (About 730 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><img src="/categories/blog/ahaaas-july-2020/bulb.png" class="" title="Eureka">
+
+<p>In fast paced technology world, developers discover new insights practically on a daily level. Surely you have experienced these moments of almost divine wisdom, ending with “Now I know xyz can do that” or “I have to be aware of xyz” or “Eureka!”. I have recorded my moments of clarity, or Ahaaas as I call them, hoping that some of them will prove useful to you, whether you’d be dealing with .NET development, Azure or Docker.</p>
+<span id="more"></span>
+
+<h3 id="NET"><a href="#NET" class="headerlink" title=".NET"></a>.NET</h3><ul>
+<li>Mocking authentication in ASP.NET Core 3.0 integration tests <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests#mock-authentication">https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests#mock-authentication</a></li>
+<li>Even though ASP.NET Core <code>IConfiguration</code> entry names are case-insensitive, <code>ConfigurationBinder.Bind()</code> method is not and property name casing does matter. Prefer using <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.optionsconfigurationservicecollectionextensions.configure">Configure()</a> options extension method to bind configuration sections to option types.</li>
+<li>Be careful when using array values in <code>IConfiguration</code> data sources, especially if you consider overriding with environment specific configurations <a target="_blank" rel="noopener" href="https://rimdev.io/avoiding-aspnet-core-configuration-pitfalls-with-array-values/">https://rimdev.io/avoiding-aspnet-core-configuration-pitfalls-with-array-values/</a></li>
+<li>If you cannot rely on your reverse proxy, it is possible to add client and IP rate limiting to ASP.NET Core. Source code and installation instructions are available at <a target="_blank" rel="noopener" href="https://github.com/stefanprodan/AspNetCoreRateLimit">https://github.com/stefanprodan/AspNetCoreRateLimit</a>. Remember, however, that Kestrel should not be used as a public facing web server.</li>
+<li>Controller input model validation can be automated using <code>[ApiController]</code> attribute and annotations from <code>DataAnnotations</code> namespace <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation">https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation</a></li>
+<li>When using <code>[DataMember]</code> attribute to annotate serialization model properties, do not forget to add <code>[DataContract]</code> to  enclosing type as well. Most of traditional JSON serializers, such as Newtonsoft and Jil, honor property attributes, but expect type to be annotated as well. <code>System.Text.Json.JsonSerializer</code> surprisingly does not utilize attributes from <code>System.Runtime.Serialization</code> namespace and uses its own <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to#customize-individual-property-names">annotations</a></li>
+<li>Cool portability tool from .NET to .NET core comes from, you wouldn’t believe it, AWS team. More details <a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/aws/announcing-the-porting-assistant-for-net/">https://aws.amazon.com/blogs/aws/announcing-the-porting-assistant-for-net/</a></li>
+<li><code>System.Net.Mail.SmtpClient</code> is obsolete for some time; recommended alternative is <a target="_blank" rel="noopener" href="https://github.com/jstedfast/MailKit">MailKit</a></li>
+<li><code>IApplicationLifetime</code> service is obsolete from .Net Core 3.0. If you utilize generic host, use <code>IHostApplicationLifetime</code> instead <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.iapplicationlifetime">https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.iapplicationlifetime</a></li>
+<li>Imagine you have a concrete type implementing two different interfaces. Now imagine you register this type for each interface as a singleton in DI container. When resolving each interface, you will end up with a different instances, i.e. .NET core DI container will create two instances instead of sharing single one.</li>
+<li>If you are looking for Blazor components that you can use for commercial projects, Syncfusion offers a handful via their community license <a target="_blank" rel="noopener" href="https://www.syncfusion.com/products/communitylicense">https://www.syncfusion.com/products/communitylicense</a></li>
+</ul>
+<h3 id="Azure"><a href="#Azure" class="headerlink" title="Azure"></a>Azure</h3><ul>
+<li>If you use sessions with Azure Service Bus, be sure to assign session identifier to messages before sending them. Service Bus will not complain if session is missing on enqueue, but will make hell for consumers on delivery and practically keep messages in queue and attempt to deliver them, until expired.</li>
+<li>You can use Azure Log Analytics to collect custom virtual machine logs <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-sources-custom-logs">https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-sources-custom-logs</a>. In Portal, open your  Log Analytics workspace and go to Advanced Settings-&gt;Data-&gt;Custom Logs. You can also collect Windows Event and IIS Logs, as well as Linux Syslog, in a similar fashion.</li>
+<li>Data sampling, configured in Application Insight’s Usage and Estimated Costs, has no effect if you are using ASP.NET core applications without modifying telemetry sampling configuration. Ingested data can significantly increase costs, especially if Azure Functions are used, so use Daily Cap setting to get notified if the amount ingested passes the limit.</li>
+<li>Microsoft Q&amp;A is generally available and should help you find any technical information regarding Azure services <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/answers/products/">https://docs.microsoft.com/en-us/answers/products/</a></li>
+</ul>
+<h3 id="Miscellaneous"><a href="#Miscellaneous" class="headerlink" title="Miscellaneous"></a>Miscellaneous</h3><ul>
+<li>Nice overview of most commonly used open source licenses, with usage restrictions <a target="_blank" rel="noopener" href="https://choosealicense.com/">https://choosealicense.com</a></li>
+<li>Steve Dunn used Blazor to recreate original Pacman <a target="_blank" rel="noopener" href="http://pacmanblazor.azurewebsites.net/">http://pacmanblazor.azurewebsites.net</a>. With a little bit of JS interop, he was able to demonstrate potential of client-side Blazor running on WebAssembly. Source code can be found on <a target="_blank" rel="noopener" href="https://github.com/SteveDunn/PacManBlazor">Github</a></li>
+<li>Postman automatically converts POST requests if it receives a 301 redirect status code. In this situation, it drops any request content and issues a GET request to redirecting location without any body data. This can lead to trouble, as user is never notified of such change during request execution. To avoid such issues, better turn off automatic redirects in Postman settings.</li>
+<li>Elasticsearch .NET client version 7.1.0 seems to have issues when running on .NET core 3.0. Updating client to latest version (7.8.0 at the moment of writing) seems to help.</li>
+</ul>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/azure/">#azure</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/advanced/">#advanced</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/net/">#.net</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/csharp/">#csharp</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/containers/">#containers</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/categories/blog/azure-solutions-architect-expert-part-2/">So you want to be an Azure Solutions Architect Expert - Part 2</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/categories/blog/azure-solutions-architect-expert-part-1/">So you want to be an Azure Solutions Architect Expert - Part 1</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://www.uveta.io/categories/blog/ahaaas-july-2020/';
+        this.page.identifier = 'ahaaas-july-2020';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'uveta-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 Uroš Miletić&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noreferrer noopener">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="https://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/uveta/uveta.github.io">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#3273dc"
+            },
+            "button": {
+                "background": "#fff",
+                "text": "#3273dc"
+            }
+        }
+    });
+</script>
+
+    
+
+
+
+<script src="/js/script.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+    
+</body>
+</html>
