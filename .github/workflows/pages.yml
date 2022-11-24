@@ -1,0 +1,43 @@
+name: Pages
+
+on:
+  push:
+    branches:
+      - draft
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            submodules: true
+            fetch-depth: 0
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      - name: Cache NPM dependencies
+        uses: actions/cache@v2
+        with:
+          path: ./source/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('./source/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile
+      - name: Build
+        run: yarn build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/draft' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./source/public
+          commit_message: ${{ github.event.head_commit.message }}
