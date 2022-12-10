@@ -23,7 +23,7 @@ describe what is the game about
 
 ## Day 1
 
-There is always one question, when trying to learn a topic that you know nothing about: where to even start? Good tutorial goes a long way, and this has been a mantra that I have used successfully through the years. Just finding one and browsing it should help put your feed firm on the ground, and build from there on. In Unity's case, I have found a nice [four-parter on Sentry.io blog](https://blog.sentry.io/2022/03/21/unity-tutorial-what-you-need-to-know-before-developing-your-first-unity-game/), going from basics of installing necessary software, all the way to publishing finished game to Google Play Store. Lets get to reading!
+There is always one question, when trying to learn a topic that you know nothing about: where to even start? Good tutorial goes a long way, and this has been a mantra that I have used successfully through the years. Just finding one and browsing it should help put your feed firm on the ground, and build from there on. In Unity's case, I have found a nice [four-parter on Sentry.io blog](https://blog.sentry.io/2022/03/21/unity-tutorial-what-you-need-to-know-before-developing-your-first-unity-game), going from basics of installing necessary software, all the way to publishing finished game to Google Play Store. Lets get to reading!
 
 ## Day 2
 
@@ -39,9 +39,11 @@ Want to create a simple scene with a bordered background. After trying for coupl
 
 ## Day 5
 
-Still trying to add background, but there is almost no progress. Looks like I'll have to reconsider learning on the fly, and actually dive more deeper into basic concepts Unity has to offer. That said, quick search through Unity's learn portal reveals Ruby's Adventure, a tutorial on building 2D game. Decided to give it a try, as it covers all the parts I will probably need.
+Still trying to add background, but there is almost no progress. Looks like I'll have to reconsider learning on the fly, and actually dive more deeper into basic concepts Unity has to offer. That said, quick search through Unity's learn portal reveals [Ruby's Adventure](https://learn.unity.com/project/ruby-s-2d-rpg), a tutorial on building 2D game. Decided to give it a try, as it covers all the parts I will probably need.
 
-First chapter explains basic parts of Unity Editor. I learned what all windows are used for, and how to switch between scene and play mode. Next one covers adding game objects and manipulating camera. Hint, if you are not seeing camera bounds in scene, select camera object and assign _MainCamera_ tag to it.
+First chapter explains basic parts of Unity Editor. I learned what all windows are used for, and how to switch between scene and play mode. Next one covers adding game objects and manipulating camera. Managed to add player object (Ruby) and define it's health.
+
+_Hint: if you are not seeing camera bounds in scene, select camera object and assign MainCamera tag to it._
 
 ## Day 6
 
@@ -51,28 +53,35 @@ Next up is drawing background tiles and creating world map. Quite intuitive and 
 
 ## Day 7
 
-Following couple of chapters dealt with game object visibility and physics system. I learned how to order overlapping objects and what a pivot is. I am not sure I will use this knowledge when working on Hungry Square, as there is almost no overlapping between game elements. However, I also learned how to create prefabs, which are used as templates for objects in scene. When thinking about enemies and food, which spawn dynamically, prefabs seem like a natural way how to implement them.
+Following couple of chapters dealt with game object visibility and physics system. I learned how to order overlapping objects and what a pivot is. I am not sure I will use this knowledge when working on Hungry Square, as there is almost no overlapping between game elements. However, I also learned how to create prefabs, which are used as templates for objects in scene. When thinking about enemies and food, which are added to scene dynamically, prefabs seem like a natural way how to implement them.
 
-When it comes to physics, Unity's system revolves around rigid body and collider components, which are used to model and detect game object interactions. Not sure I will ever apply these components.
+When it comes to physics, Unity's system revolves around rigid body and collider components, which are used to model and detect game object interactions. Not sure I will ever utilize these components.
 
-_Note from Day 11. Rigid body and collider are essential components, used for Hungry Square remaster. They are extensively used to detect interactions between player, food and enemies, as well as model enemy movement in game world. And I thought I would never use them..._
+_Note from Day 11: rigid body and collider are essential components for Hungry Square remaster. They are extensively used to detect interactions between player, food and enemies, as well as model enemy movement in game world. And I thought I would never use them..._
 
 ## Day 8
 
-Day 8
-Learned how to create enemies, and how to detect collision with player object. Definitely going to need this one.
-Worked with animations, controllers and state machines. Will be used to polish the game. No one likes static objects.
-Created new projectile objects from prefab. Adjusted collisions between default, character and projectile layers.
-Set camera to follow player object, and confined it to playable area. Should be useful if I decide to expand playable area beyond single screen.
-Managed to create smoke effect using particles. Might be needed for extra extra polish - square eaten effect, enemy spawn effect, etc.
+Next tutorial chapter taught me how to add moving enemies to the scene, and how to detect when a player collides with them. Learned how to create animations, using sprites, controllers and state machines. Animated movement of both player and enemies, for extra polish. After all, no one likes static objects. As a next step, I added projectiles, so the player can defend against enemies. Learned about collision layers, to allow shot projectiles to collide only with enemies.
 
-Day 9
-Added health bar to user interface. Will need it if I decide to allow more than 1 hit from enemy.
-Next tutorial is about creating NPCs and interacting with them. Decided to skip it, as no such feature is planned. Might come back to finish it later.
+One small thing that tutorial also went through is moving from a static camera, to one that will follows player. As I plan to have a single screen as playable area, I might not need this type of camera. Will keep it in reserve anyways.
 
-Day 10
-Dealt with audio listeners and sources. Learned how to produce 2D and 3D sounds. Will use it if I find suitable audio clips.
-Found out you have to switch platform, before building for specific one. Explored build options for web gl platform, as this will be our primary output.
+Following part taught me how to make the game even more visually appealing, by using particles. Utilized them to create smoke effect on enemies. I might need them if I decide to go for extra polish for my remaster. One example would be adding particle effects on food and enemy spawn.
+
+## Day 9
+
+Nearing the end of tutorial. Following chapter showed me how to create scene overlay, which will be used to show player health bar. It is rather complicated to accomplish, event with detailed instructions and assets available out of the box. In the end, I might not even need, as Hungry Square ends as soon as the player is hit by an enemy.
+
+Next part is about creating non-playable characters and interacting with them. It also shows how to create dialog and quests. As none of these features are planned for Hungry Square, I decided to skip this tutorial altogether. Might come back to it eventually, for completeness sake.
+
+## Day 10
+
+Last few tutorials dealt with quite important concepts. First one taught me how to add audio listeners, and how to produce 2D and 3D sounds. If I find suitable audio clips, I might add them to objects in my game.
+
+Finally, I learned how to build the whole project into an executable. Realized that I had wrong platform selected the entire time, so I switched to WebGL. Analyzed and tried to learn about all available options, as WebGL will be my primary platform.
+
+## Day 11
+
+With all tutorials completed, it is time to start work on Hungry Square project.
 
 Day 11
 Finally started working on hungry square. Added prefabs for player and enemies, based on simple sprites. Managed to add colliders to the edge of the screen dynamically. Added collider to enemy. Used absolute bouncy material. Using Unity physics engine, make enemies bounce and speedup, instead of programming it manually.
