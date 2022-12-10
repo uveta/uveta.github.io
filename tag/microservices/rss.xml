@@ -8,20 +8,20 @@
         <pubDate>Mon, 21 Dec 2020 20:33:44 +0000</pubDate>
         <lastBuildDate>Mon, 21 Dec 2020 20:33:44 +0000</lastBuildDate>
         <category>azure</category>
+        <category>dotnet</category>
         <category>certification</category>
         <category>advanced</category>
         <category>.net</category>
         <category>csharp</category>
         <category>containers</category>
         <category>microservices</category>
-        <category>dotnet</category>
         <item>
             <guid isPermalink="true">https://www.uveta.io/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/</guid>
             <title>Asynchronous Job Pattern - The ASP.NET Core MVC Way</title>
             <link>https://www.uveta.io/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/</link>
+            <category>dotnet</category>
             <category>advanced</category>
             <category>microservices</category>
-            <category>dotnet</category>
             <pubDate>Mon, 21 Dec 2020 20:33:44 +0000</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/calendar.jpg&#34; class=&#34;&#34; title=&#34;Advent calendar&#34;&gt;
 

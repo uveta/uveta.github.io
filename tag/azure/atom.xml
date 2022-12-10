@@ -5,13 +5,13 @@
     <link href="https://www.uveta.io" />
     <updated>2021-12-18T14:00:09.000Z</updated>
     <category term="azure" />
+    <category term="dotnet" />
     <category term="certification" />
     <category term="advanced" />
     <category term=".net" />
     <category term="csharp" />
     <category term="containers" />
     <category term="microservices" />
-    <category term="dotnet" />
     <entry>
         <id>https://www.uveta.io/categories/blog/unclutter-startup-cs/</id>
         <title>Unclutter Startup.cs</title>
@@ -54,8 +54,8 @@
 &lt;p&gt;All code shown in this post was published to &lt;a href=&#34;https://github.com/uveta/demo-unclutter-startup&#34;&gt;GitHub&lt;/a&gt;, as a single ASP.NET Core 6 project.&lt;/p&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="azure" />
-        <category term="advanced" />
         <category term="dotnet" />
+        <category term="advanced" />
         <updated>2021-12-18T14:00:09.000Z</updated>
     </entry>
     <entry>
