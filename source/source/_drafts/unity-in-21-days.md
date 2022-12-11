@@ -81,25 +81,39 @@ Finally, I learned how to build the whole project into an executable. Realized t
 
 ## Day 11
 
-With all tutorials completed, it is time to start work on Hungry Square project.
+With all tutorials completed, it is time to finally start working on Hungry Square remaster! With all important Unity concepts still fresh in my head, I manage to get a lot of work done, on first sitting. Immediately found some free sprite assets in the shape of a square, and use them to create prefabs for player, enemies and food. Instead of handling enemy movement on my own, like in the original game, I try to utilize Unity physics system. All I had to was create an edge collider around game area, and assign absolutely elastic material to it and to each enemy. On enemy spawn, an impulse force was applied to its rigid body, and physics system took care of the rest. Easy peasy!
 
-Day 11
-Finally started working on hungry square. Added prefabs for player and enemies, based on simple sprites. Managed to add colliders to the edge of the screen dynamically. Added collider to enemy. Used absolute bouncy material. Using Unity physics engine, make enemies bounce and speedup, instead of programming it manually.
-Enemies missing screen collider, due to high velocity. Limit velocity to max width of enemy collider. Try to make screen collider thicker?
+To detect player collisions, I have added colliders to player, enemies and food, and assigned proper tags to each. Had to prevent enemies from crashing into food, so moving each one to dedicated collision layer, and turning off interactions between them.
 
-Day 12
-Enemy fell out of screen on one of test runs, have to find a solution for that.
-Created food and had trouble detecting collision with player. Player can pic up food and collide with enemies. Have to come up with score counter and game over screen.
-Creating enemies and foor randomly, but I am not satisfied with way it was implemented. Have to find a better way to dynamically load prefabs, instead of assigning them via script fields.
+_Issue detected: enemies are configured to speed up after each edge bounce, before I introduce concept of game speed. Noticed that after some time, enemies get so fast, that they skip screen edge collider, and simply disappear out of the game. Funny thing to happen, because the original game had the exact same problem, due to enemy position after bounce being miscalculated sometimes. Something I must not forget to fix later._
 
-Day 13
-Found a way to implement prefab registry, using dedicated singleton. Reworked all types to use it,instead of instances assigned from inspector.
+## Day 12
 
-Day 14
-Added Game Over screen, shown after collision with enemy or border. Added game restart button. After restarting the game, keyboard input stops working, have to investigate why.
+This time I focused on adding game logic. Handled player collision with enemy, screen edge and food. Soon I will have to introduce concept of scoring, as well as suitable game over screen to show in the end.
 
-Day 15
-Moved game speed to Game Controller. Adjusting player and enemy speed based on it. Increasing game speed after each food pickup. Input still not working after restart, have to check if it happens in built game as well.
+After eating food, game spawns another enemy and food at random location. It works, but I am not happy with implementation. Each object references another prefab, in order to dynamically create it or invoke its methods. Will try to look for a better solution, and reduce coupling between objects.
+
+Spent some time investigating disappearing enemy issue. It seems that this is a known limitation of Unity's physics engine, which checks collisions only at fixed points in time. Trying to avoid such behavior by limiting maximum enemy speed. They should not be allowed to go through the edge in one fixed update, so I will set maximum speed to enemy length divided by period of fixed update. Seemed to help, as I don't detect any enemies dropping out of the game area.
+
+## Day 13
+
+Found a way to implement prefab registry, using dedicated singleton object. Reworked all types to use prefab registry, instead of assigning them as properties. I am sure there is an even better way to reference prefabs from game objects, but hey, I am not a professional Unity developer :smile:
+
+## Day 14
+
+Today I mostly dealt with endgame features. Went through a tutorial on how to implement Game Over screen, and added it to Hungry Square. It will be shown on collision with either enemy or screen edge. After finishing the game, it is possible to restart it via menu button. 
+
+_Issue detected: After restarting game, I noticed that keyboard input is not detected anymore, even though player and food objects are spawned correctly. Might be just a minor hiccup because of whole scene reload, but surely something I need to address soon._
+
+## Day 15
+
+Finally centralized game speed, inside of Game Controller. Player and enemy movement will be adjusted based on this value, which is increasing by couple of percents after each food is eaten. Works well, and I remove enemy speedup on screen edge bounce.
+
+Input is still not working after game restart, event though I tried couple of fixes. Will have to check if it happens in built game as well, but I am starting to get worried.
+
+## Day 16
+
+more details in another post
 
 Day 16
 Setup GitHub workflow to build and deploy game to Azure Static Web App. Several issues: several binary files missing from LFS, had to force inckude them and rewrite main branch history; files modified after checkout, could not solve it, had to allow dirty builds; obsolete scene caused build to fail, make sure all required scenes are configured in File->Build Settings->Scenes In Build; configure app_location action parameter to point to output with index.html. Will include details in README.md.
