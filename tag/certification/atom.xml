@@ -5,9 +5,9 @@
     <link href="https://www.uveta.io" />
     <updated>2020-08-19T15:48:14.000Z</updated>
     <category term="azure" />
+    <category term="advanced" />
     <category term="dotnet" />
     <category term="certification" />
-    <category term="advanced" />
     <category term=".net" />
     <category term="csharp" />
     <category term="containers" />
@@ -69,8 +69,8 @@
 &lt;p&gt;If you would have any additional questions or remarks, I am eager to hear them in the comments bellow. If you are interested in future posts from Azure and .NET world, follow me on &lt;a href=&#34;https://twitter.com/uveta&#34;&gt;Twitter&lt;/a&gt; to get notified as soon as they get published.&lt;/p&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="azure" />
-        <category term="certification" />
         <category term="advanced" />
+        <category term="certification" />
         <updated>2020-08-19T15:48:14.000Z</updated>
     </entry>
     <entry>
@@ -135,8 +135,8 @@
 &lt;p&gt;In the next post I will go through skills and knowledge required for the second exam, i.e. AZ-301: Microsoft Azure Architect Design. Follow me on &lt;a href=&#34;https://twitter.com/uveta&#34;&gt;Twitter&lt;/a&gt; to get notified when it gets published.&lt;/p&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="azure" />
-        <category term="certification" />
         <category term="advanced" />
+        <category term="certification" />
         <updated>2020-06-26T15:48:14.000Z</updated>
     </entry>
 </feed>

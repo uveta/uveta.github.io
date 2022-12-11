@@ -8,9 +8,9 @@
         <pubDate>Sat, 18 Dec 2021 14:00:09 +0000</pubDate>
         <lastBuildDate>Sat, 18 Dec 2021 14:00:09 +0000</lastBuildDate>
         <category>azure</category>
+        <category>advanced</category>
         <category>dotnet</category>
         <category>certification</category>
-        <category>advanced</category>
         <category>.net</category>
         <category>csharp</category>
         <category>containers</category>
@@ -20,8 +20,8 @@
             <title>Unclutter Startup.cs</title>
             <link>https://www.uveta.io/categories/blog/unclutter-startup-cs/</link>
             <category>azure</category>
-            <category>dotnet</category>
             <category>advanced</category>
+            <category>dotnet</category>
             <pubDate>Sat, 18 Dec 2021 14:00:09 +0000</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/unclutter-startup-cs/calendar.jpg&#34; class=&#34;&#34; title=&#34;Advent calendar&#34;&gt;
 
@@ -65,8 +65,8 @@
             <guid isPermalink="true">https://www.uveta.io/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/</guid>
             <title>Asynchronous Job Pattern - The ASP.NET Core MVC Way</title>
             <link>https://www.uveta.io/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/</link>
-            <category>dotnet</category>
             <category>advanced</category>
+            <category>dotnet</category>
             <category>microservices</category>
             <pubDate>Mon, 21 Dec 2020 20:33:44 +0000</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/calendar.jpg&#34; class=&#34;&#34; title=&#34;Advent calendar&#34;&gt;
@@ -289,8 +289,8 @@
             <title>So you want to be an Azure Solutions Architect Expert - Part 2</title>
             <link>https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-2/</link>
             <category>azure</category>
-            <category>certification</category>
             <category>advanced</category>
+            <category>certification</category>
             <pubDate>Wed, 19 Aug 2020 15:48:14 +0000</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/azure-solutions-architect-expert-part-2/architect-badge.jpg&#34; class=&#34;&#34; title=&#34;Goal!!!&#34;&gt;
 
@@ -392,8 +392,8 @@
             <title>So you want to be an Azure Solutions Architect Expert - Part 1</title>
             <link>https://www.uveta.io/categories/blog/azure-solutions-architect-expert-part-1/</link>
             <category>azure</category>
-            <category>certification</category>
             <category>advanced</category>
+            <category>certification</category>
             <pubDate>Fri, 26 Jun 2020 15:48:14 +0000</pubDate>
             <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/azure-solutions-architect-expert-part-1/architect-badge.jpg&#34; class=&#34;&#34; title=&#34;Goal!!!&#34;&gt;
 
