@@ -107,16 +107,21 @@ _Issue detected: After restarting game, I noticed that keyboard input is not det
 
 ## Day 15
 
-Finally centralized game speed, inside of Game Controller. Player and enemy movement will be adjusted based on this value, which is increasing by couple of percents after each food is eaten. Works well, and I remove enemy speedup on screen edge bounce.
+Finally centralized game speed, inside of Game Controller. Player and enemy movement will be adjusted based on this value, which is increasing by couple of percents after each food is consumed. Works well, and I remove enemy speedup on screen edge bounce.
 
 Input is still not working after game restart, event though I tried couple of fixes. Will have to check if it happens in built game as well, but I am starting to get worried.
 
 ## Day 16
 
-more details in another post
+Since I wanted to test built version anyways, I dedicated all available time today getting CI/CD pipeline up and running.Had a lot of fun discovering how Unity games are built, and how to set everything up. So much fun actually, that I documented the whole process [in another article](./github-workflow-unity-azure-static-webapps.md)
 
-Day 16
-Setup GitHub workflow to build and deploy game to Azure Static Web App. Several issues: several binary files missing from LFS, had to force inckude them and rewrite main branch history; files modified after checkout, could not solve it, had to allow dirty builds; obsolete scene caused build to fail, make sure all required scenes are configured in File->Build Settings->Scenes In Build; configure app_location action parameter to point to output with index.html. Will include details in README.md.
-Input does not work after restart in built game as well.
+<!--To other article-->
+<!--I produced a GitHub workflow which built the game, and deployed it to an Azure Static Web Apps resource. 
 
-Day 17
+Couple of issues appeared though:
+* most of assets were not added to Git LFS, event though _.gitattributes_ was stating so. Had to resort to migrating certain types to LFS, and rewriting whole _main_ branch history, to remove versioned assets.
+* Unity build action was complaining that some of source code files were modified after git checkout. Didn't manage to fix this one, so I resorted to forcing execution of a dirty build.
+* Project build configuration included several obsolete scenes, that were removed from the project. Build was, of course, failing, but it was not clear what was wrong from the error message itself. Discovered that obsolete scenes were included by pure luck. You should check this in Unity Editor, in File->Build Settings->Scenes In Build.
+* Bundle to be published is located under several levels of directories, e.g. _./Build/WebGL/WebGL_. Had to adjust _app_location_ of Static Web Apps GitHub action accordingly.-->
+
+## Day 17
