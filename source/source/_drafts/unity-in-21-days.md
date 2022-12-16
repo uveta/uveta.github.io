@@ -107,7 +107,7 @@ _Issue detected: After restarting game, I noticed that keyboard input is not det
 
 ## Day 15
 
-Finally centralized game speed, inside of Game Controller. Player and enemy movement will be adjusted based on this value, which is increasing by couple of percents after each food is consumed. Works well, and I remove enemy speedup on screen edge bounce.
+Used Game Controller to centralize game speed, instead of spreading it through various scripts. Player and enemy movement will be adjusted based on this value, which is increasing by couple of percents each time a player consumes food. Works well, and I remove enemy speedup on screen edge bounce.
 
 Input is still not working after game restart, event though I tried couple of fixes. Will have to check if it happens in built game as well, but I am starting to get worried.
 
@@ -125,3 +125,27 @@ Couple of issues appeared though:
 * Bundle to be published is located under several levels of directories, e.g. _./Build/WebGL/WebGL_. Had to adjust _app_location_ of Static Web Apps GitHub action accordingly.-->
 
 ## Day 17
+
+Finally managed to solve non-responsive inputs after game is restarted. Turns out inputs were working fine the whole time, but the game remained paused after scene reload. Adjusted time scale after scene reload, and the game runs as expected. Crisis averted!
+
+Continuing to work on improving overall player experience. Food and enemies were spawning randomly, which sometimes caused immediate collision with player. Adjusted this behavior to a more predictable patter, and made them spawn randomly on the opposite part of playable area. Also started tracking score and displayed it to player on game over.
+
+## Day 18
+
+Encountered an issue on game over screen, happening for built game only. An exception was being thrown, but it was impossible to find out what part of code was causing it. Had to learn how to produce a debug build and expose exception call stack. Turns out an instance of a text field was not properly assigned to game over screen, which caused a NullReferenceException. However, this issue does not arise in play mode. Strange ... Solved it by reassigning text field instance to game over canvas.
+
+## Day 19
+
+Worked on quality of life improvements. Player, food and enemy collision areas were too big, so decided to reduce them to actual shape of each object. Increased main sprite pixels per unit (PPU) a bit, to make all relevant objects smaller, so the game area would look a bit bigger. I guess similar could be achieved by moving the camera a bit further from the player.
+
+## Day 20
+
+Main menu
+
+## Day 21
+
+Final polish
+
+Day 19
+Added visible screen edge border, similar to collider. Adjusted player, food and enemy collision areas, it was too big. Adjusted main sprite PPU to make objects smaller.
+Issue on published game, screen edge collider is added to the middle of the screen. Removing border fixes the issue???
