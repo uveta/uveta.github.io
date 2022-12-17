@@ -136,7 +136,7 @@ Encountered an issue on game over screen, happening for built game only. An exce
 
 ## Day 19
 
-Worked on quality of life improvements. Player, food and enemy collision areas were too big, so decided to reduce them to actual shape of each object. Increased main sprite pixels per unit (PPU) a bit, to make all relevant objects smaller, so the game area would look a bit bigger. I guess similar could be achieved by moving the camera a bit further from the player.
+Worked on quality of life improvements. Player, food and enemy collision areas were too big, so decided to reduce them to fit actual shape of each object. By increasing main sprite pixels per unit (PPU) a bit, made all relevant objects smaller, to make the game area look a bit bigger. I guess similar could be achieved by moving the camera a bit further from the player.
 
 ## Day 20
 
