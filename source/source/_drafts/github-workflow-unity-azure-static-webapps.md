@@ -1,5 +1,5 @@
 ---
-title: Use GitHub workflow to deploy Unity project to Azure Static Web Apps
+title: Using GitHub workflow to deploy Unity project to Azure Static Web Apps
 tags:
   - advanced
   - dotnet
@@ -12,13 +12,13 @@ categories:
 disqusId: github-workflow-unity-azure-static-webapps
 ---
 
-{% asset_img github-workflow.jpg GitHub Workflow %}
+{% asset_img github.jpg GitHub %}
 
-This post explains how to create a GitHub workflow, which builds, tests and deploys a Unity project to Azure Static Web Apps instance. Due to nature of Azure Static Web Apps, it is a convenient way to develop and test any game built on Unity WebGL platform.
+This post explains how to create a GitHub workflow, which builds, tests and deploys a Unity project to Azure Static Web Apps (SWA) instance. Due to foundations on which SWA was built, it represents a perfect way to develop and test any game built on Unity WebGL platform.
 
 <!-- more -->
 
-_This post is part of **.NET Advent 2022!** Check other great entries [here](https://dotnet.christmas/). It is also a companion post to [how I learned Unity in 21 days](./unity-in-21-days.md)_
+_This post is part of **.NET Advent 2022!** Check other great entries [here](https://dotnet.christmas/). It is also a companion to my [other post, about how I learned Unity in 21 days](../unity-in-21-days)._
 
 ## Building and testing Unity project
 
@@ -46,15 +46,13 @@ After a pull request has been merged or abandoned, and a feature branch was dele
 
 ## Final thoughts
 
-<!--REVIEW-->
-<!--I produced a GitHub workflow which built the game, and deployed it to an Azure Static Web Apps resource. 
+After spending couple of days, making sure that the project is built and deployed properly, I can give you some tips to make designing your future workflow more smooth:
 
-Couple of issues appeared though:
-* most of assets were not added to Git LFS, event though _.gitattributes_ was stating so. Had to resort to migrating certain types to LFS, and rewriting whole _main_ branch history, to remove versioned assets.
-* Unity build action was complaining that some of source code files were modified after git checkout. Didn't manage to fix this one, so I resorted to forcing execution of a dirty build.
-* Project build configuration included several obsolete scenes, that were removed from the project. Build was, of course, failing, but it was not clear what was wrong from the error message itself. Discovered that obsolete scenes were included by pure luck. You should check this in Unity Editor, in File->Build Settings->Scenes In Build.
-* Bundle to be published is located under several levels of directories, e.g. _./Build/WebGL/WebGL_. Had to adjust _app_location_ of Static Web Apps GitHub action accordingly.-->
+- Make sure you add _.gitattributes_ with proper Git LFS asset definitions early, ideally before including any asset. Although git makes migration of committed assets to LFS super convenient, it requires rewriting branch history and force pushing it. Not something you want to do, especially if you have a whole team collaborating on a project.
+- Unity build action will fail, if source files were modified after checkout. As a last resort, you can force execution of a dirty build, using action parameters.
+- Double-check all included scenes in Unity Editor, in File->Build Settings->Scenes In Build. In case of any issue with scenes, error from a build will not help you much.
+- It might not be clear what is the correct path of a build output, as it is saved under a couple of levels of directories. Verify path by manually downloading artifact bundle, and adjust _app_location_ of Static Web Apps GitHub action accordingly.
 
 ## Conclusion
 
-<!--REVIEW-->
+There you have it, a workflow to help you get any Unity WebGL project up and running in minutes. You can check out the final CI/CD workflow [here](https://github.com/uveta/hungry-square-unity/blob/main/.github/workflows/ci.yaml)
