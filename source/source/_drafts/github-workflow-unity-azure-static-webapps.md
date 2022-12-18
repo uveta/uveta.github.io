@@ -1,5 +1,5 @@
 ---
-title: Deploy Unity games to Azure Static Web Apps, using GitHub actions
+title: Use GitHub workflow to deploy Unity project to Azure Static Web Apps
 tags:
   - advanced
   - dotnet
@@ -14,13 +14,15 @@ disqusId: github-workflow-unity-azure-static-webapps
 
 {% asset_img github-workflow.jpg GitHub Workflow %}
 
-This post explains how to create a GitHub workflow, which would build, test and deploy a Unity project to Azure Static Web Apps instance. Due to nature of Azure Static Web Apps, it is a convenient way to develop and test any game, built for Unity WebGL platform.
+This post explains how to create a GitHub workflow, which builds, tests and deploys a Unity project to Azure Static Web Apps instance. Due to nature of Azure Static Web Apps, it is a convenient way to develop and test any game built on Unity WebGL platform.
 
 <!-- more -->
 
 _This post is part of **.NET Advent 2022!** Check other great entries [here](https://dotnet.christmas/). It is also a companion post to [how I learned Unity in 21 days](./unity-in-21-days.md)_
 
 ## Building and testing Unity project
+
+<!--REVIEW-->
 
 ## Infrastructure
 
@@ -44,6 +46,7 @@ After a pull request has been merged or abandoned, and a feature branch was dele
 
 ## Final thoughts
 
+<!--REVIEW-->
 <!--I produced a GitHub workflow which built the game, and deployed it to an Azure Static Web Apps resource. 
 
 Couple of issues appeared though:
@@ -53,3 +56,5 @@ Couple of issues appeared though:
 * Bundle to be published is located under several levels of directories, e.g. _./Build/WebGL/WebGL_. Had to adjust _app_location_ of Static Web Apps GitHub action accordingly.-->
 
 ## Conclusion
+
+<!--REVIEW-->

@@ -9,17 +9,17 @@ categories:
 disqusId: unity-in-21-days
 ---
 
-{% asset_img game.jpg Unity game %}
+{% asset_img pixelart.jpg Pixel Art %}
 
-Story about how I converted my high school project, written in Pascal, to Unity. Because, why not. And I have been postponing learning a thing or two about Unity for quite some time.
+Maybe the title is a bit misleading. If you imagined this post would be yet another Unity tutorial, it is not quite the case. Teaching you complex framework, such as Unity, in just about three weeks, is something I could never promise. It is more of a story of how I rewrote my high school project, written in Turbo Pascal, without having any real experience with Unity. Because, why not. And I have been postponing learning a thing or two about Unity for quite some time.
 
 <!-- more -->
 
-_This post is part of [C# Advent Calendar 2022](https://www.csadvent.christmas/). Cheers to [Matthew D. Groves](https://twitter.com/mgroves) for letting me participate!_
+_This post is part of [C# Advent Calendar 2022](https://www.csadvent.christmas/). Cheers to [C# Advent](https://twitter.com/CsAdvent) for letting me participate!_
 
 ## Introduction
 
-describe what is the game about
+It has been so long since high school that, once I decided to go down this path, I had no chance to retrieve original game I developed, including source code. All I had was a fond memory of a game called Hungry Square, and a vague image of how the game looked like. It was as simple as it gets. You are a square on a 2D plane, that can move in any of the four directions. Food is spawned randomly around game area. Once you eat it with your square, game would speed up, and an enemy would pop up and start bouncing around the screen. The objective of Hungry Square is to eat as much food as you can, without being hit by an enemy or colliding with the edge of the screen. Quite simple, right? It is the exact reason why I chose this project to fiddle with Unity.
 
 ## Day 1
 
@@ -113,7 +113,7 @@ Input is still not working after game restart, event though I tried couple of fi
 
 ## Day 16
 
-Since I wanted to test built version anyways, I dedicated all available time today to get CI/CD pipeline up and running. Had a lot of fun discovering how Unity games are built and tested, and how to deploy build output. So much fun actually, that I documented the whole process [in a companion article](./github-workflow-unity-azure-static-webapps.md)
+Since I wanted to test built version anyways, I dedicated all available time today to get CI/CD pipeline up and running. Had a lot of fun discovering how Unity games are built and tested, and how to deploy build output. So much fun actually, that I documented the whole process [in a companion article](../github-workflow-unity-azure-static-webapps).
 
 ## Day 17
 
@@ -139,4 +139,12 @@ Putting in last few tweaks and doing a final round of testing. Everything seems 
 
 ## Final thoughts
 
+It has been quite a ride, and my initial assumption, that I would rework the game in couple of days, turned into endeavor that lasted almost the whole month. Nevertheless, I am quite happy with the end product, especially because I managed to combine it with other thing I love - Azure!
+
+On the other hand, I am not so satisfied that remaster is as bare-bones as it gets. Visually nothing much changed from a 20 year old game, and the lack of animations and sounds makes the game look very rudimentary. Surely something I will seek to correct in the future. But for now, I think I have a pretty good base to build upon.
+
 ## Conclusion
+
+If you ever think about going the same path as me, I hope this post would help you avoid making mistakes that I did. Although Unity is complex, learning about it's various concepts can be quite fun. It is used to make games, after all.
+
+Coming back to Hungry Square, the game is up and running in an Azure Static Web Apps instance, and it will remain deployed there for the time being. You can see the final result, and try it out [via an URL that was randomly assigned by Azure Static Web Apps](https://red-plant-049cdf903.2.azurestaticapps.net/) (sorry for any anti-virus alerts I caused). My high score is 24, can you try to beat it? Let me know!
