@@ -113,16 +113,7 @@ Input is still not working after game restart, event though I tried couple of fi
 
 ## Day 16
 
-Since I wanted to test built version anyways, I dedicated all available time today getting CI/CD pipeline up and running.Had a lot of fun discovering how Unity games are built, and how to set everything up. So much fun actually, that I documented the whole process [in another article](./github-workflow-unity-azure-static-webapps.md)
-
-<!--To other article-->
-<!--I produced a GitHub workflow which built the game, and deployed it to an Azure Static Web Apps resource. 
-
-Couple of issues appeared though:
-* most of assets were not added to Git LFS, event though _.gitattributes_ was stating so. Had to resort to migrating certain types to LFS, and rewriting whole _main_ branch history, to remove versioned assets.
-* Unity build action was complaining that some of source code files were modified after git checkout. Didn't manage to fix this one, so I resorted to forcing execution of a dirty build.
-* Project build configuration included several obsolete scenes, that were removed from the project. Build was, of course, failing, but it was not clear what was wrong from the error message itself. Discovered that obsolete scenes were included by pure luck. You should check this in Unity Editor, in File->Build Settings->Scenes In Build.
-* Bundle to be published is located under several levels of directories, e.g. _./Build/WebGL/WebGL_. Had to adjust _app_location_ of Static Web Apps GitHub action accordingly.-->
+Since I wanted to test built version anyways, I dedicated all available time today to get CI/CD pipeline up and running. Had a lot of fun discovering how Unity games are built and tested, and how to deploy build output. So much fun actually, that I documented the whole process [in a companion article](./github-workflow-unity-azure-static-webapps.md)
 
 ## Day 17
 
@@ -140,12 +131,12 @@ Worked on quality of life improvements. Player, food and enemy collision areas w
 
 ## Day 20
 
-Main menu
+Added main menu and included a small game description. Initially wanted to implement is the same way as game over screen, but soon realized that it is better to extract it to a separate scene. Main menu scene will be shown first and, once start button is pressed, game scene will be loaded.
 
 ## Day 21
 
-Final polish
+Putting in last few tweaks and doing a final round of testing. Everything seems to be in order, and Hungry Square remastered is ready to be shipped!
 
-Day 19
-Added visible screen edge border, similar to collider. Adjusted player, food and enemy collision areas, it was too big. Adjusted main sprite PPU to make objects smaller.
-Issue on published game, screen edge collider is added to the middle of the screen. Removing border fixes the issue???
+## Final thoughts
+
+## Conclusion
