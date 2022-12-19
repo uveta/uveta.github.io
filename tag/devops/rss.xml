@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>Uveta&#39;s blog • Posts by &#34;devops&#34; tag</title>
+        <link>https://www.uveta.io</link>
+        <description>Uveta&#39;s blog about all things Azure</description>
+        <language>en,default</language>
+        <pubDate>Mon, 19 Dec 2022 10:17:46 +0000</pubDate>
+        <lastBuildDate>Mon, 19 Dec 2022 10:17:46 +0000</lastBuildDate>
+        <category>azure</category>
+        <category>certification</category>
+        <category>advanced</category>
+        <category>.net</category>
+        <category>csharp</category>
+        <category>containers</category>
+        <category>microservices</category>
+        <category>dotnet</category>
+        <category>unity</category>
+        <category>github</category>
+        <category>devops</category>
+        <category>begginer</category>
+        <item>
+            <guid isPermalink="true">https://www.uveta.io/categories/blog/github-workflow-unity-azure-static-webapps/</guid>
+            <title>Using GitHub workflow to deploy Unity project to Azure Static Web Apps</title>
+            <link>https://www.uveta.io/categories/blog/github-workflow-unity-azure-static-webapps/</link>
+            <category>azure</category>
+            <category>advanced</category>
+            <category>dotnet</category>
+            <category>unity</category>
+            <category>github</category>
+            <category>devops</category>
+            <pubDate>Mon, 19 Dec 2022 10:17:46 +0000</pubDate>
+            <description><![CDATA[ &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;img src=&#34;/categories/blog/github-workflow-unity-azure-static-webapps/github.jpg&#34; class=&#34;&#34; title=&#34;GitHub&#34;&gt;
+
+&lt;p&gt;This post explains how to create a GitHub workflow, which builds, tests and deploys a Unity project to Azure Static Web Apps (SWA) instance. Due to foundations on which SWA was built upon, it represents a perfect way to develop and test any game built on Unity WebGL platform.&lt;/p&gt;
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+
+&lt;p&gt;&lt;em&gt;This post is part of &lt;strong&gt;.NET Advent 2022!&lt;/strong&gt; Check other great entries &lt;a href=&#34;https://dotnet.christmas/&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;Introduction&#34;&gt;&lt;a href=&#34;#Introduction&#34; class=&#34;headerlink&#34; title=&#34;Introduction&#34;&gt;&lt;/a&gt;Introduction&lt;/h2&gt;&lt;p&gt;I created this workflow as a part of another activity. It involved remastering Hungry Square, a game I once developed, into Unity. If you want to have the whole context, check out &lt;a href=&#34;../unity-in-21-days&#34;&gt;my other post, about how I learned Unity in 21 days&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;CI-CD-Pipeline&#34;&gt;&lt;a href=&#34;#CI-CD-Pipeline&#34; class=&#34;headerlink&#34; title=&#34;CI/CD Pipeline&#34;&gt;&lt;/a&gt;CI/CD Pipeline&lt;/h2&gt;&lt;p&gt;Forget that we are actually working with Unity. Lets consider our game project just another web application. A well-established way to write a web app CI/CD pipeline is to break it into three steps: project build, infrastructure deploy, and application bundle deploy. Lets take a deeper look into each one.&lt;/p&gt;
+&lt;h3 id=&#34;Building-and-testing-Unity-project&#34;&gt;&lt;a href=&#34;#Building-and-testing-Unity-project&#34; class=&#34;headerlink&#34; title=&#34;Building and testing Unity project&#34;&gt;&lt;/a&gt;Building and testing Unity project&lt;/h3&gt;&lt;p&gt;We’re starting off in uncharted territory, at least for me. Building Unity projects was something I was not too familiar with. Luckily, good folks at &lt;a href=&#34;https://game.ci/docs/&#34;&gt;game.ci&lt;/a&gt; provide a convenient way how to work with Unity games, in GitHub environment. Setting up a build job is straightforward, and involves following steps:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ensure Unity license, username, and password are provided to workflow, via GitHub secrets. Details on activating license and setting up secrets, depending on license type, can be found in &lt;a href=&#34;https://game.ci/docs/github/activation&#34;&gt;game.ci documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Run any tests in project using &lt;a href=&#34;https://game.ci/docs/github/test-runner&#34;&gt;game-ci/unity-test-runner&lt;/a&gt; action.&lt;/li&gt;
+&lt;li&gt;Build project for all configured platforms using &lt;a href=&#34;https://game.ci/docs/github/builder&#34;&gt;game-ci/unity-builder&lt;/a&gt; action.&lt;/li&gt;
+&lt;li&gt;Optionally, use &lt;a href=&#34;https://github.com/actions/cache&#34;&gt;actions/cache&lt;/a&gt; action to cache dynamic project files. This often reduces build time dramatically.&lt;/li&gt;
+&lt;li&gt;Finally, make build output available to succeeding jobs via &lt;a href=&#34;https://github.com/actions/upload-artifact&#34;&gt;actions/upload-artifact&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script src=&#34;https://gist.github.com/uveta/16b5583b4d2961cd16994404320f1f10.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;If all steps have finished without an error, we should end up with an artifact containing our application bundle.&lt;/p&gt;
+&lt;h3 id=&#34;Infrastructure&#34;&gt;&lt;a href=&#34;#Infrastructure&#34; class=&#34;headerlink&#34; title=&#34;Infrastructure&#34;&gt;&lt;/a&gt;Infrastructure&lt;/h3&gt;&lt;p&gt;When setting up this type of projects, we should make no assumptions about existing deployment environment. It is why I have included a job to create all necessary infrastructure. There is an abundance of ways how to programmatically deploy to Azure (CLI, PowerShell, Terraform, etc.), each one with its pros and cons. In our case, the optimal way was using Bicep domain-specific language, which offers a good balance between complexity, robustness and extensibility. For this purpose, we will deploy a resource group, in which a SWA instance will be created. All necessary templates can be found in &lt;a href=&#34;https://github.com/uveta/hungry-square-unity/tree/main/infra&#34;&gt;./infra&lt;/a&gt; directory.&lt;/p&gt;
+&lt;p&gt;As with almost all actions in Azure, Bicep deployment has to be preceded with an Azure login step. Detailed instructions on how to setup subscription identifier and login credentials, using GitHub secrets, can be found in &lt;a href=&#34;https://github.com/Azure/login&#34;&gt;Azure login action documentation&lt;/a&gt;. Subsequent Bicep deployment is done using &lt;a href=&#34;https://github.com/Azure/arm-deploy&#34;&gt;azure/arm-deploy&lt;/a&gt; action.&lt;/p&gt;
+&lt;script src=&#34;https://gist.github.com/uveta/c4542f2218751bb128ffa48b4106c06d.js&#34;&gt;&lt;/script&gt;
+
+&lt;h3 id=&#34;Deploying-to-Azure-Static-Web-Apps&#34;&gt;&lt;a href=&#34;#Deploying-to-Azure-Static-Web-Apps&#34; class=&#34;headerlink&#34; title=&#34;Deploying to Azure Static Web Apps&#34;&gt;&lt;/a&gt;Deploying to Azure Static Web Apps&lt;/h3&gt;&lt;p&gt;Deployment of application bundle to a SWA instance consists of two steps (or four if you are nitpicking and want to include artifact download and Azure login). Prior to actual upload, a deployment token for SWA must be obtained. We will use &lt;a href=&#34;https://github.com/Azure/cli&#34;&gt;Azure CLI&lt;/a&gt; to get it and store it in a job environment variable &lt;em&gt;SWA_DEPLOYMENT_TOKEN&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Uploading build output to SWA is done using &lt;a href=&#34;https://github.com/Azure/static-web-apps-deploy&#34;&gt;azure/static-web-apps-deploy&lt;/a&gt; action. In our case, following parameters have to be included:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;azure_static_web_apps_api_token&lt;/strong&gt;, a deployment token obtained in previous step&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;repo_token&lt;/strong&gt;, a GitHub token with appropriate permissions, which action will use to provide URL to access our application&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;app_location&lt;/strong&gt;, directory or file to upload to SWA, which is in our case &lt;em&gt;./build/WebGL/WebGL&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script src=&#34;https://gist.github.com/uveta/00d40c2d5ddae36762a05cb0b1f8fe94.js&#34;&gt;&lt;/script&gt;
+
+&lt;h3 id=&#34;Bonus-environment-tear-down&#34;&gt;&lt;a href=&#34;#Bonus-environment-tear-down&#34; class=&#34;headerlink&#34; title=&#34;Bonus (environment tear down)&#34;&gt;&lt;/a&gt;Bonus (environment tear down)&lt;/h3&gt;&lt;p&gt;After a pull request is merged or abandoned, and a feature branch was deleted, it is appropriate to clean up associated SWA environment. This can easily be done via &lt;a href=&#34;https://github.com/uveta/hungry-square-unity/blob/main/.github/workflows/teardown.yaml&#34;&gt;tear down workflow&lt;/a&gt;, which also uses &lt;a href=&#34;https://github.com/Azure/static-web-apps-deploy&#34;&gt;SWA action&lt;/a&gt;. Similar to code upload, a deployment token has to be obtained first. Afterwards, an SWA action with action parameter set to &lt;em&gt;close&lt;/em&gt; is executed, which will remove environment associated with current git branch.&lt;/p&gt;
+&lt;script src=&#34;https://gist.github.com/uveta/6438618e956a75217f42915bd007a6fd.js&#34;&gt;&lt;/script&gt;
+
+&lt;h2 id=&#34;Final-thoughts&#34;&gt;&lt;a href=&#34;#Final-thoughts&#34; class=&#34;headerlink&#34; title=&#34;Final thoughts&#34;&gt;&lt;/a&gt;Final thoughts&lt;/h2&gt;&lt;p&gt;After spending couple of days, making sure that the project is built and deployed properly, I can give you some tips to make designing your future workflow more smooth:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Make sure you add &lt;em&gt;.gitattributes&lt;/em&gt; with proper Git LFS definitions early, ideally before including any asset. Although git makes migration of committed assets to LFS super convenient, it requires rewriting branch history and force pushing it. Not something you really want to do, if you have a whole team collaborating on a project.&lt;/li&gt;
+&lt;li&gt;Unity build action will fail, if source files were modified after checkout. As a last resort, you can force execution of a dirty build, using &lt;em&gt;game-ci/unity-builder&lt;/em&gt; action parameters.&lt;/li&gt;
+&lt;li&gt;Double-check all included scenes in Unity Editor, in File-&amp;gt;Build Settings-&amp;gt;Scenes In Build. In case of any issue with scenes, build error will not help you much.&lt;/li&gt;
+&lt;li&gt;It might not be clear what is the correct path of application bundle in build artifact, as it is located under a couple of levels of directories. Verify path by manually downloading artifact bundle, and adjust &lt;em&gt;app_location&lt;/em&gt; parameter of &lt;em&gt;azure/static-web-apps-deploy&lt;/em&gt; step accordingly.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;Conclusion&#34;&gt;&lt;a href=&#34;#Conclusion&#34; class=&#34;headerlink&#34; title=&#34;Conclusion&#34;&gt;&lt;/a&gt;Conclusion&lt;/h2&gt;&lt;p&gt;There you have it, a workflow to help you get any Unity WebGL project up and running in minutes. You can check out the final CI/CD workflow &lt;a href=&#34;https://github.com/uveta/hungry-square-unity/blob/main/.github/workflows/ci.yaml&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt; ]]></description>
+        </item>
+    </channel>
+</rss>

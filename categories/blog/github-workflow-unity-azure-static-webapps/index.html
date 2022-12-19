@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Using GitHub workflow to deploy Unity project to Azure Static Web Apps - Uveta&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content="Uveta's blog about all things Azure">
+
+
+
+<meta name="keywords" content="azure, cloud, microsoft, .net, dotnet, dotnetcore, aspnetcore, csharp, C#, elasticsearch, software, development, containers, docker, kubernetes">
+
+
+
+    <meta name="description" content="This post explains how to create a GitHub workflow, which builds, tests and deploys a Unity project to Azure Static Web Apps (SWA) instance. Due to foundations on which SWA was built upon, it repres">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Using GitHub workflow to deploy Unity project to Azure Static Web Apps">
+<meta property="og:url" content="https://www.uveta.io/categories/blog/github-workflow-unity-azure-static-webapps/index.html">
+<meta property="og:site_name" content="Uveta&#39;s blog">
+<meta property="og:description" content="This post explains how to create a GitHub workflow, which builds, tests and deploys a Unity project to Azure Static Web Apps (SWA) instance. Due to foundations on which SWA was built upon, it repres">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.uveta.io/categories/blog/github-workflow-unity-azure-static-webapps/github.jpg">
+<meta property="article:published_time" content="2022-12-19T10:17:46.000Z">
+<meta property="article:modified_time" content="2022-12-19T10:17:46.000Z">
+<meta property="article:author" content="Uroš Miletić">
+<meta property="article:tag" content="azure">
+<meta property="article:tag" content="advanced">
+<meta property="article:tag" content="dotnet">
+<meta property="article:tag" content="unity">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="devops">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.uveta.io/categories/blog/github-workflow-unity-azure-static-webapps/github.jpg">
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Uveta&#39;s blog" href="https://www.uveta.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Uveta&#39;s blog" href="https://www.uveta.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Uveta&#39;s blog" href="https://www.uveta.io/feed.json" />
+
+
+<link rel="icon" href="/images/logo.svg">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168901242-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-168901242-1');
+</script>
+
+
+    
+    
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    <img src="/images/logo.png" alt="" height="28">
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Blog</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/contact">Contact</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Introduction">1&nbsp;&nbsp;<b>Introduction</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#CI-CD-Pipeline">2&nbsp;&nbsp;<b>CI/CD Pipeline</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Building-and-testing-Unity-project">2.1&nbsp;&nbsp;Building and testing Unity project</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Infrastructure">2.2&nbsp;&nbsp;Infrastructure</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Deploying-to-Azure-Static-Web-Apps">2.3&nbsp;&nbsp;Deploying to Azure Static Web Apps</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Bonus-environment-tear-down">2.4&nbsp;&nbsp;Bonus (environment tear down)</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Final-thoughts">3&nbsp;&nbsp;<b>Final thoughts</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Conclusion">4&nbsp;&nbsp;<b>Conclusion</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/uveta">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/uveta">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+               
+            <a class="navbar-item" title="Linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/in/uveta">
+                
+                <i class="fab fa-linkedin"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Using GitHub workflow to deploy Unity project to Azure Static Web Apps
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        
+        <span class="column is-narrow">
+            
+                <time datetime="2022-12-19T10:17:46.000Z" itemprop="datePublished">Dec 19 2022</time>
+            
+        </span>
+        
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/blog/">blog</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 minutes read (About 1015 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><img src="/categories/blog/github-workflow-unity-azure-static-webapps/github.jpg" class="" title="GitHub">
+
+<p>This post explains how to create a GitHub workflow, which builds, tests and deploys a Unity project to Azure Static Web Apps (SWA) instance. Due to foundations on which SWA was built upon, it represents a perfect way to develop and test any game built on Unity WebGL platform.</p>
+<span id="more"></span>
+
+<p><em>This post is part of <strong>.NET Advent 2022!</strong> Check other great entries <a target="_blank" rel="noopener" href="https://dotnet.christmas/">here</a>.</em></p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>I created this workflow as a part of another activity. It involved remastering Hungry Square, a game I once developed, into Unity. If you want to have the whole context, check out <a href="../unity-in-21-days">my other post, about how I learned Unity in 21 days</a>.</p>
+<h2 id="CI-CD-Pipeline"><a href="#CI-CD-Pipeline" class="headerlink" title="CI/CD Pipeline"></a>CI/CD Pipeline</h2><p>Forget that we are actually working with Unity. Lets consider our game project just another web application. A well-established way to write a web app CI/CD pipeline is to break it into three steps: project build, infrastructure deploy, and application bundle deploy. Lets take a deeper look into each one.</p>
+<h3 id="Building-and-testing-Unity-project"><a href="#Building-and-testing-Unity-project" class="headerlink" title="Building and testing Unity project"></a>Building and testing Unity project</h3><p>We’re starting off in uncharted territory, at least for me. Building Unity projects was something I was not too familiar with. Luckily, good folks at <a target="_blank" rel="noopener" href="https://game.ci/docs/">game.ci</a> provide a convenient way how to work with Unity games, in GitHub environment. Setting up a build job is straightforward, and involves following steps:</p>
+<ul>
+<li>Ensure Unity license, username, and password are provided to workflow, via GitHub secrets. Details on activating license and setting up secrets, depending on license type, can be found in <a target="_blank" rel="noopener" href="https://game.ci/docs/github/activation">game.ci documentation</a></li>
+<li>Run any tests in project using <a target="_blank" rel="noopener" href="https://game.ci/docs/github/test-runner">game-ci/unity-test-runner</a> action.</li>
+<li>Build project for all configured platforms using <a target="_blank" rel="noopener" href="https://game.ci/docs/github/builder">game-ci/unity-builder</a> action.</li>
+<li>Optionally, use <a target="_blank" rel="noopener" href="https://github.com/actions/cache">actions/cache</a> action to cache dynamic project files. This often reduces build time dramatically.</li>
+<li>Finally, make build output available to succeeding jobs via <a target="_blank" rel="noopener" href="https://github.com/actions/upload-artifact">actions/upload-artifact</a>.</li>
+</ul>
+<script src="https://gist.github.com/uveta/16b5583b4d2961cd16994404320f1f10.js"></script>
+
+<p>If all steps have finished without an error, we should end up with an artifact containing our application bundle.</p>
+<h3 id="Infrastructure"><a href="#Infrastructure" class="headerlink" title="Infrastructure"></a>Infrastructure</h3><p>When setting up this type of projects, we should make no assumptions about existing deployment environment. It is why I have included a job to create all necessary infrastructure. There is an abundance of ways how to programmatically deploy to Azure (CLI, PowerShell, Terraform, etc.), each one with its pros and cons. In our case, the optimal way was using Bicep domain-specific language, which offers a good balance between complexity, robustness and extensibility. For this purpose, we will deploy a resource group, in which a SWA instance will be created. All necessary templates can be found in <a target="_blank" rel="noopener" href="https://github.com/uveta/hungry-square-unity/tree/main/infra">./infra</a> directory.</p>
+<p>As with almost all actions in Azure, Bicep deployment has to be preceded with an Azure login step. Detailed instructions on how to setup subscription identifier and login credentials, using GitHub secrets, can be found in <a target="_blank" rel="noopener" href="https://github.com/Azure/login">Azure login action documentation</a>. Subsequent Bicep deployment is done using <a target="_blank" rel="noopener" href="https://github.com/Azure/arm-deploy">azure/arm-deploy</a> action.</p>
+<script src="https://gist.github.com/uveta/c4542f2218751bb128ffa48b4106c06d.js"></script>
+
+<h3 id="Deploying-to-Azure-Static-Web-Apps"><a href="#Deploying-to-Azure-Static-Web-Apps" class="headerlink" title="Deploying to Azure Static Web Apps"></a>Deploying to Azure Static Web Apps</h3><p>Deployment of application bundle to a SWA instance consists of two steps (or four if you are nitpicking and want to include artifact download and Azure login). Prior to actual upload, a deployment token for SWA must be obtained. We will use <a target="_blank" rel="noopener" href="https://github.com/Azure/cli">Azure CLI</a> to get it and store it in a job environment variable <em>SWA_DEPLOYMENT_TOKEN</em>.</p>
+<p>Uploading build output to SWA is done using <a target="_blank" rel="noopener" href="https://github.com/Azure/static-web-apps-deploy">azure/static-web-apps-deploy</a> action. In our case, following parameters have to be included:</p>
+<ul>
+<li><strong>azure_static_web_apps_api_token</strong>, a deployment token obtained in previous step</li>
+<li><strong>repo_token</strong>, a GitHub token with appropriate permissions, which action will use to provide URL to access our application</li>
+<li><strong>app_location</strong>, directory or file to upload to SWA, which is in our case <em>./build/WebGL/WebGL</em></li>
+</ul>
+<script src="https://gist.github.com/uveta/00d40c2d5ddae36762a05cb0b1f8fe94.js"></script>
+
+<h3 id="Bonus-environment-tear-down"><a href="#Bonus-environment-tear-down" class="headerlink" title="Bonus (environment tear down)"></a>Bonus (environment tear down)</h3><p>After a pull request is merged or abandoned, and a feature branch was deleted, it is appropriate to clean up associated SWA environment. This can easily be done via <a target="_blank" rel="noopener" href="https://github.com/uveta/hungry-square-unity/blob/main/.github/workflows/teardown.yaml">tear down workflow</a>, which also uses <a target="_blank" rel="noopener" href="https://github.com/Azure/static-web-apps-deploy">SWA action</a>. Similar to code upload, a deployment token has to be obtained first. Afterwards, an SWA action with action parameter set to <em>close</em> is executed, which will remove environment associated with current git branch.</p>
+<script src="https://gist.github.com/uveta/6438618e956a75217f42915bd007a6fd.js"></script>
+
+<h2 id="Final-thoughts"><a href="#Final-thoughts" class="headerlink" title="Final thoughts"></a>Final thoughts</h2><p>After spending couple of days, making sure that the project is built and deployed properly, I can give you some tips to make designing your future workflow more smooth:</p>
+<ul>
+<li>Make sure you add <em>.gitattributes</em> with proper Git LFS definitions early, ideally before including any asset. Although git makes migration of committed assets to LFS super convenient, it requires rewriting branch history and force pushing it. Not something you really want to do, if you have a whole team collaborating on a project.</li>
+<li>Unity build action will fail, if source files were modified after checkout. As a last resort, you can force execution of a dirty build, using <em>game-ci/unity-builder</em> action parameters.</li>
+<li>Double-check all included scenes in Unity Editor, in File-&gt;Build Settings-&gt;Scenes In Build. In case of any issue with scenes, build error will not help you much.</li>
+<li>It might not be clear what is the correct path of application bundle in build artifact, as it is located under a couple of levels of directories. Verify path by manually downloading artifact bundle, and adjust <em>app_location</em> parameter of <em>azure/static-web-apps-deploy</em> step accordingly.</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>There you have it, a workflow to help you get any Unity WebGL project up and running in minutes. You can check out the final CI/CD workflow <a target="_blank" rel="noopener" href="https://github.com/uveta/hungry-square-unity/blob/main/.github/workflows/ci.yaml">here</a>.</p>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/azure/">#azure</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/advanced/">#advanced</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/dotnet/">#dotnet</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/unity/">#unity</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/github/">#github</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/devops/">#devops</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/categories/blog/unity-in-21-days/">Unity in 21 days</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://www.uveta.io/categories/blog/github-workflow-unity-azure-static-webapps/';
+        this.page.identifier = 'github-workflow-unity-azure-static-webapps';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'uveta-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 Uroš Miletić&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noreferrer noopener">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="https://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/uveta/uveta.github.io">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#3273dc"
+            },
+            "button": {
+                "background": "#fff",
+                "text": "#3273dc"
+            }
+        }
+    });
+</script>
+
+    
+
+
+
+<script src="/js/script.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+    
+</body>
+</html>

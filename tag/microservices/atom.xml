@@ -5,13 +5,17 @@
     <link href="https://www.uveta.io" />
     <updated>2020-12-21T20:33:44.000Z</updated>
     <category term="azure" />
-    <category term="advanced" />
-    <category term="dotnet" />
     <category term="certification" />
+    <category term="advanced" />
     <category term=".net" />
     <category term="csharp" />
     <category term="containers" />
     <category term="microservices" />
+    <category term="dotnet" />
+    <category term="unity" />
+    <category term="github" />
+    <category term="devops" />
+    <category term="begginer" />
     <entry>
         <id>https://www.uveta.io/categories/blog/asynchronous-job-pattern-the-asp-net-core-mvc-way/</id>
         <title>Asynchronous Job Pattern - The ASP.NET Core MVC Way</title>
@@ -74,8 +78,8 @@
 &lt;p&gt;Source code and samples can be found on &lt;a href=&#34;https://github.com/uveta/extensions-jobs&#34;&gt;Github&lt;/a&gt;. Individual packages have also been published to &lt;a href=&#34;https://www.nuget.org/packages/Uveta.Extensions.Jobs/&#34;&gt;nuget.org&lt;/a&gt;, in case you would like to try them in your own application.&lt;/p&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
         <category term="advanced" />
-        <category term="dotnet" />
         <category term="microservices" />
+        <category term="dotnet" />
         <updated>2020-12-21T20:33:44.000Z</updated>
     </entry>
 </feed>
