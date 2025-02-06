@@ -5,14 +5,13 @@
   "scripts": {
     "build": "hexo generate",
     "clean": "hexo clean",
-    "deploy": "hexo deploy",
     "server": "hexo server"
   },
   "hexo": {
-    "version": "5.4.0"
+    "version": "5.4.2"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.10",
+    "cheerio": "^1.0.0",
     "hexo": "^5.4.0",
     "hexo-deployer-git": "^3.0.0",
     "hexo-filter-emoji": "^2.2.2",
