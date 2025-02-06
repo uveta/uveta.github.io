@@ -99,13 +99,6 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: minos
 
-# Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repo: https://github.com/uveta/uveta.github.io
-  branch: master
-
 ## hexo-filter-emoji
 emoji:
   enable: true
