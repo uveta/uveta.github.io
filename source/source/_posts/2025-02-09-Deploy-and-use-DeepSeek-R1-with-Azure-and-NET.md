@@ -30,7 +30,7 @@ Once you have your hub and project created, you can deploy DeepSeek R1 model. Th
 
 ![Deploying DeepSeek R1 model](deploy_model.png)
 
-Once the model is deployed, you will find it in your project's [Models + endpoints](https://ai.azure.com/build/deployments/model) tab. Select the deployment to get more information about it, including the endpoint URL and API key, which you will use to consume the model programmatically.
+Once the model is deployed, you will find it in your project's [Models + endpoints](https://ai.azure.com/build/deployments/model) tab. Select the deployment to get more information about it. Make note of the endpoint URL and API key, as we will use them later to consume the model programmatically.
 
 ![DeepSeek R1 deployment info](deployment_info.png)
 
@@ -41,6 +41,12 @@ To make sure deployment is working as expected, you can use chat playground, whi
 
 ## Consume from .NET
 
+Models deployed via Azure AI Foundary can be consumed from any programming language, as long as they support HTTP requests. However, in case of .NET, we don't have to code the HTTP communication ourselves, as Azure provides SDK via [Azure AI Inference library](https://www.nuget.org/packages/Azure.AI.Inference). Consuming the model is farily easy: we have to create a chat client, using deployment endpoint URL and API key, and run chat completion.
+
+<script src="https://gist.github.com/uveta/250385b53805f8c2859ec1b813d42b27.js"></script>
+
 ## Consume from SemanticKernel
+
+
 
 ## Conclusion
