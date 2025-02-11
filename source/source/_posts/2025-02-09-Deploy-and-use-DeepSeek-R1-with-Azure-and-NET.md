@@ -47,6 +47,10 @@ Models deployed via Azure AI Foundary can be consumed from any programming langu
 
 ## Consume from SemanticKernel
 
+[Microsoft.SemanticKernel.Connectors.AzureAIInference NuGet](https://www.nuget.org/packages/Microsoft.SemanticKernel.Connectors.AzureAIInference)
 
+<script src="https://gist.github.com/uveta/2c717c8d6b94215bd2a61ca3e9878e4d.js"></script>
 
 ## Conclusion
+
+Both .NET and SemanticKernel examples can be found in the [GitHub](https://github.com/uveta/demo-azure-deepseek). Make sure to add deployment name, endpoint URL, and API key where indicated in the code, and you should be able to run the samples without any issues. Bear in mind that DeepSeek R1 model on Azure is still in it's infancy, so sometimes it might take couple of minutes to get a meaningful response.
