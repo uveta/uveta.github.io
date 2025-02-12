@@ -14,7 +14,7 @@ disqusId: unity-in-21-days
 
 {% asset_img deepseek-azure.png DeepSeek Azure %}
 
-DeepSeek models have taken technological world by surprise, demonstrating that cutting-edge AI development is no longer confined to the certain valley made out of silicone, but has become a global phenomenon. Although Microsoft has traditionally partnered with OpenAI, the users of its technologies still have reasons to be optimistic. The Azure cloud platform recently announced support for the DeepSeek R1 model through its Azure AI Foundry service. Currently in public preview, the model may be run in serverless mode and is free of charge. This article will guide you through deploying the R1 model and integrating it with .NET applications.
+DeepSeek models have taken technological world by surprise, demonstrating that cutting-edge AI development is no longer confined to the certain valley made out of silicon, but has become a global phenomenon. Although Microsoft has traditionally partnered with OpenAI, the users of its technologies still have reasons to be optimistic. The Azure cloud platform recently announced support for the DeepSeek R1 model through its Azure AI Foundry service. Currently in public preview, the model may be run in serverless mode and is free of charge. This article will guide you through deploying the R1 model and integrating it with .NET applications.
 
 <!-- more -->
 
