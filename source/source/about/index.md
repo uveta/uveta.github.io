@@ -13,4 +13,4 @@ Besides being a full-time developer and system architect, I am a software qualit
 
 I nitpick pull requests to death. Consider yourself warned :smile:
 
-![Me and Che](me-and-che.jpg)
+![Me and Che](/images/me-and-che.jpg)
