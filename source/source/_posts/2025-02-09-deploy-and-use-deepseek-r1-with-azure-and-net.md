@@ -9,7 +9,7 @@ tags:
   - ai
 categories:
   - blog
-disqusId: unity-in-21-days
+disqusId: deploy-and-use-deepseek-r1-with-azure-and-net
 ---
 
 {% asset_img deepseek-azure.png DeepSeek Azure %}
@@ -48,7 +48,7 @@ Models deployed via Azure AI Foundry can be accessed from any programming langua
 
 <script src="https://gist.github.com/uveta/250385b53805f8c2859ec1b813d42b27.js"></script>
 
-## Consume from SemanticKernel
+## Consume from Semantic Kernel
 
 For more complex applications using Semantic Kernel, consuming models deployed in Azure AI Foundry is straightforward. Utilize the [Microsoft.SemanticKernel.Connectors.AzureAIInference](https://www.nuget.org/packages/Microsoft.SemanticKernel.Connectors.AzureAIInference) connector library. Register the AI Inference connector using the deployment name, endpoint URL, and API key while building the kernel. Once configured, provision the kernel and use the `IChatCompletionService` service to run chat completion.
 
