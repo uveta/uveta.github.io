@@ -29,6 +29,6 @@ Integrating Semantic Kernel into ASP.NET applications is straightforward, due to
 
 ## The Solution
 
-<script src="https://gist.github.com/uveta/30994e4ecb61bbbbcc27024fc3277f81.js?file=Program(fixed).cs"></script>
+<script src="https://gist.github.com/uveta/30994e4ecb61bbbbcc27024fc3277f81.js?file=Program (fixed).cs"></script>
 
 ![Debug Logging](debug-log.png)
