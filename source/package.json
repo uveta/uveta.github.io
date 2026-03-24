@@ -28,5 +28,11 @@
   },
   "devDependencies": {
     "hexo-feed": "^1.1.2"
+  },
+  "resolutions": {
+    "jake/minimatch": "3.1.4",
+    "filelist/minimatch": "5.1.8",
+    "on-headers": "1.1.0",
+    "lodash": "4.17.23"
   }
 }
