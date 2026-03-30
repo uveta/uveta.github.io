@@ -34,6 +34,6 @@
     "filelist/minimatch": "5.1.8",
     "on-headers": "1.1.0",
     "lodash": "4.17.23",
-    "hexo-renderer-ejs/brace-expansion": "2.0.3"
+    "brace-expansion": "2.0.3"
   }
 }
