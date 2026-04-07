@@ -24,7 +24,7 @@
     "hexo-renderer-marked": "^7.0.1",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
-    "sass": "^1.98.0"
+    "sass": "^1.99.0"
   },
   "devDependencies": {
     "hexo-feed": "^1.1.2"
