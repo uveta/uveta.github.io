@@ -884,10 +884,10 @@ hexo-pagination@3.0.0:
   resolved "https://registry.yarnpkg.com/hexo-pagination/-/hexo-pagination-3.0.0.tgz#b98b050bbddff25ae646e3d00ad607ac6ae77ea7"
   integrity sha512-8oo1iozloZo7TojPVYg4IxL3SJKCBdSJ908fTlIxIK7TWJIKdYnQlW31+12DBJ0NhVZA/lZisPObGF08wT8fKw==
 
-hexo-renderer-dartsass@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/hexo-renderer-dartsass/-/hexo-renderer-dartsass-1.1.0.tgz#756453ea5b76e86a621ac87962390da79d846232"
-  integrity sha512-NeXkW5JEkAP0q3en6p9k2LQxWFBvl+L6OGW9UYaiiSqJn12hKyEdq9jEPdAhpKqo8T3AQavb8KXVuVAgBMOyKA==
+hexo-renderer-dartsass@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/hexo-renderer-dartsass/-/hexo-renderer-dartsass-1.2.0.tgz#6c36e2ca06493f4a99348d22799ea39e13f9d6ce"
+  integrity sha512-DfI/9kPjMWiuJtP1nIZLyhBVUe+oBow932mHlDJDV7lg0tuc4gUh40+ygHPVsOVCCOjdDM2HjeXRRk+8a/sutg==
   dependencies:
     sass "^1.37.5"
 
