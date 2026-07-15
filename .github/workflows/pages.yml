@@ -24,7 +24,9 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 20
-      - name: Cache NPM dependencies
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Cache Yarn dependencies
         uses: actions/cache@v6
         with:
           path: ./source/node_modules
@@ -32,9 +34,9 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
       - name: Install Dependencies
-        run: yarn --frozen-lockfile
+        run: yarn install --immutable
       - name: Security Audit
-        run: yarn audit --level high
+        run: yarn npm audit --recursive --severity high
       - name: Build
         run: yarn build
       - name: Upload artifact
