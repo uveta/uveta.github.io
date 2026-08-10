@@ -39,6 +39,18 @@ jobs:
         run: yarn npm audit --recursive --severity high
       - name: Build
         run: yarn build
+      - name: Verify build output
+        run: |
+          if [ ! -s public/index.html ]; then
+            echo "::error::public/index.html is missing or empty - hexo generate likely failed silently"
+            exit 1
+          fi
+          empty_files=$(find public -name '*.html' -size 0)
+          if [ -n "$empty_files" ]; then
+            echo "::error::hexo generate produced empty HTML files (rendering failed silently):"
+            echo "$empty_files"
+            exit 1
+          fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
